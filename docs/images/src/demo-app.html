@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- Fictional sample app with planted bugs, used to record docs/images/explorer.gif. Not part of the recipe. -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Routine</title><style>
+*{box-sizing:border-box}body{font-family:sans-serif;margin:0;background:#FFF8F1;color:#1d1a17}
+.t{display:none;padding:20px;min-height:100vh}.t.on{display:block}
+h1{font-size:26px}button.p{display:block;width:100%;padding:16px;font-size:17px;border:0;border-radius:14px;background:#C2410C;color:#fff;margin-top:14px}
+.ic{position:absolute;top:14px;right:14px;width:28px;height:28px;border:0;background:#eee;border-radius:50%}
+.h{background:#fff;border-radius:14px;padding:14px;margin:10px 0;display:flex;justify-content:space-between}
+input{width:100%;padding:14px;font-size:16px;border:1px solid #ccc;border-radius:10px}
+.lbl{display:inline-block;max-width:150px;white-space:nowrap;overflow:hidden}
+@media (prefers-color-scheme:dark){body{background:#151311}.h{background:#1f1c19;color:#2b2724}h1{color:#eee}}
+</style></head><body>
+<div class="t on" id="o1"><h1>Welcome to Routine</h1><p>Small habits, every day.</p><button class="p" onclick="go('o2')">Continue</button></div>
+<div class="t" id="o2"><h1>Turn on reminders</h1><p>We nudge you at each habit's time.</p><button class="p" onclick="go('home')">Allow</button><button class="p" style="background:#999" onclick="go('home')">Not now</button></div>
+<div class="t" id="home"><button class="ic" onclick="go('cfg')">⚙</button><h1>Today</h1><div id="list"></div><button class="p" onclick="go('new')">New habit</button></div>
+<div class="t" id="new"><h1>New habit</h1><label>Name<input id="name" placeholder="e.g. Walk 20 minutes"></label><button class="p" onclick="save()">Save habit</button><button class="p" style="background:#999" onclick="go('home')">Cancel</button></div>
+<div class="t" id="cfg"><h1>Settings</h1><p>Version 1.0</p><button class="p" onclick="go('home')">Back</button></div>
+<script>
+let habits=[{n:'Drink water'},{n:'Read 10 pages before bed every single day'}];
+function go(id){document.querySelectorAll('.t').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');if(id==='home')render()}
+function render(){document.getElementById('list').innerHTML=habits.map(h=>`<div class="h"><span class="lbl">${h.n}</span><span>○</span></div>`).join('')}
+function save(){const n=document.getElementById('name').value;
+ if(!navigator.onLine){go('home');return}
+ habits.push({n});document.getElementById('name').value='';go('home');
+ if(habits.length>3){throw new Error('free plan habit limit')}}
+</script></body></html>

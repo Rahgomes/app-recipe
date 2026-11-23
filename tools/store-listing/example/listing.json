@@ -1,0 +1,146 @@
+{
+  "output": "output",
+  "languages": [
+    "en-US"
+  ],
+  "stores": [
+    "apple",
+    "play"
+  ],
+  "frame": "screen",
+  "theme": {
+    "font": "Manrope",
+    "accent_font": "Instrument Serif",
+    "strong": "#C2410C",
+    "light": "#FFF3E8",
+    "dark": "#1B1512",
+    "text_on_strong": "#FFFFFF",
+    "accent_on_strong": "#FFE7C7",
+    "text_on_light": "#1B1512",
+    "accent_on_light": "#B13A0A",
+    "text_on_dark": "#FFFFFF",
+    "accent_on_dark": "#FF8A4C"
+  },
+  "shots": [
+    {
+      "background": "strong",
+      "title": {
+        "en-US": "Your day,|*sorted*"
+      },
+      "alt": {
+        "en-US": "Today screen with 3 of 5 habits done"
+      },
+      "screens": [
+        {
+          "image": "screens/01.png",
+          "x": 16,
+          "y": 42,
+          "w": 70,
+          "rot": -5
+        }
+      ],
+      "stickers": [
+        {
+          "image": "stickers/star.png",
+          "x": 78,
+          "y": 36,
+          "w": 18,
+          "rot": 12
+        }
+      ]
+    },
+    {
+      "background": "light",
+      "title": {
+        "en-US": "Set up in|*seconds*"
+      },
+      "screens": [
+        {
+          "image": "screens/02.png",
+          "x": 14,
+          "y": 40,
+          "w": 70,
+          "rot": 4
+        }
+      ],
+      "stickers": [
+        {
+          "image": "stickers/bell.png",
+          "x": 84,
+          "y": 70,
+          "w": 26,
+          "rot": -14
+        }
+      ]
+    },
+    {
+      "background": "dark",
+      "big": true,
+      "title_size": 8,
+      "big_size": 34,
+      "title": {
+        "en-US": "*21*|days in a row"
+      },
+      "alt": {
+        "en-US": "21-day streak and monthly calendar"
+      },
+      "screens": [
+        {
+          "image": "screens/03.png",
+          "x": 18,
+          "y": 55,
+          "w": 66,
+          "rot": -3
+        }
+      ],
+      "stickers": [
+        {
+          "image": "stickers/fire.png",
+          "x": 66,
+          "y": 8,
+          "w": 26,
+          "rot": 8
+        }
+      ]
+    },
+    {
+      "background": "light",
+      "title": {
+        "en-US": "See your|*progress*"
+      },
+      "screens": [
+        {
+          "image": "screens/04.png",
+          "x": 16,
+          "y": 40,
+          "w": 70,
+          "rot": -4
+        }
+      ]
+    },
+    {
+      "background": "strong",
+      "title": {
+        "en-US": "Start|*today*"
+      },
+      "alt": {
+        "en-US": "Free and full plans with a 7-day trial"
+      },
+      "screens": [
+        {
+          "image": "screens/05.png",
+          "x": 15,
+          "y": 40,
+          "w": 70,
+          "rot": 5
+        }
+      ]
+    }
+  ],
+  "feature_graphic": {
+    "title": {
+      "en-US": "Habits that *stick*"
+    },
+    "image": "screens/01.png"
+  }
+}

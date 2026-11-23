@@ -1,0 +1,12 @@
+# your private conventions (read by the skill, never committed)
+LOCAL.md
+LOCAL-*.txt
+# generated output
+output/
+tools/store-listing/example/output/
+__pycache__/
+*.pyc
+.DS_Store
+# work folders
+_pt/
+.wip/
