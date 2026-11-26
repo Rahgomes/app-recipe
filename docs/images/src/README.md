@@ -10,6 +10,7 @@ translating it is an edit plus one command. Needs `pip install playwright`, a Ch
 | `journey.gif` | `journey.html` | `python3 render_anim.py journey` |
 | `ota.gif` | `ota.html` | `python3 render_anim.py ota` |
 | `store.gif` | `store.html` + `assets/listing/` (real output of `tools/store-listing/listing.py` on its example) | `python3 render_anim.py store` |
+| `stacks.gif` | `stacks.html` | `python3 render_anim.py stacks --colors 160` |
 | `explorer.gif` | `explorer.html` (recreates `demo-app.html`, the sample app with planted bugs) | `python3 render_anim.py explorer` |
 | `banner.png`, `stacks.png` | `header.html` | `python3 render_header.py` |
 | `flow.png` | `flow.html` | `./render.sh` |

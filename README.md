@@ -50,7 +50,7 @@ store knowledge that does not care how the app is written. Using Flutter, Swift,
 backend? Follow the same stages and swap the technical layer with
 [OTHER-STACKS.md](OTHER-STACKS.md).
 
-<p align="center"><img src="docs/images/stacks.png" alt="Three layers: process and stores apply to any stack; only the technical layer is swapped" width="90%"></p>
+<p align="center"><img src="docs/images/stacks.gif" alt="Three layers: process and stores stay the same for React Native, Flutter or native; only the technical tools swap" width="100%"></p>
 
 Already have an app? Start at stage 0, an audit that decides whether to harden or rewrite
 ([00-map](recipe/00-map.md)). The map also shows which stages your app's profile turns on or off.
@@ -60,7 +60,7 @@ Already have an app? Start at stage 0, an audit that decides whether to harden o
 **With Claude Code** (recommended)
 
 ```bash
-git clone https://github.com/Rahgomes/app-recipe ~/.claude/skills/app-recipe
+git clone --depth 1 https://github.com/Rahgomes/app-recipe ~/.claude/skills/app-recipe
 # optional subagents: screen checker, store reviewer, explorer tester
 mkdir -p ~/.claude/agents && cp ~/.claude/skills/app-recipe/agents/*.md ~/.claude/agents/
 ```
@@ -75,7 +75,7 @@ Then, in any folder, just talk:
 >
 > "Get the app ready for the Play Store."
 
-**With Codex CLI**: `git clone https://github.com/Rahgomes/app-recipe ~/.codex/skills/app-recipe`.
+**With Codex CLI**: `git clone --depth 1 https://github.com/Rahgomes/app-recipe ~/.codex/skills/app-recipe`.
 
 **With any other agent, or none**: open [recipe/00-map.md](recipe/00-map.md) and follow the stages.
 Each one says what to do, what to produce and how to know it is done.

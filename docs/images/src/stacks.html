@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>App recipe: Three layers, any stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:720px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-weight:500;color:#eef1ff;
+ background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.stage{position:absolute;inset:0}
+header{position:absolute;left:80px;top:40px}
+h1{font-size:44px;font-weight:800;line-height:1.2;letter-spacing:-1px}
+.subtitle{margin-top:12px;font-size:22px;color:#aab3d6}
+.selector{position:absolute;right:80px;top:152px;width:650px;height:52px;padding:5px;display:grid;grid-template-columns:260px 130px 248px;border:1px solid #ffffff26;border-radius:999px;background:#080e1d99;box-shadow:0 10px 24px #00000022}
+.selector-label{position:relative;z-index:1;display:grid;place-items:center;font-size:17px;font-weight:800;white-space:nowrap}
+.highlight{position:absolute;left:5px;top:5px;height:40px;border:1px solid #d38bff88;border-radius:999px;background:linear-gradient(100deg,#a993ff35,#d38bff25);box-shadow:0 0 22px #d38bff18}
+.layer{position:absolute;left:80px;right:80px;border:1px solid var(--edge);border-radius:24px;background:linear-gradient(100deg,var(--wash),#ffffff03 85%);box-shadow:0 16px 32px #00000026;overflow:hidden}
+.process{top:224px;height:108px;--c:#7cf0c4;--edge:#7cf0c480;--wash:#7cf0c420}
+.stores{top:348px;height:108px;--c:#7aa8ff;--edge:#7aa8ff80;--wash:#7aa8ff20}
+.technical{top:472px;height:182px;--c:#d38bff;--edge:#d38bff80;--wash:#d38bff20}
+.identity{position:absolute;left:28px;top:0;bottom:0;display:flex;gap:24px;align-items:center}
+.emoji{width:48px;text-align:center;font-size:38px;line-height:1;font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif}
+h2{font-size:25px;font-weight:800;color:var(--c);letter-spacing:-.5px}
+.stages{margin-top:3px;font-size:17px;color:#aab3d6}
+.description{position:absolute;left:400px;right:180px;top:0;bottom:0;display:flex;align-items:center;font-size:19px;font-weight:700;line-height:1.4;color:#dfe4ff}
+.badge{position:absolute;right:26px;top:22px;padding:9px 16px;border-radius:999px;background:var(--c);color:#0b1020;font-size:15px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.unchanged{position:absolute;right:27px;bottom:14px;width:127px;text-align:center;color:var(--c);font-size:16px;font-weight:800;opacity:0}
+.unchanged b{display:inline-block;margin-right:4px;font-size:19px}
+.technical .identity{bottom:auto;top:48px}
+.technical .badge{top:16px;padding:6px 14px;background:transparent;border:2px dashed var(--c);color:var(--c)}
+.slots{position:absolute;left:356px;right:26px;top:58px;bottom:20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.slot{min-width:0;padding:11px 13px;border:1px solid #d38bff38;border-radius:16px;background:#0b102088;overflow:hidden}
+.slot h3{font-size:17px;font-weight:700;color:#bfa8d8;margin-bottom:8px}
+.value{font-size:19px;font-weight:800;line-height:1.3;white-space:pre-line;transform-origin:center;will-change:transform,opacity}
+.slot:nth-child(3) .value{font-size:17px}
+.technical-link{position:absolute;left:180px;top:114px;width:148px;border-top:2px dashed #d38bff66}
+.technical-link::after{content:"";position:absolute;right:-4px;top:-5px;width:8px;height:8px;border-top:2px solid #d38bff;border-right:2px solid #d38bff;transform:rotate(45deg)}
+.comet{position:absolute;left:180px;top:114px;width:11px;height:11px;margin:-5.5px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px #d38bff,0 0 22px 5px #d38bff;opacity:0}
+.comet-tail{width:8px;height:8px;margin:-4px;background:#d38bff;box-shadow:0 0 12px #d38bff}
+.scan-window{position:absolute;left:81px;right:81px;top:225px;height:230px;overflow:hidden;border-radius:23px;pointer-events:none}
+.scan{position:absolute;left:0;right:0;top:0;height:2px;background:#c6ffef;box-shadow:0 0 4px #7cf0c466;opacity:0}
+footer{position:absolute;left:80px;right:80px;top:678px;text-align:right;font-size:17px;color:#aab3d6}
+footer strong{color:#d8c4f1;font-weight:700}
+</style>
+</head>
+<body>
+<main class="stage">
+ <header><h1>Not on React Native? Most of it still applies.</h1><p class="subtitle">The recipe has three layers. Only the bottom one depends on your stack.</p></header>
+ <div class="selector" role="group" aria-label="Stack comparison">
+  <div class="highlight" aria-hidden="true"></div>
+  <span class="selector-label">React Native + Expo</span><span class="selector-label">Flutter</span><span class="selector-label">Native (Swift, Kotlin)</span>
+ </div>
+ <section class="layer process">
+  <div class="identity"><span class="emoji" aria-hidden="true">🧭</span><div><h2>Process</h2><p class="stages">stages 1 to 7, 9, 10</p></div></div>
+  <p class="description">Interview, PRDs with IDs, screens before code, vertical slice, batches with gates, tests by persona</p>
+  <span class="badge">any stack</span><span class="unchanged"><b>✓</b>unchanged</span>
+ </section>
+ <section class="layer stores">
+  <div class="identity"><span class="emoji" aria-hidden="true">🏪</span><div><h2>Stores and money</h2><p class="stages">stages 13 to 15</p></div></div>
+  <p class="description">Store rules, subscriptions, paywall, pricing, churn, listing that converts, measurement</p>
+  <span class="badge">any stack</span><span class="unchanged"><b>✓</b>unchanged</span>
+ </section>
+ <section class="layer technical">
+  <div class="identity"><span class="emoji" aria-hidden="true">⚙️</span><div><h2>Technical</h2><p class="stages">stages 8, 11, 12</p></div></div>
+  <span class="badge">swap</span><div class="technical-link" aria-hidden="true"></div>
+  <i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet" aria-hidden="true"></i>
+  <div class="slots">
+   <div class="slot"><h3>Routing</h3><p class="value">Expo Router</p></div>
+   <div class="slot"><h3>Native build</h3><p class="value">EAS Build</p></div>
+   <div class="slot"><h3>Over the air</h3><p class="value">EAS Update</p></div>
+   <div class="slot"><h3>Firebase SDK</h3><p class="value">React Native Firebase</p></div>
+  </div>
+ </section>
+ <div class="scan-window" aria-hidden="true"><div class="scan"></div></div>
+ <footer>Equivalents and trade-offs: <strong>OTHER-STACKS.md</strong></footer>
+</main>
+<script>
+window.DURATION = 15;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const $ = selector => document.querySelector(selector);
+const stage = $('.stage');
+const highlight = $('.highlight');
+const labels = [...document.querySelectorAll('.selector-label')];
+const layers = [$('.process'), $('.stores')];
+const slots = [...document.querySelectorAll('.slot')];
+const comets = [...document.querySelectorAll('.comet')];
+const values = [
+  ['Expo Router', 'EAS Build', 'EAS Update', 'React Native Firebase'],
+  ['go_router', 'Codemagic or CI', 'Shorebird', 'FlutterFire'],
+  ['platform navigation', 'Xcode and Gradle', 'none: every change\ngoes through the store', 'official native SDKs'],
+];
+const switches = [2.8, 6.4, 10];
+const positions = [0, 260, 390];
+const widths = [260, 130, 248];
+function tint(hex, alpha) {
+  const rgb = [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+  return `rgba(${rgb.join(',')},${clamp(alpha)})`;
+}
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - 14.1) / .9);
+  const t = reset >= .5 ? 0 : Math.min(clock, 14.1);
+  stage.style.opacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+  const run = switches.filter(start => t >= start).length;
+  const from = run === 0 ? 0 : run - 1;
+  const to = run % 3;
+  const age = run === 0 ? -10 : t - switches[run - 1];
+  const slide = smooth(age / .18);
+  highlight.style.transform = `translateX(${mix(positions[from], positions[to], slide)}px)`;
+  highlight.style.width = `${mix(widths[from], widths[to], slide)}px`;
+  labels.forEach((label, index) => {
+    const active = (index === from ? 1 - slide : 0) + (index === to ? slide : 0);
+    label.style.color = tint('#eef1ff', .6 + .4 * active);
+  });
+  // Scan the reusable layers while the technical slots change.
+  $('.scan').style.opacity = smooth((age - .35) / .15) * (1 - smooth((age - 1.12) / .16));
+  $('.scan').style.transform = `translateY(${230 * clamp((age - .45) / .72)}px)`;
+  layers.forEach((layer, index) => {
+    const checkedAt = .76 + index * .37;
+    const check = smooth((age - checkedAt) / .18) * (1 - smooth((age - 2.8) / .4));
+    layer.querySelector('.unchanged').style.opacity = check;
+    layer.querySelector('.unchanged').style.transform = `translateY(${5 * (1 - check)}px)`;
+    layer.querySelector('.unchanged b').style.transform = `scale(${easeOutBack((age - checkedAt) / .3)})`;
+  });
+  slots.forEach((slot, index) => {
+    // Start after the selector lands; the last slot settles at 0.79 s.
+    const local = age - .18 - index * .12;
+    const swapped = local >= .15;
+    const outgoing = smooth(local / .15);
+    const incoming = easeOutCubic((local - .15) / .1);
+    const value = slot.querySelector('.value');
+    value.textContent = values[swapped ? to : from][index];
+    value.style.opacity = swapped ? incoming : 1 - outgoing;
+    value.style.transform = swapped
+      ? `translateY(${6 * (1 - incoming)}px)`
+      : 'translateY(0px)';
+  });
+  comets.forEach((dot, index) => {
+    const travel = (age - .18 - (3 - index) * .04) / .42;
+    dot.style.opacity = smooth(travel / .2) * (1 - smooth((travel - .8) / .2)) * (index === 3 ? 1 : .15 + index * .15);
+    dot.style.transform = `translateX(${148 * clamp(travel)}px)`;
+  });
+};
+window.renderAt(0);
+</script>
+</body>
+</html>
