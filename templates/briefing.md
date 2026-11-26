@@ -15,6 +15,7 @@ Relevant files (4 to 6):
   src/test/<x>/<Screen>.test.tsx: test
 No need to look at: functions/, docs/ (except the spec), apps/site/
 Limits: no file over ~250 lines; kit components cannot use arbitrary color styles
+Performance: every query with a limit; long lists virtualized; skeleton while loading (recipe/performance.md)
 Done when: npx eslint <files> && npx jest --findRelatedTests <files> --maxWorkers=2
 Report: every divergence from the image as "screen divergence: <ID> · <what> · <why>"
 

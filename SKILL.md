@@ -40,7 +40,7 @@ on and off (tracks in `recipe/00-map.md`).
 | 5 | Design system | `recipe/05-design-system.md` | Tokens = prompt-base; contrast in a test |
 | 6 | Screens | `recipe/06-screens.md` | References approved by the person; flow map |
 | 7 | Accounts and infra | `recipe/07-accounts-and-infra.md`; `recipe/automation-by-api.md` | Accounts live; secrets outside the repo |
-| 8 | Technical foundation | `recipe/08-technical-foundation.md`; libs in `recipe/libraries.md`; services in `recipe/services-catalog.md` | CI green; deny-all rules; dev build with EAS Update |
+| 8 | Technical foundation | `recipe/08-technical-foundation.md`; libs in `recipe/libraries.md`; services in `recipe/services-catalog.md`; speed in `recipe/performance.md` | CI green; deny-all rules; dev build with EAS Update |
 | 9 | Vertical slice and batches | `recipe/09-building-in-batches.md` | 2 journeys with green E2E; then batch by batch |
 | 10 | Tests | `recipe/10-testing-and-quality.md` (+ exploratory, by persona) | Layers green on what the batch touched |
 | 11 | Seeing the app (support) | `recipe/11-seeing-the-app.md` | |

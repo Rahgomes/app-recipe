@@ -94,6 +94,20 @@ English only so it can be shared.
 Details and the briefing format that keeps a delegated agent from crawling your repo:
 [WORKING-MODES.md](WORKING-MODES.md).
 
+## Fast by default
+
+A slow app loses people, and it is rarely the server's fault. [recipe/performance.md](recipe/performance.md)
+is a checklist of the decisions that make an app feel fast, each one with how to do it in React
+Native + Expo + Firebase and the equivalent on the web or another backend. It also sets budgets per
+journey, lists free tools to measure with, and gives directives to paste into your agent's brief:
+
+| Feels fast | Loads less | Asks the server less |
+| --- | --- | --- |
+| Skeleton in the shape of the content | Photos resized and compressed before upload | A `limit` on every query, cursor pagination |
+| Cached data first, refresh in the background | Long lists virtualized | No duplicate calls; independent ones in parallel |
+| The screen updates before the server answers | Heavy modules loaded only where used | N+1 removed; indexes for common queries |
+| AI answers streamed token by token | Unused dependencies removed | Slow work in a queue; timeouts on external APIs |
+
 ## Three tools worth a look
 
 ### Store screenshots that convert, built from real screens
@@ -135,7 +149,7 @@ Rules and the runtime version policy: [recipe/12-build-or-ota.md](recipe/12-buil
 | Path | What it has |
 | --- | --- |
 | [SKILL.md](SKILL.md) | The orchestrator the agent follows (stages, gates, golden rules) |
-| [recipe/](recipe/00-map.md) | The stages, 00 to 15, plus subscriptions (paywall, price, offers, churn), store listing, measurement (crashes, analytics, attribution), services catalog, libraries and automation by API |
+| [recipe/](recipe/00-map.md) | The stages, 00 to 15, plus subscriptions (paywall, price, offers, churn), performance (budgets, checklist, tools), store listing, measurement (crashes, analytics, attribution), services catalog, libraries and automation by API |
 | [templates/](templates/) | Superprompt, interview, app profile, PRD, decisions and backlog, screen spec, event plan, accounts, briefing, journal |
 | [agents/](agents/) | Subagents: `screen-checker`, `store-reviewer`, `explorer-tester` |
 | [tools/](tools/) | `new-app-docs.sh`, `contrast.py`, `ota-or-build.sh`, `check-secrets.sh`, `store-listing/`, `explorer/` |

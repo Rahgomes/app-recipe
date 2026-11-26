@@ -47,6 +47,9 @@ EAS Update.
 - **Write first, validate later** (cloud): the app writes to the offline cache; rules enforce structure and
   authorization; a server trigger decides the business rule (pending becomes confirmed or
   conflict). Pending data never appears as confirmed.
+- **Fast from the first screen**: persistent cache on, an image helper with one size per use,
+  a virtualized list component and a `limit` on every query. Checklist and budgets:
+  `recipe/performance.md`.
 - **A webhook is not the truth**: the server fetches state from the source and saves the event version
   to avoid going back in time.
 - **Public route** (the app's web page): every submission counts toward the limit, uploads are create-only,

@@ -46,6 +46,13 @@ SVG, large fonts). Record it as **pending device testing**, never as approved.
 - **Map before writing tests**: list each PRD requirement beside the test that already proves it.
   There were few real gaps.
 
+## Speed
+
+- Time the batch's journeys on a **release build** on a mid-range Android phone, with a slow network
+  and once in airplane mode. A dev build and the web preview hide slowness.
+- Compare with the budgets in the D## and write the numbers in the journal. Tools and the
+  checklist: `recipe/performance.md`.
+
 ## Accessibility
 
 - Automated test that renders every screen and fails if a touchable has no role or name.
