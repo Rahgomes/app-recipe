@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Where do people give up?</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-weight:500;color:#eef1ff;background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.stage{position:absolute;inset:0}
+header{position:absolute;left:80px;top:40px}
+.eyebrow{font-size:16px;letter-spacing:2px;font-weight:800;color:#aab3d6;margin-bottom:12px}
+h1{font-size:45px;line-height:1.15;letter-spacing:-1.5px;font-weight:800}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.subtitle{font-size:22px;color:#aab3d6;margin-top:12px}
+.glass{border:1px solid #ffffff26;border-radius:24px;background:linear-gradient(145deg,#ffffff0c,#ffffff03);box-shadow:0 16px 32px #00000033}
+.number{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;border:1px solid #a993ff80;background:#a993ff19;color:#c5b2ff;font-size:15px;font-weight:800;flex-shrink:0}
+.section-label{position:absolute;left:80px;top:217px;display:flex;align-items:center;gap:12px;font-size:20px;font-weight:800}
+.phone{position:absolute;left:100px;top:274px;width:300px;height:450px;border:3px solid #8792b7;border-radius:40px;background:#0b1020;box-shadow:0 22px 48px #00000055}
+.phone::before{content:"";position:absolute;left:105px;top:12px;width:84px;height:8px;border-radius:8px;background:#8792b7}
+.phone::after{content:"";position:absolute;left:103px;bottom:12px;width:88px;height:5px;border-radius:8px;background:#8792b7}
+.screen{position:absolute;inset:34px 12px 31px;border-radius:23px;background:linear-gradient(155deg,#243350,#141d32);padding:22px 19px}
+.screen-title{font-size:24px;font-weight:800}
+.screen-note{font-size:15px;color:#aab3d6;margin-top:5px}
+.app-art{height:94px;margin-top:20px;border:1px solid #7cf0c42b;border-radius:18px;background:#7cf0c40c;display:grid;place-items:center}
+.app-art svg{width:68px;height:68px}
+.app-button{height:42px;margin-top:16px;display:grid;place-items:center;background:#7cf0c4;color:#0b1020;border-radius:13px;font-size:17px;font-weight:800}
+.source-node{position:absolute;left:161px;top:377px;width:12px;height:12px;border-radius:50%;background:#7cf0c4;box-shadow:0 0 22px #7cf0c4}
+.door{position:absolute;left:470px;top:300px;width:290px;height:295px;text-align:center}
+.door .number{position:absolute;left:20px;top:20px}
+.door h2{position:absolute;left:20px;right:20px;top:60px;font:800 38px ui-monospace,"DejaVu Sans Mono",monospace;letter-spacing:-1px}
+.door-note{position:absolute;left:20px;right:20px;top:119px;font-size:17px;line-height:1.6;color:#aab3d6}
+.door-slot{position:absolute;left:16px;right:16px;top:181px;height:58px;border:1px dashed #a993ff55;border-radius:16px;background:#0b102055}
+.door-handle{position:absolute;right:12px;top:258px;width:19px;height:5px;border-radius:8px;background:#a993ff}
+.rejected{position:absolute;left:510px;top:620px;width:210px;height:37px;border:1px solid #ff7a8a88;border-radius:999px;background:#2c1827;color:#ff7a8a;display:grid;place-items:center;font-size:17px;font-weight:700;opacity:0}
+.wires{position:absolute;inset:0;width:1600px;height:900px;pointer-events:none}
+.wire{fill:none;stroke:#596584;stroke-width:2;stroke-dasharray:5 7}
+.funnel{position:absolute;left:820px;top:213px;width:700px;height:393px}
+.funnel-head{display:flex;align-items:center;gap:12px;height:36px}
+.funnel h2{font-size:27px;font-weight:800;letter-spacing:-.6px}
+.rows{position:absolute;left:0;top:55px;width:594px;display:flex;flex-direction:column;gap:4px}
+.row{position:relative;height:44px;flex-shrink:0;border:1px solid transparent;border-radius:12px;background:#ffffff03}
+.event-name{position:absolute;left:14px;top:0;height:42px;display:flex;align-items:center;font:17px ui-monospace,"DejaVu Sans Mono",monospace;white-space:nowrap}
+.bar-track{position:absolute;left:250px;top:10px;width:280px;height:22px;border-radius:7px;background:#ffffff08}
+.bar{height:100%;width:0;border-radius:7px;background:var(--c);box-shadow:0 0 15px color-mix(in srgb,var(--c) 18%,transparent)}
+.count{position:absolute;left:537px;top:0;width:48px;height:42px;display:flex;align-items:center;justify-content:flex-end;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;opacity:0}
+.drop{position:absolute;left:600px;top:173px;width:100px;height:49px;color:#ffb36b;opacity:0}
+.drop svg{position:absolute;left:0;top:0;width:20px;height:49px;overflow:visible}
+.drop strong{position:absolute;left:29px;top:10px;font-size:23px;letter-spacing:-.8px}
+.fix{position:absolute;right:0;top:355px;width:147px;height:38px;display:grid;place-items:center;border-radius:999px;background:#ffb36b;color:#21180f;font-size:18px;font-weight:800;opacity:0}
+.retention{position:absolute;left:820px;top:635px;width:700px;height:190px;opacity:0}
+.retention h2{position:absolute;left:22px;top:17px;font-size:23px;font-weight:800;letter-spacing:-.5px}
+.legend{position:absolute;left:23px;font-size:17px;font-weight:700;display:flex;align-items:center;gap:9px}
+.legend i{display:block;width:22px;height:3px;border-radius:3px;background:currentColor}
+.before-label{top:81px;color:#909ab9}
+.after-label{top:122px;color:#7cf0c4}
+.chart{position:absolute;left:240px;top:44px;width:430px;height:134px;overflow:visible}
+.chart text{font-family:Manrope,"DejaVu Sans",sans-serif;font-size:16px;fill:#aab3d6;text-anchor:middle}
+.chart .grid{stroke:#ffffff12;stroke-width:1;fill:none}
+.cohort-line{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.before-line{stroke:#909ab9;opacity:.65}
+.after-line{stroke:#7cf0c4;filter:drop-shadow(0 0 5px #7cf0c440)}
+.chart-dot{opacity:0}
+.caption{position:absolute;right:80px;top:850px;font-size:16px;color:#aab3d6}
+.comet{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 23px 5px var(--c);opacity:0;pointer-events:none}
+.comet-tail{width:9px;height:9px;margin:-4.5px;background:var(--c);box-shadow:0 0 10px var(--c)}
+.event-pill{position:absolute;left:0;top:0;height:40px;padding:0 16px;display:flex;align-items:center;border:1px solid currentColor;border-radius:999px;background:#101728;font:700 17px ui-monospace,"DejaVu Sans Mono",monospace;white-space:nowrap;opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<main class="stage">
+ <header><p class="eyebrow">APP RECIPE / MEASURE</p><h1>Measure <span>what matters</span></h1><p class="subtitle">12 to 20 planned events answer where people give up.</p></header>
+ <div class="section-label"><span class="number">01</span>In the app</div>
+ <div class="phone"><div class="screen"><p class="screen-title">Your space</p><p class="screen-note">Ready when you are.</p><div class="app-art"><svg viewBox="0 0 72 72" aria-hidden="true"><rect x="12" y="12" width="48" height="48" rx="15" fill="#7cf0c419" stroke="#7cf0c4" stroke-width="2"/><path d="M24 36L33 45L49 27" fill="none" stroke="#7cf0c4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="app-button">Continue</div></div><i class="source-node" aria-hidden="true"></i></div>
+ <svg class="wires" viewBox="0 0 1600 900" aria-hidden="true"><path class="wire" d="M270 660C470 660 500 510 615 510"/><path class="wire" id="output-wire" d="M760 510H790Q800 510 800 500V290Q800 280 810 280H820"/></svg>
+ <section class="door glass"><span class="number">02</span><h2>track()</h2><p class="door-note">one typed door ·<br>names from the event plan</p><div class="door-slot" aria-hidden="true"></div><i class="door-handle" aria-hidden="true"></i></section>
+ <div class="rejected">not in the plan</div>
+ <section class="funnel"><div class="funnel-head"><span class="number">03</span><h2>Where do people give up?</h2></div><div class="rows">
+  <div class="row" style="--c:#7cf0c4"><span class="event-name">first_open</span><div class="bar-track"><div class="bar"></div></div><span class="count">1,000</span></div>
+  <div class="row" style="--c:#6fd3ff"><span class="event-name">sign_up</span><div class="bar-track"><div class="bar"></div></div><span class="count">620</span></div>
+  <div class="row" style="--c:#7aa8ff"><span class="event-name">onboarding_complete</span><div class="bar-track"><div class="bar"></div></div><span class="count">540</span></div>
+  <div class="row" style="--c:#a993ff"><span class="event-name">activation</span><div class="bar-track"><div class="bar"></div></div><span class="count">210</span></div>
+  <div class="row" style="--c:#d38bff"><span class="event-name">paywall_view</span><div class="bar-track"><div class="bar"></div></div><span class="count">160</span></div>
+  <div class="row" style="--c:#ffb36b"><span class="event-name">purchase</span><div class="bar-track"><div class="bar"></div></div><span class="count">24</span></div>
+ </div><div class="drop"><svg viewBox="0 0 20 49" aria-hidden="true"><path d="M0 0H13V49H0M13 24.5H20" fill="none" stroke="currentColor" stroke-width="2.5"/></svg><strong>-61%</strong></div><div class="fix">Fix this first</div></section>
+ <section class="retention glass"><h2>Retention by cohort</h2><div class="legend before-label"><i></i>Before the fix</div><div class="legend after-label"><i></i>After the fix</div>
+  <svg class="chart" viewBox="0 0 430 134" role="img" aria-label="Illustrative retention at D1, D7 and D30; after the fix stays higher than before the fix.">
+   <path class="grid" d="M30 10V101M215 10V101M400 10V101M30 101H400"/>
+   <path class="cohort-line before-line" pathLength="1" d="M30 43L215 78L400 94"/>
+   <path class="cohort-line after-line" pathLength="1" d="M30 18L215 37L400 48"/>
+   <g fill="#909ab9"><circle class="chart-dot before-dot" cx="30" cy="43" r="4"/><circle class="chart-dot before-dot" cx="215" cy="78" r="4"/><circle class="chart-dot before-dot" cx="400" cy="94" r="4"/></g>
+   <g fill="#7cf0c4"><circle class="chart-dot after-dot" cx="30" cy="18" r="4"/><circle class="chart-dot after-dot" cx="215" cy="37" r="4"/><circle class="chart-dot after-dot" cx="400" cy="48" r="4"/></g>
+   <text x="30" y="128">D1</text><text x="215" y="128">D7</text><text x="400" y="128">D30</text>
+  </svg>
+ </section>
+ <p class="caption">Illustrative numbers · recipe/analytics.md</p>
+ <i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet" aria-hidden="true"></i>
+ <div class="event-pill">first_open</div><div class="event-pill">sign_up</div><div class="event-pill">onboarding_complete</div><div class="event-pill">btn_click_2</div><div class="event-pill">activation</div><div class="event-pill">paywall_view</div><div class="event-pill">purchase</div>
+</main>
+<script>
+window.DURATION = 16;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const $ = selector => document.querySelector(selector);
+const stage = $('.stage');
+const rows = [...document.querySelectorAll('.row')];
+const pills = [...document.querySelectorAll('.event-pill')];
+const comets = [...document.querySelectorAll('.comet')];
+const colors = ['#7cf0c4', '#6fd3ff', '#7aa8ff', '#ffd36b', '#a993ff', '#d38bff', '#ffb36b'];
+const starts = [.5, 1.4, 2.3, 3.2, 4.2, 5.1, 6];
+const counts = [1000, 620, 540, 210, 160, 24];
+const packetForRow = [0, 1, 2, 4, 5, 6];
+function tint(hex, alpha) {
+  const rgb = [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+  return `rgba(${rgb.join(',')},${clamp(alpha)})`;
+}
+function positionAt(progress) {
+  const p = smooth(progress);
+  const q = 1 - p;
+  return [q ** 3 * 270 + 3 * q ** 2 * p * 470 + 3 * q * p ** 2 * 500 + p ** 3 * 615,
+    q ** 3 * 660 + 3 * q ** 2 * p * 660 + 3 * q * p ** 2 * 510 + p ** 3 * 510];
+}
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - 14) / 2);
+  const t = reset >= .5 ? 0 : Math.min(clock, 14);
+  stage.style.opacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+  const retention = smooth((t - 10) / .55);
+  const highlight = smooth((t - 7.5) / .45);
+  $('.funnel').style.opacity = mix(1, .72, retention);
+  rows.forEach((row, index) => {
+    const packet = packetForRow[index];
+    const arrival = starts[packet] + .55;
+    const grow = easeOutCubic((t - arrival) / .45);
+    const light = smooth((t - arrival) / .12) * (1 - smooth((t - arrival - .35) / .3));
+    const focused = index === 2 || index === 3;
+    const glow = focused ? highlight : light * .5;
+    const color = focused && highlight > 0 ? '#ffb36b' : colors[packet];
+    row.style.borderColor = tint(color, .07 + .68 * glow);
+    row.style.background = tint(color, .025 + .1 * glow);
+    row.style.boxShadow = `0 0 ${22 * glow}px ${tint(color, .22 * glow)}`;
+    row.querySelector('.event-name').style.color = focused && highlight > 0 ? '#ffb36b' : '#dfe4ff';
+    row.querySelector('.bar').style.width = `${100 * counts[index] / 1000 * grow}%`;
+    row.querySelector('.bar').style.background = color;
+    row.querySelector('.count').style.opacity = smooth((t - arrival - .15) / .3);
+    row.querySelector('.count').style.color = color;
+  });
+  $('.drop').style.opacity = highlight;
+  $('.fix').style.opacity = highlight;
+  $('.fix').style.transform = `scale(${mix(.9, 1, easeOutBack((t - 7.9) / .4))})`;
+  // Each packet has an exclusive time slot, including the rejected event.
+  let active = -1;
+  let pulse = 0;
+  pills.forEach((pill, index) => {
+    const age = t - starts[index];
+    const rejected = index === 3;
+    const flight = rejected ? .35 : .55;
+    const end = rejected ? .9 : .82;
+    const fadeAt = rejected ? .62 : .61;
+    const visible = smooth(age / .1) * (1 - smooth((age - fadeAt) / (end - fadeAt)));
+    const [x, y] = positionAt(age / flight);
+    const hit = rejected && age >= flight;
+    const color = hit ? '#ff7a8a' : colors[index];
+    pill.style.opacity = visible;
+    pill.style.color = color;
+    pill.style.boxShadow = `0 0 20px ${tint(color, .16 * visible)}`;
+    pill.style.transform = `translate(${x}px,${y + (hit ? 12 * smooth((age - flight) / .55) : 0)}px) translate(-50%,-50%)`;
+    if (age >= 0 && age < end) active = index;
+    if (!rejected) pulse += smooth((age - flight) / .08) * (1 - smooth((age - flight - .08) / .22));
+  });
+  const rejectedAge = t - 3.55;
+  const rejection = smooth(rejectedAge / .09) * (1 - smooth((t - 3.9) / .2));
+  $('.rejected').style.opacity = rejection;
+  const doorColor = rejection > 0 ? '#ff7a8a' : '#a993ff';
+  $('.door').style.borderColor = tint(doorColor, .3 + .6 * Math.max(pulse, rejection));
+  $('.door').style.boxShadow = `0 16px 32px #00000033,0 0 30px ${tint(doorColor, .22 * Math.max(pulse, rejection))}`;
+  $('#output-wire').style.stroke = pulse > 0 ? tint('#7cf0c4', .4 + .6 * pulse) : '#596584';
+  $('.source-node').style.opacity = active >= 0 ? 1 : .4;
+  comets.forEach((dot, index) => {
+    const packet = Math.max(0, active);
+    const flight = packet === 3 ? .35 : .55;
+    const age = t - starts[packet];
+    const lag = (5 - index) * .045;
+    const travel = (age - lag) / flight;
+    const [x, y] = positionAt(travel);
+    dot.style.setProperty('--c', colors[packet]);
+    dot.style.opacity = active >= 0 && age < flight && travel >= 0
+      ? smooth(travel / .15) * (index === 5 ? .9 : .12 + index * .12) : 0;
+    dot.style.transform = `translate(${x}px,${y}px) scale(${index === 5 ? 1 : .4 + index * .12})`;
+  });
+  $('.retention').style.opacity = retention;
+  $('.retention').style.transform = `translateY(${12 * (1 - retention)}px)`;
+  const before = clamp((t - 10.6) / 1.25);
+  const after = clamp((t - 11.7) / 1.65);
+  $('.before-line').style.strokeDashoffset = 1 - before;
+  $('.after-line').style.strokeDashoffset = 1 - after;
+  document.querySelectorAll('.before-dot').forEach((dot, index) => {
+    dot.style.opacity = .65 * smooth((before - index * .48) / .04);
+  });
+  document.querySelectorAll('.after-dot').forEach((dot, index) => {
+    dot.style.opacity = smooth((after - index * .48) / .04);
+  });
+};
+window.renderAt(0);
+</script>
+</body>
+</html>

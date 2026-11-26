@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fast by default</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-weight:500;color:#eef1ff;background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.stage{position:absolute;inset:0}
+header{position:absolute;left:80px;top:40px}
+h1{font-size:45px;line-height:1.15;letter-spacing:-1.5px;font-weight:800;background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.subtitle{font-size:22px;color:#aab3d6;margin-top:12px}
+.phone{position:absolute;left:164px;top:166px;width:312px;height:480px;border:3px solid #8792b7;border-radius:38px;background:#080e1d;box-shadow:0 20px 40px #00000055}
+.screen{position:absolute;inset:10px;border-radius:26px;background:#131e32;overflow:hidden}
+.speaker{position:absolute;left:111px;top:8px;width:64px;height:5px;border-radius:9px;background:#63708e}
+.topbar{position:absolute;left:18px;right:18px;top:27px;height:30px;display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:800}
+.menu{width:19px;height:12px;border-top:2px solid #aab3d6;border-bottom:2px solid #aab3d6}
+.search{position:absolute;left:18px;right:18px;top:70px;height:36px;border:1px solid #ffffff20;border-radius:11px;display:flex;align-items:center;gap:10px;padding:0 12px;font-size:15px;color:#aab3d6;background:#ffffff05}
+.search i{width:13px;height:13px;border:2px solid #aab3d6;border-radius:50%;position:relative}
+.search i::after{content:"";position:absolute;right:-5px;bottom:-3px;width:6px;border-top:2px solid #aab3d6;transform:rotate(45deg)}
+.rows{position:absolute;left:18px;right:18px;top:126px;height:315px;overflow:hidden}
+.row-list{display:flex;flex-direction:column;gap:5px}
+.phone-pulse{position:absolute;inset:0;border:3px solid #a993ff;border-radius:26px;box-shadow:inset 0 0 22px #a993ff66;pointer-events:none}
+.network-dot{position:absolute;left:0;top:0;width:10px;height:10px;border-radius:50%;background:#d38bff;box-shadow:0 0 12px #d38bff;pointer-events:none}
+.p75{position:absolute;right:30px;padding:1px 7px;border:1px solid #7cf0c4;border-radius:999px;background:#173c36;color:#7cf0c4;font-size:15px;line-height:22px}
+.row{position:relative;height:58px;border-bottom:1px solid #ffffff0c;--c:#7cf0c4}
+.thumbnail{position:absolute;left:0;top:4px;width:46px;height:46px;border-radius:10px;overflow:hidden;background:#263a53}
+.photo{position:absolute;inset:0;background:radial-gradient(circle at 73% 26%,#ffd36b 0 9%,transparent 10%),linear-gradient(145deg,transparent 48%,var(--c) 49% 70%,#182d46 71%),linear-gradient(35deg,#6fd3ff 0 32%,transparent 33%),#284967}
+.row-copy{position:absolute;left:60px;top:5px;right:0;height:44px}
+.row-copy strong{display:block;font-size:17px;line-height:23px;font-weight:700}
+.row-copy span{display:block;font-size:15px;line-height:21px;color:#aab3d6}
+.skeleton{position:absolute;background:linear-gradient(100deg,#26354a 15%,#526984 48%,#26354a 80%);background-size:240% 100%;border-radius:6px}
+.sk-thumb{left:0;top:4px;width:46px;height:46px;border-radius:10px}
+.sk-title{left:60px;top:9px;width:132px;height:14px}
+.sk-detail{left:60px;top:32px;width:92px;height:10px}
+.spinner{position:absolute;left:calc(50% - 22px);top:calc(50% - 22px);width:44px;height:44px;border:4px solid #ffffff18;border-top-color:#ff7a8a;border-radius:50%}
+.badge{position:absolute;left:80px;top:666px;width:480px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--c);border-radius:999px;background:#101a2c;font-size:20px;font-weight:800;color:var(--c);white-space:nowrap}
+.cards{position:absolute;left:640px;top:164px;width:880px;display:flex;flex-direction:column;gap:8px}
+.card{position:relative;height:72px;border:1px solid var(--edge);border-radius:22px;background:linear-gradient(110deg,var(--wash),#ffffff03);box-shadow:0 10px 25px #00000026,0 0 22px var(--halo)}
+.number{position:absolute;left:18px;top:17px;width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--edge);border-radius:50%;background:var(--wash);font-size:17px;font-weight:800;color:var(--c)}
+.card h2{position:absolute;left:72px;top:10px;right:20px;height:26px;font-size:21px;line-height:26px;font-weight:800;color:var(--c)}
+.card p{position:absolute;left:72px;top:39px;right:20px;height:23px;font-size:18px;line-height:23px;color:#cbd2e9;white-space:nowrap}
+.wires{position:absolute;inset:0;width:1600px;height:900px;pointer-events:none}
+.wire{fill:none;stroke-width:2;stroke-dasharray:5 7}
+.comet{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 23px 5px var(--c);pointer-events:none}
+.comet-tail{width:9px;height:9px;margin:-4.5px;background:var(--c);box-shadow:0 0 10px var(--c)}
+.timing{position:absolute;left:80px;top:750px;width:1440px;height:108px}
+.timing h2{position:absolute;left:0;top:0;font-size:23px;line-height:32px;font-weight:800}
+.phase{position:absolute;left:208px;top:0;width:250px;height:32px;border:1px solid currentColor;border-radius:999px;display:grid;place-items:center;font-size:17px;font-weight:800}
+.track{position:absolute;left:0;right:0;top:62px;height:18px;border:1px solid #ffffff20;border-radius:999px;background:#080e1d99}
+.fill{position:absolute;left:0;top:62px;height:18px;border-radius:999px}
+.budget{position:absolute;left:576px;top:45px;height:46px;border-left:2px dashed #cbd2e9}
+.budget span{position:absolute;left:-65px;top:-45px;width:130px;text-align:center;color:#cbd2e9;font-size:17px;font-weight:700}
+.value{position:absolute;top:30px;width:80px;height:28px;text-align:center;font-size:22px;line-height:28px;font-weight:800}
+.check{position:absolute;top:28px;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#7cf0c4;color:#0b1020;font-size:22px;font-weight:800}
+.tick{position:absolute;top:91px;width:40px;margin-left:-20px;text-align:center;font-size:15px;color:#aab3d6;line-height:20px}
+.tick:first-of-type{margin-left:0;text-align:left}
+.caption{position:absolute;right:80px;top:867px;height:22px;font-size:16px;line-height:22px;color:#aab3d6}
+</style>
+</head>
+<body>
+<main class="stage">
+ <header><h1>Fast by default</h1><p class="subtitle">Same app, same server. Different decisions.</p></header>
+ <svg class="wires" viewBox="0 0 1600 900" aria-hidden="true">
+  <path class="wire" d="M628 200C566 200 550 406 490 406"/>
+  <path class="wire" d="M628 280C566 280 550 406 490 406"/>
+  <path class="wire" d="M628 360C566 360 550 406 490 406"/>
+  <path class="wire" d="M628 440C566 440 550 406 490 406"/>
+  <path class="wire" d="M628 520C566 520 550 406 490 406"/>
+  <path class="wire" d="M628 600C566 600 550 406 490 406"/>
+  <path class="wire" d="M628 680C566 680 550 406 490 406"/>
+ </svg>
+ <div class="phone" aria-label="The same list screen, before and after the performance checklist"><div class="screen">
+  <div class="speaker"></div><div class="topbar">Your list<span class="p75">p75</span><i class="menu" aria-hidden="true"></i></div>
+  <div class="search"><i aria-hidden="true"></i>Search</div>
+  <div class="rows"><div class="row-list">
+   <div class="row" style="--c:#7cf0c4"><div class="thumbnail"><div class="photo"></div></div><div class="row-copy"><strong>Item 1</strong><span>Details</span></div><i class="skeleton sk-thumb"></i><i class="skeleton sk-title"></i><i class="skeleton sk-detail"></i></div>
+   <div class="row" style="--c:#6fd3ff"><div class="thumbnail"><div class="photo"></div></div><div class="row-copy"><strong>Item 2</strong><span>Details</span></div><i class="skeleton sk-thumb"></i><i class="skeleton sk-title"></i><i class="skeleton sk-detail"></i></div>
+   <div class="row" style="--c:#7aa8ff"><div class="thumbnail"><div class="photo"></div></div><div class="row-copy"><strong>Item 3</strong><span>Details</span></div><i class="skeleton sk-thumb"></i><i class="skeleton sk-title"></i><i class="skeleton sk-detail"></i></div>
+   <div class="row" style="--c:#a993ff"><div class="thumbnail"><div class="photo"></div></div><div class="row-copy"><strong>Item 4</strong><span>Details</span></div><i class="skeleton sk-thumb"></i><i class="skeleton sk-title"></i><i class="skeleton sk-detail"></i></div>
+   <div class="row" style="--c:#d38bff"><div class="thumbnail"><div class="photo"></div></div><div class="row-copy"><strong>Item 5</strong><span>Details</span></div><i class="skeleton sk-thumb"></i><i class="skeleton sk-title"></i><i class="skeleton sk-detail"></i></div>
+   <div class="row" style="--c:#ffb36b"><div class="thumbnail"><div class="photo"></div></div><div class="row-copy"><strong>Item 6</strong><span>Details</span></div><i class="skeleton sk-thumb"></i><i class="skeleton sk-title"></i><i class="skeleton sk-detail"></i></div>
+  </div></div><i class="network-dot" aria-hidden="true"></i><i class="network-dot" aria-hidden="true"></i><i class="network-dot" aria-hidden="true"></i><div class="phone-pulse" aria-hidden="true"></div><div class="spinner" aria-hidden="true"></div>
+ </div></div>
+ <div class="badge"></div>
+ <section class="cards" aria-label="Performance checklist">
+  <article class="card" style="--c:#7cf0c4"><span class="number">1</span><h2>Perceived speed</h2><p>Skeleton and cached data first</p></article>
+  <article class="card" style="--c:#6fd3ff"><span class="number">2</span><h2>Images and fonts</h2><p>Resized, compressed, cached on the device</p></article>
+  <article class="card" style="--c:#7aa8ff"><span class="number">3</span><h2>Lists and rendering</h2><p>Virtualized, a limit on every query</p></article>
+  <article class="card" style="--c:#a993ff"><span class="number">4</span><h2>Startup and bundle</h2><p>Heavy modules load only where used</p></article>
+  <article class="card" style="--c:#d38bff"><span class="number">5</span><h2>Network and API</h2><p>No duplicate calls, parallel, timeouts</p></article>
+  <article class="card" style="--c:#ffb36b"><span class="number">6</span><h2>Server and data</h2><p>Indexes, no N+1, slow work in a queue</p></article>
+  <article class="card" style="--c:#ffd36b"><span class="number">7</span><h2>Measure in production</h2><p>Real users' vitals, every week</p></article>
+ </section>
+ <i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet" aria-hidden="true"></i>
+ <section class="timing" aria-label="Tap to content on a scale from zero to five seconds">
+  <h2>Tap to content</h2><span class="phase"></span><div class="track"></div><div class="fill"></div>
+  <div class="budget"><span>budget 2 s</span></div><span class="value"></span><span class="check">✓</span>
+  <span class="tick" style="left:0">0 s</span><span class="tick" style="left:288px">1 s</span><span class="tick" style="left:576px">2 s</span><span class="tick" style="left:864px">3 s</span><span class="tick" style="left:1152px">4 s</span><span class="tick" style="left:1440px">5 s</span>
+ </section>
+ <p class="caption">Illustrative numbers · checklist in recipe/performance.md</p>
+</main>
+<script>
+window.DURATION = 16;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const $ = selector => document.querySelector(selector);
+const stage = $('.stage');
+const cards = [...document.querySelectorAll('.card')];
+const rows = [...document.querySelectorAll('.row')];
+const wires = [...document.querySelectorAll('.wire')];
+const comets = [...document.querySelectorAll('.comet')];
+const colors = cards.map(card => card.style.getPropertyValue('--c'));
+const badges = ['Skeleton, then cached data', 'Photo 2.4 MB to 180 KB', 'Rendering 12 of 500 rows', 'Startup work deferred', '9 requests to 3, in parallel', 'Query 1.2 s to 90 ms', 'p75 measured on real phones'];
+const STEP = 8 / 7;
+function tint(hex, alpha) {
+  const rgb = [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+  return `rgba(${rgb.join(',')},${clamp(alpha)})`;
+}
+function positionAt(index, progress) {
+  const p = smooth(progress);
+  const q = 1 - p;
+  const y = 200 + index * 80;
+  return [q ** 3 * 628 + 3 * q ** 2 * p * 566 + 3 * q * p ** 2 * 550 + p ** 3 * 490,
+    (q ** 3 + 3 * q ** 2 * p) * y + (3 * q * p ** 2 + p ** 3) * 406];
+}
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - 14) / 2);
+  // Freeze the payoff, dip to zero, then reveal frame zero for a seamless loop.
+  const t = reset >= .5 ? 0 : Math.min(clock, 14);
+  stage.style.opacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+  const active = Math.max(0, Math.min(6, Math.floor((t - 3.5) / STEP)));
+  const age = t - 3.5 - active * STEP;
+  const improving = t >= 3.5 && t < 11.5;
+  const color = colors[active];
+  cards.forEach((card, index) => {
+    const local = t - 3.5 - index * STEP;
+    const lit = smooth(local / .18);
+    const pulse = lit * (1 - smooth((local - .75) / .3));
+    card.style.opacity = .38 + .62 * lit;
+    card.style.setProperty('--edge', tint(colors[index], .18 + .45 * lit + .35 * pulse));
+    card.style.setProperty('--wash', tint(colors[index], .025 + .055 * lit + .1 * pulse));
+    card.style.setProperty('--halo', tint(colors[index], .18 * pulse));
+    wires[index].style.stroke = colors[index];
+    wires[index].style.opacity = improving && index === active ? .45 * pulse : 0;
+  });
+  // One physical badge slot. The outgoing text reaches zero before the next step.
+  const badgeEnter = smooth((age - .44) / .12);
+  const badgeLeave = 1 - smooth((age - STEP + .18) / .14);
+  $('.badge').textContent = badges[active];
+  $('.badge').style.setProperty('--c', color);
+  $('.badge').style.opacity = improving ? badgeEnter * badgeLeave : 0;
+  const arrival = improving ? smooth((age - .42) / .12) * (1 - smooth((age - .8) / .2)) : 0;
+  $('.phone').style.borderColor = t >= 11.5 ? '#7cf0c4' : arrival > 0 ? tint(color, .55 + .45 * arrival) : '#8792b7';
+  $('.phone').style.boxShadow = `0 20px 40px #00000055,0 0 ${30 * arrival}px ${tint(color, .24 * arrival)}`;
+  const chrome = t >= 2.4 ? 1 : 0;
+  $('.topbar').style.opacity = chrome;
+  $('.search').style.opacity = chrome;
+  $('.rows').style.opacity = chrome;
+  $('.spinner').style.opacity = t < 2.4 ? 1 : 0;
+  $('.spinner').style.transform = `rotate(${t * 420}deg)`;
+  const scroll = smooth((t - 3.5 - 2 * STEP - .42) / .55);
+  $('.row-list').style.transform = `translateY(${-63 * scroll}px)`;
+  const borderAge = t - 3.5 - 3 * STEP - .42;
+  $('.phone-pulse').style.opacity = Math.sin(Math.PI * clamp(borderAge / .65));
+  const network = clamp((t - 3.5 - 4 * STEP - .42) / .65);
+  document.querySelectorAll('.network-dot').forEach((dot, index) => {
+    dot.style.opacity = smooth(network / .12) * (1 - smooth((network - .8) / .2));
+    dot.style.transform = `translate(${45 + index * 80}px,${mix(53, 151 + index * 63, smooth(network))}px)`;
+  });
+  const flash = Math.sin(Math.PI * clamp((t - 3.5 - 5 * STEP - .42) / .65));
+  const measured = smooth((t - 3.5 - 6 * STEP - .42) / .25);
+  $('.p75').style.opacity = measured;
+  $('.p75').style.transform = `scale(${mix(.85, 1, measured)})`;
+  rows.forEach((row, index) => {
+    row.style.background = tint('#ffb36b', .2 * flash);
+    const skeletonIn = smooth((t - 3.98) / .1);
+    const skeletonOut = 1 - smooth((t - 4.24 - index * .025) / .1);
+    const oldContent = 1 - smooth((t - 3.82) / .13);
+    const resolved = smooth((t - 4.38 - index * .025) / .12);
+    const content = t < 3.95 ? oldContent : resolved;
+    row.querySelector('.row-copy').style.opacity = content;
+    row.querySelector('.thumbnail').style.opacity = content * (t >= 2.96 + index * .05 ? 1 : 0);
+    row.querySelector('.photo').style.filter = `blur(${6 * (1 - smooth((t - 3.5 - STEP - .44) / .35))}px)`;
+    row.querySelectorAll('.skeleton').forEach(part => {
+      part.style.opacity = skeletonIn * skeletonOut;
+      part.style.backgroundPosition = `${180 - ((t * 170 + index * 24) % 280)}% 0`;
+    });
+  });
+  comets.forEach((dot, index) => {
+    const travel = (age - .12 - (5 - index) * .028) / .38;
+    const [x, y] = positionAt(active, travel);
+    const fade = smooth(travel / .15) * (1 - smooth((travel - .85) / .15));
+    dot.style.setProperty('--c', color);
+    dot.style.opacity = improving ? fade * (index === 5 ? 1 : .12 + index * .12) : 0;
+    dot.style.transform = `translate(${x}px,${y}px) scale(${index === 5 ? 1 : .4 + index * .1})`;
+  });
+  const after = t >= 11.5;
+  const afterFade = smooth((t - 11.5) / .16);
+  const values = [4.8, 4.1, 3.5, 3.0, 2.6, 2.2, 1.8, 1.6, 1.4];
+  const beat = after ? 8 : t >= 3.5 ? active + 1 : 0;
+  const barAge = after ? t - 11.5 : age;
+  const progress = easeOutCubic(barAge / .4);
+  // Keep the same bar through every checklist beat and the payoff.
+  const seconds = beat === 0 ? 4.8 * clamp(t / 3.05) : mix(values[beat - 1], values[beat], progress);
+  const heat = clamp((4.8 - (beat === 0 ? 4.8 : seconds)) / 2.8);
+  const barColor = beat > 0 && seconds < 2 ? '#7cf0c4' : '#' + [
+    255, Math.round(mix(122, 211, heat)), Math.round(mix(138, 107, heat))
+  ].map(channel => channel.toString(16).padStart(2, '0')).join('');
+  const end = 1440 * seconds / 5;
+  // Each single text slot fades out completely before its content changes.
+  const labelOut = 1 - smooth(barAge / .18);
+  const labelIn = smooth((barAge - .22) / .18);
+  const oldLabel = beat > 0 && barAge < .2;
+  const phaseAge = after ? t - 11.5 : t - 3.5;
+  const phaseOld = phaseAge < .2;
+  $('.phase').textContent = after ? (phaseOld ? 'Applying the checklist' : 'After') :
+    t < 3.5 || phaseOld ? 'Before' : 'Applying the checklist';
+  $('.phase').style.opacity = t < 3.5 ? 1 : phaseOld ? 1 - smooth(phaseAge / .18) : smooth((phaseAge - .22) / .18);
+  $('.phase').style.color = barColor;
+  $('.fill').style.width = `${end}px`;
+  $('.fill').style.background = barColor;
+  $('.fill').style.boxShadow = `0 0 20px ${tint(barColor, .25)}`;
+  $('.fill').style.opacity = 1;
+  $('.value').textContent = `${values[oldLabel ? beat - 1 : beat].toFixed(1)} s`;
+  $('.value').style.left = `${end - 40}px`;
+  $('.value').style.color = barColor;
+  $('.value').style.opacity = beat === 0 ? smooth((t - 3.05) / .16) : oldLabel ? labelOut : labelIn;
+  const check = smooth((t - 12.33) / .2);
+  $('.check').style.left = `${end + 50}px`;
+  $('.check').style.opacity = after ? check : 0;
+  $('.check').style.transform = `scale(${easeOutBack((t - 12.33) / .3)})`;
+  $('.caption').style.opacity = after ? afterFade : 0;
+};
+window.renderAt(0);
+</script>
+</body>
+</html>

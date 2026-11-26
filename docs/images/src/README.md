@@ -12,6 +12,9 @@ translating it is an edit plus one command. Needs `pip install playwright`, a Ch
 | `store.gif` | `store.html` + `assets/listing/` (real output of `tools/store-listing/listing.py` on its example) | `python3 render_anim.py store` |
 | `stacks.gif` | `stacks.html` | `python3 render_anim.py stacks --colors 160` |
 | `explorer.gif` | `explorer.html` (recreates `demo-app.html`, the sample app with planted bugs) | `python3 render_anim.py explorer` |
+| `performance.gif` | `performance.html` | `python3 render_anim.py performance --width 1000 --colors 96 --fps 10` |
+| `subscriptions.gif` | `subscriptions.html` | `python3 render_anim.py subscriptions --width 1000 --colors 128 --fps 12` |
+| `measure.gif` | `measure.html` | `python3 render_anim.py measure --width 1000 --colors 128 --fps 12` |
 | `banner.png`, `stacks.png` | `header.html` | `python3 render_header.py` |
 | `flow.png` | `flow.html` | `./render.sh` |
 

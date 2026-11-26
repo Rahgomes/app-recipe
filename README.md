@@ -94,19 +94,59 @@ English only so it can be shared.
 Details and the briefing format that keeps a delegated agent from crawling your repo:
 [WORKING-MODES.md](WORKING-MODES.md).
 
-## Fast by default
+## Three recipes people ask about most
 
-A slow app loses people, and it is rarely the server's fault. [recipe/performance.md](recipe/performance.md)
-is a checklist of the decisions that make an app feel fast, each one with how to do it in React
-Native + Expo + Firebase and the equivalent on the web or another backend. It also sets budgets per
-journey, lists free tools to measure with, and gives directives to paste into your agent's brief:
+Speed, money and measurement decide whether an app survives after launch. Each one has its own
+chapter, written as a checklist you (or your agent) can apply while coding, with the React Native +
+Expo + Firebase way and the equivalent elsewhere. Jump straight to the part you need.
 
-| Feels fast | Loads less | Asks the server less |
-| --- | --- | --- |
-| Skeleton in the shape of the content | Photos resized and compressed before upload | A `limit` on every query, cursor pagination |
-| Cached data first, refresh in the background | Long lists virtualized | No duplicate calls; independent ones in parallel |
-| The screen updates before the server answers | Heavy modules loaded only where used | N+1 removed; indexes for common queries |
-| AI answers streamed token by token | Unused dependencies removed | Slow work in a queue; timeouts on external APIs |
+### Fast by default
+
+A slow app loses people, and it is rarely the server's fault: it is a handful of decisions made
+early in the code. The chapter sets time budgets per journey, groups the fixes in seven layers,
+lists free tools to measure with and gives directives to paste into your agent's brief.
+
+![Fast by default: the same list screen goes from 4.8 s to 1.4 s as seven layers of the checklist light up](docs/images/performance.gif)
+
+| Layer | What it covers |
+| --- | --- |
+| [1. Perceived speed](recipe/performance.md#1-perceived-speed) | Skeletons, cached data first, optimistic updates, streamed AI answers, debounced search |
+| [2. Images and fonts](recipe/performance.md#2-images-fonts-and-static-files) | Resize and compress before upload, device cache, lazy loading, CDN, Brotli, few font weights |
+| [3. Lists and rendering](recipe/performance.md#3-lists-and-rendering) | Virtualized lists, a limit on every query, fewer re-renders, animations off the JS thread |
+| [4. Startup and bundle](recipe/performance.md#4-startup-and-bundle) | Unused dependencies out, heavy modules on demand, less work before the first frame |
+| [5. Network and API](recipe/performance.md#5-network-and-api) | No duplicate calls, parallel requests, timeouts, only the fields you need |
+| [6. Server and data](recipe/performance.md#6-server-and-data) | N+1 removed, indexes, queues for slow work, cache, region next to the database |
+| [7. Measure in production](recipe/performance.md#7-measure-in-production) | Real users' vitals, traces of slow requests, releases that got slower stop the rollout |
+
+Also in the chapter: [budgets](recipe/performance.md#budgets-decide-them-in-the-prd) ·
+[tools](recipe/performance.md#tools-that-help-in-parallel) · [directives for your agent](recipe/performance.md#directives-to-give-your-agent).
+
+### Subscriptions, beyond the paywall
+
+Most revenue is lost after the paywall: failed cards, quiet cancellations, nobody asking why. The
+chapter treats every state of a subscriber as a screen and a plan.
+
+![Subscriptions: a subscriber goes from paywall to trial and active, survives a failed payment through the grace period, and stays after a win-back](docs/images/subscriptions.gif)
+
+[Model](recipe/subscriptions.md#1-decide-the-model-in-the-prd-record-it-as-a-d) ·
+[Paywall](recipe/subscriptions.md#2-paywall) · [Price](recipe/subscriptions.md#3-price) · [Offers](recipe/subscriptions.md#4-offers-promotions-and-campaigns) ·
+[Failed payments](recipe/subscriptions.md#5-involuntary-churn-failed-payments) ·
+[Cancellation and win-back](recipe/subscriptions.md#6-voluntary-churn-and-win-back) ·
+[Server-side truth](recipe/subscriptions.md#7-server-side-truth-and-security) ·
+[Fees by country](recipe/subscriptions.md#8-fees-countries-and-store-programs) ·
+[Metrics](recipe/subscriptions.md#9-metrics-for-a-subscription-app)
+
+### Measure what matters
+
+Twelve to twenty planned events, sent through one typed `track()`, answer the only question that
+matters early on: where do people give up? Then retention by cohort tells you if the fix worked.
+
+![Measure: events flow through one typed track() into a funnel, the biggest drop is flagged, and retention by cohort improves after the fix](docs/images/measure.gif)
+
+[Event plan](recipe/analytics.md#the-event-plan) · [Definitions](recipe/analytics.md#definitions-to-write-down-per-app-in-the-plan) ·
+[Consent](recipe/analytics.md#consent-and-privacy) · [Crashes and vitals](recipe/analytics.md#stability-crashes-and-vitals) ·
+[Experiments](recipe/analytics.md#experiments) · [Acquisition](recipe/analytics.md#acquisition-and-attribution) ·
+[Deep links](recipe/analytics.md#deep-links)
 
 ## Three tools worth a look
 

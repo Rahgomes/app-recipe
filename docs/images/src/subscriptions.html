@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Every subscription state has a plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-weight:500;color:#eef1ff;background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.stage{position:absolute;inset:0}
+header{position:absolute;left:80px;top:42px}
+.eyebrow{font-size:16px;letter-spacing:2px;font-weight:800;color:#aab3d6;margin-bottom:12px}
+h1{font-size:45px;line-height:1.15;letter-spacing:-1.5px;font-weight:800}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.subtitle{font-size:22px;color:#aab3d6;margin-top:12px}
+.glass{border:1px solid #ffffff26;border-radius:24px;background:linear-gradient(145deg,#ffffff0c,#ffffff03);box-shadow:0 16px 32px #00000033}
+.node{position:absolute;width:240px;height:76px;padding:15px 14px;display:flex;align-items:flex-start;gap:9px;color:var(--c)}
+.number{width:24px;height:24px;flex-shrink:0;display:grid;place-items:center;border:1px solid currentColor;border-radius:50%;font-size:15px;font-weight:800}
+.node h2{font-size:22px;font-weight:800;line-height:28px;white-space:nowrap;color:#eef1ff}
+.wires{position:absolute;inset:0;width:1600px;height:900px;pointer-events:none}
+.wire{fill:none;stroke:#596584;stroke-width:2;stroke-dasharray:5 7;marker-end:url(#arrow)}
+.route-label{position:absolute;font-size:17px;font-weight:700;color:#aab3d6}
+.renewals{position:absolute;left:930px;top:183px;padding:8px 15px;border:1px solid #7cf0c466;border-radius:999px;background:#7cf0c410;color:#7cf0c4;font-size:17px;font-weight:800}
+.check{position:absolute;left:806px;top:258px;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#7cf0c4;color:#0b1020;font-size:18px;font-weight:800}
+.comet{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 23px 5px var(--c);pointer-events:none}
+.comet-tail{width:9px;height:9px;margin:-4.5px;background:var(--c);box-shadow:0 0 10px var(--c)}
+.phone-label{position:absolute;left:1140px;top:190px;width:380px;text-align:center;font-size:16px;letter-spacing:2px;font-weight:800;color:#aab3d6}
+.phone{position:absolute;left:1140px;top:226px;width:380px;height:492px;border:3px solid #8792b777;border-radius:43px;background:#0b1020;box-shadow:0 24px 50px #00000055;padding:12px}
+.screen{position:absolute;inset:12px;border-radius:30px;background:linear-gradient(150deg,#21304a,#11192c 70%);overflow:hidden}
+.camera{position:absolute;left:133px;top:13px;width:82px;height:9px;border-radius:9px;background:#090e19}
+.app-name{position:absolute;top:54px;left:25px;font-size:17px;font-weight:800;color:#aab3d6}
+.app-mark{position:absolute;right:25px;top:52px;width:25px;height:25px;border:2px solid #7cf0c4;border-radius:8px;transform:rotate(-12deg)}
+.message-card{position:absolute;left:20px;right:20px;top:109px;height:271px;padding:23px 21px;border:1px solid #7cf0c444;border-radius:24px;background:#0b102088}
+.state-name{font-size:15px;font-weight:800;letter-spacing:1px;line-height:22px;height:30px;color:#7cf0c4}
+.message{font-size:28px;line-height:1.4;font-weight:700;letter-spacing:-.4px;height:132px;margin-top:9px}
+.trial-button{position:absolute;left:21px;right:21px;bottom:21px;height:43px;display:grid;place-items:center;background:#7cf0c4;border-radius:13px;color:#0b1020;font-size:17px;font-weight:800}
+.home-bar{position:absolute;bottom:12px;left:120px;width:108px;height:5px;border-radius:5px;background:#8792b777}
+.fact{position:absolute;left:80px;top:756px;width:620px;height:114px;padding:16px 19px;border-color:#ffd36b44}
+.fact p{font-size:19px;line-height:1.5;color:#e6dfca}
+.fact small{display:block;font-size:15px;margin-top:9px;color:#aab3d6}
+.chart{position:absolute;left:730px;top:752px;width:370px;height:122px;padding:12px 17px}
+.chart-head{display:flex;justify-content:space-between;align-items:center}
+.chart h2{font-size:18px;font-weight:800}
+.chart small{font-size:15px;color:#aab3d6}
+.bars{position:absolute;left:18px;right:18px;top:43px;height:65px;display:flex;justify-content:space-around;border-bottom:1px solid #ffffff26}
+.bar-slot{position:relative;width:55px;height:65px;padding-bottom:22px;display:flex;align-items:flex-end;justify-content:center}
+.bar{width:38px;height:var(--height);border-radius:5px 5px 0 0;background:linear-gradient(0deg,#7aa8ff,#7cf0c4);transform-origin:bottom}
+.bar-slot span{position:absolute;bottom:0;font-size:15px;line-height:20px;color:#aab3d6}
+</style>
+</head>
+<body>
+<main class="stage">
+ <header><p class="eyebrow">APP RECIPE / SUBSCRIPTIONS</p><h1>Subscriptions, <span>beyond the paywall</span></h1><p class="subtitle">Every state of a subscriber has a plan.</p></header>
+ <svg class="wires" viewBox="0 0 1600 900" aria-hidden="true">
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#aab3d6" stroke-width="1.5"/></marker>
+   <!-- Travel continues inside each card's empty lower slot. -->
+   <path id="travel-trial" d="M180 306H450"/>
+   <path id="travel-active" d="M450 306H720"/>
+   <path id="travel-renew" d="M720 306H800V225A20 20 0 1 1 800 185A20 20 0 1 1 800 225V306H720"/>
+   <path id="travel-failed" d="M720 306H650V378H450V476"/>
+   <path id="travel-grace" d="M450 476V606"/>
+   <path id="travel-recovered" d="M450 606H315V350H60V225H644V258H628V306H720"/>
+   <path id="travel-off" d="M720 306H790V378H960V476"/>
+   <path id="travel-win" d="M960 476V606"/>
+   <path id="travel-stays" d="M960 606H1120V306H720"/>
+  </defs>
+  <path class="wire" data-at="1.1" data-color="#6fd3ff" d="M300 306H350"/>
+  <path class="wire" data-at="2.2" data-color="#7cf0c4" d="M590 306H620"/>
+  <path class="wire" data-at="3.2" data-color="#7cf0c4" d="M800 250V225A20 20 0 1 1 800 185A20 20 0 1 1 800 225"/>
+  <path class="wire" data-at="4.65" data-color="#ff7a8a" d="M650 326V378H450V420"/>
+  <path class="wire" data-at="6" data-color="#ffd36b" d="M450 496V550"/>
+  <path class="wire" data-at="7.25" data-color="#7cf0c4" d="M350 606H315V350H60V225H644V250"/>
+  <path class="wire" data-at="Infinity" data-color="#a993ff" d="M450 626V660"/>
+  <path class="wire" data-at="8.65" data-color="#ffb36b" d="M790 326V378H960V420"/>
+  <path class="wire" data-at="10" data-color="#d38bff" d="M960 496V550"/>
+  <path class="wire" data-at="11.15" data-color="#7cf0c4" d="M1100 606H1120V306H840"/>
+  <path class="wire" data-at="Infinity" data-color="#a993ff" d="M960 626V660"/>
+ </svg>
+ <article class="node glass" data-state="paywall" style="left:80px;top:250px;width:220px;--c:#7aa8ff"><span class="number">01</span><h2>Paywall</h2></article>
+ <article class="node glass" data-state="trial" style="left:350px;top:250px;--c:#6fd3ff"><span class="number">02</span><h2>Trial</h2></article>
+ <article class="node glass" data-state="active" style="left:620px;top:250px;width:220px;--c:#7cf0c4"><span class="number">03</span><h2>Active</h2></article>
+ <article class="node glass" data-state="failed" style="left:350px;top:420px;--c:#ff7a8a"><span class="number">04</span><h2>Payment failed</h2></article>
+ <article class="node glass" data-state="grace" style="left:350px;top:550px;--c:#ffd36b"><span class="number">05</span><h2>Grace period</h2></article>
+ <article class="node glass" data-state="hold" style="left:350px;top:660px;--c:#a993ff"><span class="number">06</span><h2>Account hold</h2></article>
+ <article class="node glass" data-state="off" style="left:860px;top:420px;--c:#ffb36b"><span class="number">07</span><h2>Auto-renew off</h2></article>
+ <article class="node glass" data-state="win" style="left:860px;top:550px;--c:#d38bff"><span class="number">08</span><h2>Win-back</h2></article>
+ <article class="node glass" data-state="expired" style="left:860px;top:660px;--c:#a993ff"><span class="number">09</span><h2>Expired</h2></article>
+ <span class="route-label" style="left:835px;top:184px">renews</span>
+ <span class="route-label" style="left:200px;top:475px">recovered</span>
+ <span class="route-label" style="left:1055px;top:338px">stays</span>
+ <span class="renewals">renewals 1</span><span class="check" aria-hidden="true">✓</span>
+ <i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i><i class="comet" aria-hidden="true"></i>
+ <p class="phone-label">WHAT THE SUBSCRIBER SEES</p>
+ <section class="phone" aria-label="App message for the current subscription state"><div class="screen"><div class="camera"></div><p class="app-name">Your app</p><i class="app-mark" aria-hidden="true"></i><div class="message-card"><p class="state-name"></p><p class="message"></p><div class="trial-button">Start free trial</div></div><div class="home-bar"></div></div></section>
+ <aside class="fact glass"><p>Failed payments: about 32% of cancellations on Google Play, 15% on the App Store (SOSA 2026)</p><small>Grace period and account hold are configuration, not code</small></aside>
+ <section class="chart glass" aria-label="Illustrative revenue per cohort"><div class="chart-head"><h2>Revenue per cohort</h2><small>illustrative</small></div><div class="bars"><div class="bar-slot"><i class="bar" style="--height:12px"></i><span>D7</span></div><div class="bar-slot"><i class="bar" style="--height:22px"></i><span>D30</span></div><div class="bar-slot"><i class="bar" style="--height:32px"></i><span>D90</span></div><div class="bar-slot"><i class="bar" style="--height:43px"></i><span>D365</span></div></div></section>
+</main>
+<script>
+window.DURATION = 16;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const $ = selector => document.querySelector(selector);
+const stage = $('.stage');
+const nodes = [...document.querySelectorAll('.node')];
+const wires = [...document.querySelectorAll('.wire')];
+const comets = [...document.querySelectorAll('.comet')];
+const bars = [...document.querySelectorAll('.bar')];
+const messages = {
+  paywall: 'Try 7 days free, then billed yearly',
+  trial: 'Trial: reminder before the first charge',
+  active: 'Pro unlocked',
+  failed: "Payment didn't go through",
+  grace: 'Keep access · Update your payment',
+  hold: 'No access · Manage in the store',
+  off: 'One question: why are you leaving?',
+  win: 'Pause instead? Or a plan that fits',
+};
+const visits = [[.5,'paywall'],[1.7,'trial'],[2.8,'active'],[5.2,'failed'],[6.6,'grace'],[8.1,'active'],[9.2,'off'],[10.6,'win'],[12.1,'active']];
+const journeys = [
+  [1.1,1.7,'trial','#6fd3ff'], [2.2,2.8,'active','#7cf0c4'],
+  [3.2,4.4,'renew','#7cf0c4'], [4.65,5.2,'failed','#ff7a8a'],
+  [6,6.6,'grace','#ffd36b'], [7.25,8.1,'recovered','#7cf0c4'],
+  [8.65,9.2,'off','#ffb36b'], [10,10.6,'win','#d38bff'],
+  [11.15,12.1,'stays','#7cf0c4'],
+].map(([start,end,id,color]) => {
+  const path = $('#travel-' + id);
+  return { start, end, path, length: path.getTotalLength(), color };
+});
+function tint(hex, alpha) {
+  const rgb = [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+  return `rgba(${rgb.join(',')},${clamp(alpha)})`;
+}
+function positionAt(t) {
+  let position = {x:180,y:306,color:'#7aa8ff'};
+  for (const journey of journeys) {
+    if (t < journey.start) break;
+    const progress = smooth((t - journey.start) / (journey.end - journey.start));
+    const point = journey.path.getPointAtLength(journey.length * progress);
+    position = {x:point.x,y:point.y,color:journey.color};
+    if (t <= journey.end) break;
+  }
+  return position;
+}
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - 14) / 2);
+  const t = reset >= .5 ? 0 : Math.min(clock, 14);
+  stage.style.opacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+  const visitIndex = Math.max(0, visits.filter(([at]) => t >= at).length - 1);
+  const [at, state] = visits[visitIndex];
+  const nextAt = visits[visitIndex + 1]?.[0] ?? Infinity;
+  nodes.forEach(node => {
+    const id = node.dataset.state;
+    const color = node.style.getPropertyValue('--c');
+    const firstAt = visits.find(([,key]) => key === id)?.[0] ?? Infinity;
+    const visited = easeOutCubic((t - firstAt) / .25);
+    const current = state === id ? smooth((t - at) / .2) : 0;
+    const flash = id === 'failed' ? Math.max(0, Math.sin((t - 5.2) * 18)) * clamp(1 - (t - 5.2) / .7) * visited : 0;
+    node.style.opacity = mix(.42, 1, visited);
+    node.style.borderColor = tint(color, .18 + .35 * visited + .4 * current);
+    node.style.background = tint(color, .025 + .07 * visited + .09 * flash);
+    node.style.boxShadow = `0 16px 32px #00000033,0 0 ${18 + 12 * current}px ${tint(color, .1 * visited + .12 * current + .2 * flash)}`;
+  });
+  wires.forEach(wire => {
+    const light = smooth((t - Number(wire.dataset.at)) / .25);
+    wire.style.stroke = light > 0 ? wire.dataset.color : '#596584';
+    wire.style.opacity = .4 + .4 * light;
+  });
+  comets.forEach((dot, index) => {
+    const lag = (5 - index) * .045;
+    const point = positionAt(t - lag);
+    const head = positionAt(t);
+    const moving = Math.hypot(point.x - head.x, point.y - head.y) > 2;
+    dot.style.setProperty('--c', point.color);
+    dot.style.opacity = smooth((t - .5 - lag) / .18) * (index === 5 ? 1 : moving ? .1 + index * .12 : 0);
+    dot.style.transform = `translate(${point.x}px,${point.y}px) scale(${index === 5 ? 1 : .4 + index * .12})`;
+  });
+  $('.renewals').style.opacity = smooth((t - 4.4) / .22);
+  $('.renewals').style.transform = `scale(${easeOutBack((t - 4.4) / .3)})`;
+  const checkAt = t >= 12.1 ? 12.1 : 8.1;
+  const checkAge = t - checkAt;
+  $('.check').style.opacity = smooth(checkAge / .14) * (1 - smooth((checkAge - .5) / .22));
+  $('.check').style.transform = `scale(${easeOutBack(checkAge / .25)})`;
+  // A single text slot: the outgoing content reaches zero before the swap.
+  const messageOpacity = (visitIndex === 0 ? 1 : smooth((t - at) / .18)) * (1 - smooth((t - nextAt + .18) / .18));
+  const selected = nodes.find(node => node.dataset.state === state);
+  const color = selected.style.getPropertyValue('--c');
+  $('.state-name').textContent = selected.querySelector('h2').textContent;
+  $('.state-name').style.color = color;
+  $('.message').textContent = messages[state];
+  $('.message-card').style.opacity = messageOpacity;
+  $('.message-card').style.borderColor = tint(color, .5);
+  $('.trial-button').style.opacity = state === 'paywall' ? 1 : 0;
+  $('.fact').style.opacity = smooth((t - 5.2) / .3);
+  $('.fact').style.transform = `translateY(${8 * (1 - easeOutCubic((t - 5.2) / .3))}px)`;
+  $('.chart').style.opacity = smooth((t - 12.5) / .2);
+  bars.forEach((bar, index) => {
+    bar.style.transform = `scaleY(${easeOutCubic((t - 12.65 - index * .22) / .55)})`;
+  });
+};
+window.renderAt(0);
+</script>
+</body>
+</html>
