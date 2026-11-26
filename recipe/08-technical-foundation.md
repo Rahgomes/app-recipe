@@ -19,6 +19,7 @@ EAS Update.
 | UI state | zustand | Firestore already caches the data: do not wrap it in TanStack Query |
 | Animation | Reanimated + Gesture Handler | Respect "reduce motion" |
 | Errors | Crashlytics (or Sentry) from the 1st build | Account ID only, never personal data |
+| Analytics | Google Analytics for Firebase behind one typed `track()` | Events from the plan only; off in dev; consent defaults (`recipe/analytics.md`) |
 | Updates | `expo-updates` (EAS Update) **in the first build** | See stage 12 |
 | Tests | jest-expo + Testing Library; Firebase Emulator; Maestro (native) and Playwright (web) | Stage 10 |
 | Quality | ESLint (typescript-eslint strict, security plugin), Prettier, knip (dead code), gitleaks, osv-scanner | `no-floating-promises` is critical with Firestore |

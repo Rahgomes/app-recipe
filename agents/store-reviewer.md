@@ -37,6 +37,8 @@ Checklist (mark ✅, ❌ or ⚠️ with evidence: file:line or command output):
 14. Crashlytics (or Sentry) enabled in production, without personal data.
 15. Remote Config with minimum version and kill switches; template published in the production project.
 16. App Check enabled on the server.
+17. Analytics: events match `docs/analytics/event-plan.md` (grep `track(` calls), no personal data in
+    parameters or user properties, collection off in dev, consent defaults set where required.
 
 Response format:
 

@@ -7,7 +7,7 @@ slug=$2
 [[ $slug =~ ^[a-z0-9][a-z0-9-]{0,40}$ ]] || { echo "invalid slug: '$slug'" >&2; exit 2; }
 case $1 in *..*) echo "root containing '..' rejected: $1" >&2; exit 2;; esac
 mkdir -p -- "$1"; R=$(readlink -f -- "$1"); today=$(date +%F)
-mkdir -p "$R"/docs/{prd,brand,design,screens/android,screens/ios,images/{reference,android,ios,archived},flows,recipe}
+mkdir -p "$R"/docs/{prd,brand,design,screens/android,screens/ios,images/{reference,android,ios,archived},flows,recipe,analytics}
 create_file() { [ -e "$R/$1" ] && { echo "exists: $1"; return; }; cat >"$R/$1"; echo "created: $1"; }
 
 create_file "docs/prd/00 - Start here.md" <<M
@@ -53,7 +53,7 @@ Product: $slug, ...
 Visual language: ...
 Colors by role: primary ..., background ..., surface ..., text ..., success ..., warning ..., danger ...
 Typography: ... Touch target >= 48. Status = text + icon + color, never color alone.
-Fictional data in Brazilian Portuguese. No logo unless the screen calls for it.
+Fictional data in the app's language. No logo unless the screen calls for it.
 Never: ...
 \`\`\`
 M
@@ -68,6 +68,26 @@ Tokens in src/theme/tokens.ts (the same values as the base prompt).
 ## Base components
 
 ## Status vocabulary
+M
+create_file docs/analytics/event-plan.md <<M
+# Event plan for $slug
+
+Template and rules: the app recipe's templates/event-plan.md and recipe/analytics.md.
+
+## Definitions
+
+| Term | For this app |
+| --- | --- |
+| Active user | |
+| Activation | |
+| Core action | |
+| Churn | |
+| Consent | |
+
+## Events
+
+| Event | Fires when | Parameters | Journey / screen | Question it answers |
+| --- | --- | --- | --- | --- |
 M
 create_file docs/recipe/JOURNAL.md <<M
 # Journal for $slug

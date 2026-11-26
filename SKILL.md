@@ -47,7 +47,7 @@ on and off (tracks in `recipe/00-map.md`).
 | 12 | Build or OTA (support) | `recipe/12-build-or-ota.md` | |
 | 13 | Monetization | `recipe/13-monetization.md` | Test purchase and test ad working |
 | 14 | Stores | `recipe/14-stores.md`; listing and ASO in `recipe/store-listing.md` | Closed test done; review approved |
-| 15 | After launch | `recipe/15-after-launch.md` | Crashes, flags, minimum version, staged rollout; conversion measured |
+| 15 | After launch | `recipe/15-after-launch.md`; measuring: `recipe/analytics.md` | Crashes, flags, minimum version, staged rollout; conversion measured |
 
 Order: 1 → 2 → 3 → (4, 5) → 6 → 7 → 8 → 9 → 10 → 13 → 14 → 15; 7 can run alongside 6. The
 **closed test** (14) starts as soon as the vertical slice produces a stable build: it is the

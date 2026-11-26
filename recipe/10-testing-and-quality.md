@@ -12,6 +12,7 @@ component, rules (if cloud) and E2E tests green for the flows the batch touched.
 | Rules and server | Who reads and writes what; triggers; callables | Firebase Emulator + rules-unit-testing | Every permissive rule has a test |
 | Native E2E | Full journey on Android | Maestro, in CI with an emulator | Critical journeys |
 | Web E2E | Journey in the web version, accessibility | Playwright + axe | All journeys, cheaply |
+| Events | Planned events fire once, with the right parameters | Unit test on `track()` + DebugView pass (`recipe/analytics.md`) | Events the batch touched |
 
 Testing on the web or in Expo Go **does not prove** native behavior (background, audio, notifications,
 SVG, large fonts). Record it as **pending device testing**, never as approved.

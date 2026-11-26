@@ -49,10 +49,10 @@ Test only after the listing gets enough visits; with little traffic, the result 
 
 | Metric | Where |
 | --- | --- |
-| Crashes by version | Crashlytics |
+| Crashes by version; Android vitals (crash 1.09%, ANR 0.47%) | Crashlytics, Play Console |
 | Listing visits → installation (conversion), by source (search, browse, link) | Play Console / App Store Connect |
 | Installs, uninstalls, rating and new reviews (reply) | Play Console / App Store Connect |
-| Activation (first valuable action) and 1-, 7- and 30-day retention | App analytics |
+| Activation (first valuable action) and 1-, 7- and 30-day retention, by cohort and source | App analytics (`recipe/analytics.md`) |
 | Free → paid conversion, cancellations | RevenueCat |
 | Ad revenue per thousand impressions | AdMob |
 | Backend cost | Google Cloud billing (with an alert) |

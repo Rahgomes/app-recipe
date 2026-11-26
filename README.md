@@ -36,7 +36,7 @@ download.
 | 🧱 **Base** | 7 to 8 | Accounts created by you and configured by the agent through APIs; CI, deny-all rules, a dev build with OTA updates | [07](recipe/07-accounts-and-infra.md) · [08](recipe/08-technical-foundation.md) |
 | 🛠️ **Build** | 9 to 10 | A vertical slice first, then batches; unit, component, rules and E2E tests; exploratory testing by personas | [09](recipe/09-building-in-batches.md) · [10](recipe/10-testing-and-quality.md) |
 | 🚚 **Ship** | 11 to 13 | Over the air vs native build decided by a script; subscriptions and ads that work in test | [12](recipe/12-build-or-ota.md) · [13](recipe/13-monetization.md) |
-| 🏪 **Store** | 14 to 15 | A store listing that gets found and converts, the closed test, review, staged rollout, then conversion work | [14](recipe/14-stores.md) · [listing](recipe/store-listing.md) · [15](recipe/15-after-launch.md) |
+| 🏪 **Store** | 14 to 15 | A store listing that gets found and converts, the closed test, review, staged rollout, then measurement and conversion work | [14](recipe/14-stores.md) · [listing](recipe/store-listing.md) · [15](recipe/15-after-launch.md) · [measure](recipe/analytics.md) |
 
 Already have an app? Start at stage 0, an audit that decides whether to harden or rewrite
 ([00-map](recipe/00-map.md)). The map also shows which stages your app's profile turns on or off.
@@ -110,8 +110,8 @@ two we had not planted. Personas and engines: [tools/explorer/](tools/explorer/p
 | Path | What it has |
 | --- | --- |
 | [SKILL.md](SKILL.md) | The orchestrator the agent follows (stages, gates, golden rules) |
-| [recipe/](recipe/00-map.md) | The stages, 00 to 15, plus store listing, services catalog, libraries and automation by API |
-| [templates/](templates/) | Superprompt, interview, app profile, PRD, decisions and backlog, screen spec, accounts, briefing, journal |
+| [recipe/](recipe/00-map.md) | The stages, 00 to 15, plus store listing, measurement (crashes, analytics, attribution), services catalog, libraries and automation by API |
+| [templates/](templates/) | Superprompt, interview, app profile, PRD, decisions and backlog, screen spec, event plan, accounts, briefing, journal |
 | [agents/](agents/) | Subagents: `screen-checker`, `store-reviewer`, `explorer-tester` |
 | [tools/](tools/) | `new-app-docs.sh`, `contrast.py`, `ota-or-build.sh`, `check-secrets.sh`, `store-listing/`, `explorer/` |
 | [LESSONS.md](LESSONS.md) | About 80 real traps, by topic, with the fix |

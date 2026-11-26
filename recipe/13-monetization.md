@@ -40,6 +40,10 @@ serve the same role.
    webhook payload**: fetches state and saves the event version to avoid going back in time.
    A plan may have several sources (store, complimentary access, free trial): combine them, never downgrade.
 
+6. **Events**: `paywall_view` (with trigger and variant), `trial_start` and `purchase` only after the
+   store or RevenueCat confirms. Revenue numbers come from RevenueCat and the stores, net of fees and
+   refunds; analytics revenue is directional (`recipe/analytics.md`).
+
 Traps: Apple's small business program lowers commission from 30% to 15% and is not
 automatic (enroll). Limiting the app to countries where you sell avoids requirements from other markets.
 Test these scenarios: subscribe, switch monthly → annual, cancel, refund, restore purchase, new

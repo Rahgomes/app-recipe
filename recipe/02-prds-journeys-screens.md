@@ -35,6 +35,9 @@ Feature PRD template in `templates/prd.md`.
 
 - **Each field's rule**: required or optional, range, prefilled or example, input mask. Write it
   **before** generating the screen; otherwise the screen invents it and the code copies the screen.
+- **Each journey's success event and drop-off point**: what proves it worked (`activation`,
+  `purchase`) and where people may give up. They seed the event plan
+  (`templates/event-plan.md`, rules in `recipe/analytics.md`).
 - **Edge states**: empty, loading, error, offline, plan limit reached, account pending deletion.
   Each with a screen (S##x variant). A disabled button without an explanation is a UX and
   accessibility pitfall.

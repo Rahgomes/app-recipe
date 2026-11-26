@@ -44,6 +44,7 @@ The manifest is not enough: the declaration covers what each SDK and the backend
 | Auth | Email, name, ID, provider |
 | Database and Storage | Everything the app saves, including third-party data (your user's customers) |
 | Crashlytics/Sentry | Crash logs, diagnostics, installation ID |
+| Analytics | App interactions, device or other IDs; purpose Analytics (`recipe/analytics.md`) |
 | RevenueCat / Billing | Purchase history, user ID |
 | App Check / Play Integrity | Device attestation |
 | AdMob | See the SDK's own data disclosure page |
