@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>App recipe</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Manrope,"DejaVu Sans",sans-serif;color:#EEF1FF;background:#0b1020;width:1600px}
+.card{position:relative;overflow:hidden;width:1600px;
+ background:radial-gradient(900px 520px at 8% 0%,#24306b 0%,transparent 60%),
+ radial-gradient(800px 520px at 100% 100%,#3a1f5c 0%,transparent 62%),#0b1020}
+/* banner */
+#banner{height:500px;padding:64px 80px}
+h1{font-size:92px;font-weight:800;letter-spacing:-2px;line-height:1}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);-webkit-background-clip:text;color:transparent}
+.tag{font-size:30px;color:#aab3d6;margin-top:16px;font-weight:500}
+.track{position:absolute;left:80px;right:80px;bottom:150px;display:flex;align-items:center}
+.node{display:flex;flex-direction:column;align-items:center;gap:10px;flex:0 0 auto}
+.dot{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;font-size:34px;
+ background:rgba(255,255,255,.07);border:2px solid var(--c);box-shadow:0 0 28px color-mix(in srgb,var(--c) 45%,transparent)}
+.node b{font-size:20px;color:var(--c);font-weight:800}
+.line{flex:1;height:3px;margin:0 6px 32px;background:linear-gradient(90deg,var(--a),var(--b));border-radius:3px;position:relative}
+.line::after{content:"";position:absolute;right:-2px;top:-5px;border:6.5px solid transparent;border-left:9px solid var(--b)}
+.stack{position:absolute;left:80px;bottom:44px;display:flex;gap:12px;align-items:center;font-size:19px;font-weight:700}
+.stack .lbl{color:#8d96bd;text-transform:uppercase;letter-spacing:2px;font-size:15px;margin-right:4px}
+.pill{padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15)}
+.pill.alt{border-style:dashed;color:#c9cfee}
+.sep{width:1px;height:28px;background:rgba(255,255,255,.2);margin:0 8px}
+
+body{height:500px;overflow:hidden}
+.stage{position:absolute;inset:0}
+h1 span{position:relative;display:inline-block}
+h1 span::after{content:attr(data-title);position:absolute;inset:0;
+ background:linear-gradient(100deg,transparent 40%,#ffffffb3 50%,transparent 60%);
+ background-size:300% 100%;background-position:var(--shine-x,150%) 0;
+ background-clip:text;-webkit-background-clip:text;color:transparent;opacity:var(--shine,0)}
+.node{position:relative}
+.dot{position:relative;transform-origin:center}
+.emoji{font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif;line-height:1}
+.ripple{position:absolute;inset:-2px;border:2px solid var(--c);border-radius:50%;opacity:0;pointer-events:none}
+.line{background:none}
+.line-fill{position:absolute;inset:0;border-radius:3px;background:linear-gradient(90deg,var(--a),var(--b))}
+.line::after{opacity:var(--arrow,0)}
+.comet{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px;border-radius:50%;
+ background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 22px 5px var(--c);opacity:0;pointer-events:none}
+.comet-tail{width:10px;height:10px;margin:-5px;background:var(--c);box-shadow:0 0 12px var(--c)}
+</style>
+</head>
+<body>
+<div class="card" id="banner">
+ <h1>App <span data-title="recipe">recipe</span></h1>
+ <div class="tag">From idea to store, stage by stage, with AI agents doing the heavy lifting.</div>
+ <div class="stage">
+ <div class="track" aria-label="Seven stages from idea to store">
+  <div class="node" style="--c:#7cf0c4"><div class="dot"><span class="emoji">💡</span><i class="ripple" aria-hidden="true"></i></div><b>Idea</b></div>
+  <div class="line" style="--a:#7cf0c4;--b:#6fd3ff"><i class="line-fill"></i></div>
+  <div class="node" style="--c:#6fd3ff"><div class="dot"><span class="emoji">🗺️</span><i class="ripple" aria-hidden="true"></i></div><b>Product</b></div>
+  <div class="line" style="--a:#6fd3ff;--b:#7aa8ff"><i class="line-fill"></i></div>
+  <div class="node" style="--c:#7aa8ff"><div class="dot"><span class="emoji">🎨</span><i class="ripple" aria-hidden="true"></i></div><b>Look</b></div>
+  <div class="line" style="--a:#7aa8ff;--b:#a993ff"><i class="line-fill"></i></div>
+  <div class="node" style="--c:#a993ff"><div class="dot"><span class="emoji">🧱</span><i class="ripple" aria-hidden="true"></i></div><b>Base</b></div>
+  <div class="line" style="--a:#a993ff;--b:#d38bff"><i class="line-fill"></i></div>
+  <div class="node" style="--c:#d38bff"><div class="dot"><span class="emoji">🛠️</span><i class="ripple" aria-hidden="true"></i></div><b>Build</b></div>
+  <div class="line" style="--a:#d38bff;--b:#ffb36b"><i class="line-fill"></i></div>
+  <div class="node" style="--c:#ffb36b"><div class="dot"><span class="emoji">🚚</span><i class="ripple" aria-hidden="true"></i></div><b>Ship</b></div>
+  <div class="line" style="--a:#ffb36b;--b:#ffd36b"><i class="line-fill"></i></div>
+  <div class="node" style="--c:#ffd36b"><div class="dot"><span class="emoji">🏪</span><i class="ripple" aria-hidden="true"></i></div><b>Store</b></div>
+
+  <i class="comet comet-tail" aria-hidden="true"></i>
+  <i class="comet comet-tail" aria-hidden="true"></i>
+  <i class="comet comet-tail" aria-hidden="true"></i>
+  <i class="comet comet-tail" aria-hidden="true"></i>
+  <i class="comet comet-tail" aria-hidden="true"></i>
+  <i class="comet" aria-hidden="true"></i>
+ </div>
+ <div class="stack"><span class="lbl">Tested on</span><span class="pill">React Native</span><span class="pill">Expo</span><span class="pill">Firebase</span>
+  <span class="sep"></span><span class="lbl">Process fits</span><span class="pill alt">Flutter</span><span class="pill alt">Swift / Kotlin</span><span class="pill alt">Supabase</span><span class="pill alt">any backend</span></div>
+</div>
+</div>
+<script>
+// Deterministic seconds: paint the track, reward, hold, then reset at the dark midpoint.
+window.DURATION = 9;
+const FIRST_ARRIVAL = .25;
+const STEP_SECONDS = .78;
+const RESET_AT = 8.25;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const phases = [...document.querySelectorAll('.node')].map(node => ({
+  node,
+  color: node.style.getPropertyValue('--c'),
+  dot: node.querySelector('.dot'),
+  emoji: node.querySelector('.emoji'),
+  label: node.querySelector('b'),
+  ripple: node.querySelector('.ripple'),
+}));
+const lines = [...document.querySelectorAll('.line')];
+const fills = [...document.querySelectorAll('.line-fill')];
+const comet = [...document.querySelectorAll('.comet')];
+const pills = [...document.querySelectorAll('.pill')];
+const stage = document.querySelector('.stage');
+const title = document.querySelector('h1 span');
+
+function rgb(hex) {
+  return [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+}
+
+function tint(hex, alpha) {
+  return `rgba(${rgb(hex).join(',')},${clamp(alpha)})`;
+}
+
+function blend(from, to, amount) {
+  const end = rgb(to);
+  return `rgb(${rgb(from).map((channel, index) => Math.round(mix(channel, end[index], amount))).join(',')})`;
+}
+
+// Pause briefly on each node, then ease into the next arrival without lighting it early.
+function trackPosition(t) {
+  const progress = Math.max(0, (t - FIRST_ARRIVAL) / STEP_SECONDS);
+  const index = Math.min(6, Math.floor(progress));
+  return index === 6 ? 6 : index + smooth((progress - index - .23) / .77);
+}
+
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - RESET_AT) / (window.DURATION - RESET_AT));
+  const t = reset >= .5 ? 0 : Math.min(clock, RESET_AT);
+  // The masthead stays fully visible; only the animated stage dips.
+  stage.style.opacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+
+  phases.forEach((phase, index) => {
+    const age = t - FIRST_ARRIVAL - index * STEP_SECONDS;
+    const paint = smooth(age / .38);
+    const pop = .08 * Math.sin(Math.PI * clamp(age / .5)) * easeOutBack(age / .18);
+    phase.dot.style.borderColor = blend('#50586f', phase.color, paint);
+    phase.dot.style.background = `rgba(255,255,255,${mix(.025, .07, paint)})`;
+    phase.dot.style.boxShadow = `0 0 28px ${tint(phase.color, .45 * paint)}`;
+    phase.dot.style.transform = `scale(${1 + pop})`;
+    phase.emoji.style.filter = `grayscale(${1 - paint})`;
+    phase.emoji.style.opacity = mix(.28, 1, paint);
+    phase.label.style.color = blend('#697187', phase.color, paint);
+    const ripple = clamp(age / .65);
+    phase.ripple.style.opacity = .65 * smooth(age / .1) * (1 - smooth(ripple));
+    phase.ripple.style.transform = `scale(${1 + .55 * easeOutCubic(ripple)})`;
+  });
+
+  // Read untransformed layout so the original flex geometry and font metrics stay exact.
+  const centers = phases.map(phase => phase.node.offsetLeft + phase.dot.offsetLeft + phase.dot.offsetWidth / 2);
+  const position = trackPosition(t);
+  const segment = Math.min(5, Math.floor(position));
+  const x = mix(centers[segment], centers[segment + 1], position - segment);
+  lines.forEach((line, index) => {
+    const drawn = clamp((x - line.offsetLeft) / line.offsetWidth);
+    fills[index].style.clipPath = `inset(0 ${100 * (1 - drawn)}% 0 0)`;
+    line.style.setProperty('--arrow', smooth((drawn - .92) / .08));
+  });
+  const lastArrival = FIRST_ARRIVAL + 6 * STEP_SECONDS;
+  const cometFade = smooth((t - .08) / .17) * (1 - smooth((t - lastArrival) / .28));
+  comet.forEach((dot, index) => {
+    const lag = index < 5 ? (5 - index) * .035 : 0;
+    const tail = trackPosition(t - lag);
+    const leg = Math.min(5, Math.floor(tail));
+    const tailX = mix(centers[leg], centers[leg + 1], tail - leg);
+    const source = phases[leg];
+    const y = source.node.offsetTop + source.dot.offsetTop + source.dot.offsetHeight / 2;
+    dot.style.setProperty('--c', blend(source.color, phases[leg + 1].color, tail - leg));
+    dot.style.opacity = cometFade * (index === 5 ? 1 : .12 + index * .12);
+    dot.style.transform = `translate(${tailX}px,${y}px) scale(${index === 5 ? 1 : .4 + index * .12})`;
+  });
+
+  const shimmer = clamp((t - 5.35) / .9);
+  title.style.setProperty('--shine-x', `${mix(150, -50, shimmer)}%`);
+  title.style.setProperty('--shine', .38 * Math.sin(Math.PI * shimmer));
+  pills.forEach((pill, index) => {
+    const age = t - 5.35 - index * .14;
+    const light = smooth(age / .34);
+    const pulse = Math.sin(Math.PI * clamp(age / .55));
+    const color = phases[index].color;
+    pill.style.color = blend('#707a96', index < 3 ? '#eef1ff' : '#c9cfee', light);
+    pill.style.background = tint(color, .025 + .075 * light + .035 * pulse);
+    pill.style.borderColor = tint(color, .12 + .23 * light + .25 * pulse);
+    pill.style.boxShadow = `0 0 ${16 * pulse}px ${tint(color, .2 * pulse)}`;
+    pill.style.transform = `translateY(${-2 * pulse}px)`;
+    pill.style.borderStyle = index >= 3 && !(age > .08 && age < .48) ? 'dashed' : 'solid';
+  });
+};
+window.renderAt(0);
+</script>
+</body>
+</html>

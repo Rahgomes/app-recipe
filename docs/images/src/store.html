@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Store screenshots that convert, built from real screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-weight:500;color:#eef1ff;background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.stage{position:absolute;inset:0}
+.masthead{position:absolute;left:48px;top:36px}
+h1{font-size:44px;font-weight:800;line-height:1.18;letter-spacing:-1.4px}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.chip{position:absolute;right:48px;top:65px;border:1px solid #ffffff26;background:#ffffff0c;border-radius:999px;padding:12px 18px;font-size:16px;font-weight:700;color:#cbd2e9}
+.rail{position:absolute;left:152px;top:188px;width:1217px;height:2px;border-top:2px dashed #59658488}
+.rail-fill{position:absolute;left:0;top:-2px;width:100%;height:2px;background:linear-gradient(90deg,#7cf0c4,#6fd3ff,#a993ff,#ffd36b)}
+.rail-node{position:absolute;top:-6px;width:10px;height:10px;border-radius:50%;background:#596584}
+.comet{position:absolute;left:0;top:-1px;width:16px;height:16px;margin:-8px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 26px 7px var(--c)}
+.comet-tail{width:12px;height:12px;margin:-6px;background:var(--c);box-shadow:0 0 12px var(--c)}
+.phase{position:absolute;top:230px;height:538px;border:1.5px solid var(--edge);border-radius:24px;background:linear-gradient(150deg,var(--wash),#ffffff04 75%);box-shadow:0 16px 32px #00000033,0 0 30px var(--halo)}
+.phase::before{content:"";position:absolute;left:50%;top:-36px;height:35px;border-left:2px dashed var(--edge)}
+.phase-head{height:70px;display:flex;align-items:center;gap:12px;padding:0 20px;color:var(--c)}
+.number{width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--edge);border-radius:50%;background:var(--wash);font-size:15px;font-weight:800}
+h2{font-size:23px;letter-spacing:-.6px;font-weight:800}
+.screens{left:48px;width:208px;--c:#7cf0c4}
+.screens .phase-head{padding:0 16px;gap:9px}.screens h2{font-size:21px}
+.json{left:276px;width:300px;--c:#6fd3ff}
+.panorama{left:596px;width:570px;--c:#a993ff}
+.checks{left:1186px;width:366px;--c:#ffd36b}
+img{display:block;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 12px 24px #00000055}
+.raw{position:absolute;left:64px;top:160px;width:80px;transform-origin:50% 85%}
+.caption{position:absolute;left:20px;right:20px;bottom:28px;color:#aab3d6;font-size:16px;line-height:1.6}
+.caption strong{display:block;color:#eef1ff;font-weight:800}
+.code-card{position:absolute;left:16px;right:16px;top:126px;border:1px solid #6fd3ff40;border-radius:18px;background:#0b1020;box-shadow:0 16px 30px #00000033;overflow:hidden}
+.code-head{height:42px;padding:11px 14px;background:#6fd3ff0c;color:#aab3d6;font-size:15px;border-bottom:1px solid #ffffff15}
+pre{height:168px;padding:19px 10px;font-family:monospace;font-size:15px;line-height:30px;color:#9ce6ff;white-space:pre}
+.cursor{color:#7cf0c4}
+.code-note{position:absolute;left:20px;top:370px;right:20px;font-size:17px;line-height:1.6;color:#cbd2e9}
+.pill{display:inline-block;padding:7px 12px;border:1px solid #6fd3ff40;border-radius:999px;color:#6fd3ff;font-size:15px;font-weight:700;margin-bottom:12px}
+.panorama-caption{position:absolute;left:24px;top:106px;font-size:18px;color:#c5b2e0;font-weight:700}
+.panorama-shadow{position:absolute;left:24px;top:160px;width:522px;height:226.78px;border-radius:12px;box-shadow:0 16px 30px #00000055}
+.apple,.play{position:absolute;transform-origin:0 0}
+.apple{top:160px;width:104.4px}
+.play{top:315px;width:70px}
+.output-label{position:absolute;left:24px;font-size:16px;font-weight:800;color:#cbd2e9}
+.apple-label{top:76px}.play-label{top:284px}
+.feature{position:absolute;left:410px;top:291px;width:136px}
+.feature figcaption{font-size:15px;line-height:1.5;color:#cbd2e9;font-weight:700;margin-bottom:12px}
+.feature img{width:136px;border-radius:9px}
+.laser{position:absolute;left:24px;top:149px;width:2px;height:248px;background:#eef1ff;box-shadow:0 0 8px #6fd3ff,0 0 20px 6px #6fd3ff66}
+.laser::before{content:"";position:absolute;left:-5px;top:-5px;width:12px;height:12px;background:#eef1ff;border-radius:50%;box-shadow:0 0 20px #6fd3ff}
+.checks-content{position:absolute;inset:0}
+.preview{position:absolute;left:24px;top:92px;width:314px}
+.preview img{width:314px;border-radius:10px}
+.magnifier{position:absolute;left:230px;top:155px;width:86px;height:86px;border:4px solid #6fd3ff;border-radius:50%;background:#0b1020 url('assets/listing/preview-apple.jpg') 0 0 / 540px auto no-repeat;box-shadow:0 5px 20px #00000077}
+.magnifier::after{content:"";position:absolute;right:-20px;bottom:-10px;width:31px;height:7px;border-radius:5px;background:#6fd3ff;transform:rotate(45deg)}
+.search-label{position:absolute;left:24px;top:245px;font-size:16px;color:#6fd3ff}
+.check-list{position:absolute;left:24px;top:292px;list-style:none;display:flex;flex-direction:column;gap:12px}
+.check-list li{display:flex;gap:10px;align-items:center;font-size:16px;color:#cbd2e9}
+.tick{display:grid;place-items:center;width:21px;height:21px;border:1px solid #7cf0c450;border-radius:6px;color:#7cf0c4;background:#7cf0c410;font-weight:800}
+.warning{position:absolute;left:20px;right:20px;top:405px;padding:13px 14px;border:1px solid #ffb36b88;border-radius:16px;background:#ffb36b14;color:#ffd39c;font-size:16px;line-height:1.4}
+.warning strong{color:#ffb36b;font-weight:800}
+.finish{position:absolute;left:48px;right:48px;top:804px;height:62px;padding:0 22px;display:flex;align-items:center;gap:17px;border:1px solid #7cf0c44d;border-radius:22px;background:linear-gradient(90deg,#7cf0c41c,#7cf0c405);font-size:24px;font-weight:700;letter-spacing:-.4px}
+.seal{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#7cf0c4;color:#0b1020;font-size:21px;font-weight:800;flex-shrink:0}
+</style>
+</head>
+<body>
+<main class="stage" aria-label="From real app screens to store listings">
+ <header class="masthead"><h1>Store screenshots that convert,<br><span>built from real screens</span></h1></header>
+ <div class="chip">One JSON file · Real output</div>
+ <div class="rail" aria-hidden="true">
+  <div class="rail-fill"></div>
+  <i class="rail-node" style="left:-5px"></i><i class="rail-node" style="left:269px"></i><i class="rail-node" style="left:724px"></i><i class="rail-node" style="left:1212px"></i>
+  <i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet"></i>
+ </div>
+ <article class="phase screens">
+  <div class="phase-head"><span class="number">01</span><h2>Real screens</h2></div>
+  <img class="raw" src="../../../tools/store-listing/example/screens/01.png" alt="Today habit list">
+  <img class="raw" src="../../../tools/store-listing/example/screens/02.png" alt="New habit form">
+  <img class="raw" src="../../../tools/store-listing/example/screens/03.png" alt="21-day streak calendar">
+  <img class="raw" src="../../../tools/store-listing/example/screens/04.png" alt="Weekly progress">
+  <img class="raw" src="../../../tools/store-listing/example/screens/05.png" alt="Plan selection">
+  <p class="caption"><strong>The app is the source.</strong>Five real screens,<br>ready for their story.</p>
+ </article>
+ <article class="phase json">
+  <div class="phase-head"><span class="number">02</span><h2>listing.json</h2></div>
+  <div class="code-card"><div class="code-head">listing.json · shot 01</div><pre><code id="typed"></code><span class="cursor">▌</span></pre></div>
+  <div class="code-note"><span class="pill">Text is code</span><p>Titles, emphasis,<br>and backgrounds.</p></div>
+ </article>
+ <article class="phase panorama">
+  <div class="phase-head"><span class="number">03</span><h2>Panorama</h2></div>
+  <p class="panorama-caption">One connected panorama</p><div class="panorama-shadow"></div>
+  <p class="output-label apple-label">App Store 1320x2868</p>
+  <img class="apple" src="assets/listing/apple-01.jpg" alt="App Store: Your day, sorted">
+  <img class="apple" src="assets/listing/apple-02.jpg" alt="App Store: Set up in seconds">
+  <img class="apple" src="assets/listing/apple-03.jpg" alt="App Store: 21 days in a row">
+  <img class="apple" src="assets/listing/apple-04.jpg" alt="App Store: See your progress">
+  <img class="apple" src="assets/listing/apple-05.jpg" alt="App Store: Start today">
+  <p class="output-label play-label">Google Play 1080x1920</p>
+  <img class="play" src="assets/listing/play-01.jpg" alt="Google Play: Your day, sorted">
+  <img class="play" src="assets/listing/play-02.jpg" alt="Google Play: Set up in seconds">
+  <img class="play" src="assets/listing/play-03.jpg" alt="Google Play: 21 days in a row">
+  <img class="play" src="assets/listing/play-04.jpg" alt="Google Play: See your progress">
+  <img class="play" src="assets/listing/play-05.jpg" alt="Google Play: Start today">
+  <figure class="feature"><figcaption>Feature graphic<br>1024x500</figcaption><img src="assets/listing/feature-graphic.jpg" alt="Habits that stick feature graphic"></figure>
+  <div class="laser" aria-hidden="true"></div>
+  <p class="caption panorama-footer">A connected story, cut to each store's size.</p>
+ </article>
+ <article class="phase checks">
+  <div class="phase-head"><span class="number">04</span><h2>Checks</h2></div>
+  <div class="checks-content">
+  <div class="preview"><img src="assets/listing/preview-apple.jpg" alt="Thumbnail preview of the five App Store screenshots"></div>
+  <div class="magnifier" aria-hidden="true"></div><p class="search-label">how search shows it</p>
+  <ul class="check-list">
+   <li><span class="tick">✓</span>Alt text for each screenshot</li>
+   <li><span class="tick">✓</span>Contrast 4.5:1</li>
+   <li><span class="tick">✓</span>Terms stores reject</li>
+  </ul>
+  <p class="warning"><strong>Play shot 3:</strong> title takes 23% of the height (Google recommends up to 20%)</p>
+  </div>
+ </article>
+ <div class="finish"><span class="seal">✓</span><p>Text is code: translate or A/B test a variant by editing one JSON file.</p></div>
+</main>
+<script>
+window.DURATION = 16;
+const RESET_AT = 15.2;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const one = selector => document.querySelector(selector);
+const all = selector => [...document.querySelectorAll(selector)];
+const stage = one('.stage');
+const phases = all('.phase');
+const colors = ['#7cf0c4', '#6fd3ff', '#a993ff', '#ffd36b'];
+const starts = [0, 2.4, 4.6, 9.4];
+const positions = [0, 274, 729, 1217];
+const raw = all('.raw');
+const apple = all('.apple');
+const play = all('.play');
+const nodes = all('.rail-node');
+const comet = all('.comet');
+const railFill = one('.rail-fill');
+const typed = one('#typed');
+const cursor = one('.cursor');
+const codeCard = one('.code-card');
+const codeNote = one('.code-note');
+const panoramaCaption = one('.panorama-caption');
+const panoramaShadow = one('.panorama-shadow');
+const appleLabel = one('.apple-label');
+const playLabel = one('.play-label');
+const feature = one('.feature');
+const laser = one('.laser');
+const checksContent = one('.checks-content');
+const preview = one('.preview');
+const magnifier = one('.magnifier');
+const searchLabel = one('.search-label');
+const checks = all('.check-list li');
+const warning = one('.warning');
+const finish = one('.finish');
+// A compact excerpt, with the localized title value shown directly.
+const code = '{ "title":\n  "Your day,|*sorted*",\n  "background": "strong"\n}';
+
+function tint(hex, alpha) {
+  const rgb = [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+  return `rgba(${rgb.join(',')},${clamp(alpha)})`;
+}
+
+function reveal(element, progress, distance = 12) {
+  element.style.opacity = clamp(progress);
+  element.style.transform = `translateY(${distance * (1 - easeOutCubic(progress))}px)`;
+}
+
+function railPosition(t) {
+  let position = 0;
+  for (let i = 1; i < starts.length; i++) {
+    position += (positions[i] - positions[i - 1]) * smooth((t - starts[i] + .55) / .55);
+  }
+  return position;
+}
+
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - RESET_AT) / (window.DURATION - RESET_AT));
+  // Reset only at the fully invisible midpoint, including the masthead and ribbon.
+  const t = reset >= .5 ? 0 : Math.min(clock, RESET_AT);
+  stage.style.opacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+  const active = t < starts[1] ? 0 : t < starts[2] ? 1 : t < starts[3] ? 2 : 3;
+  phases.forEach((phase, i) => {
+    const light = i === active ? 1 : 0;
+    const past = t >= starts[i] ? 1 : 0;
+    phase.style.setProperty('--edge', tint(colors[i], .15 + .65 * light + .15 * past));
+    phase.style.setProperty('--wash', tint(colors[i], .05));
+    phase.style.setProperty('--halo', tint(colors[i], 0));
+    nodes[i].style.background = past ? colors[i] : '#596584';
+    nodes[i].style.boxShadow = light ? `0 0 16px ${colors[i]}` : 'none';
+  });
+  railFill.style.clipPath = `inset(0 ${100 * (1 - railPosition(t) / 1217)}% 0 0)`;
+  comet.forEach((dot, i) => {
+    const position = railPosition(t - (5 - i) * .045);
+    dot.style.setProperty('--c', colors[active]);
+    dot.style.opacity = i === 5 ? 1 : (railPosition(t) > position ? .14 + i * .13 : 0);
+    dot.style.transform = `translateX(${position}px) scale(${i === 5 ? 1 : .4 + i * .12})`;
+  });
+  raw.forEach((img, i) => {
+    const progress = easeOutCubic((t - .2 - i * .25) / .65);
+    img.style.opacity = progress;
+    img.style.transform = `translate(${(i - 2) * 6 * progress}px,${mix(12, (i - 2) * -4, progress)}px) rotate(${(i - 2) * 6 * progress}deg)`;
+    img.style.zIndex = 5 - i;
+  });
+  reveal(codeCard, (t - 2.4) / .3);
+  typed.textContent = code.slice(0, Math.floor(code.length * clamp((t - 2.65) / 1.45)));
+  cursor.style.opacity = t >= 2.65 && t < 4.2 ? 1 : 0;
+  reveal(codeNote, (t - 4.1) / .35);
+
+  const split = smooth((t - 7.65) / .85);
+  panoramaCaption.style.opacity = clamp((t - 4.6) / .3) * (1 - smooth((t - 7.1) / .3));
+  panoramaShadow.style.opacity = clamp((t - 5.8) / .3) * (1 - split);
+  apple.forEach((img, i) => {
+    const entrance = easeOutCubic((t - 4.7 - i * .23) / .65);
+    img.style.opacity = entrance;
+    img.style.left = `${mix(24 + i * 104.4, 24 + i * 76, split)}px`;
+    img.style.top = `${mix(160, 104, split)}px`;
+    img.style.width = `${mix(104.4, 70, split)}px`;
+    img.style.transform = `translate(${(1 - entrance) * (4 - i) * 104.4}px,${(1 - entrance) * 30}px)`;
+    const leftRadius = i === 0 ? 12 : 10 * split;
+    const rightRadius = i === 4 ? 12 : 10 * split;
+    img.style.borderRadius = `${leftRadius}px ${rightRadius}px ${rightRadius}px ${leftRadius}px`;
+    img.style.boxShadow = `0 12px 24px ${tint('#000000', .33 * split)}`;
+  });
+  const cut = clamp((t - 6.35) / 1.1);
+  laser.style.opacity = smooth(cut / .12) * (1 - smooth((t - 7.45) / .18));
+  laser.style.transform = `translateX(${522 * cut}px)`;
+  reveal(appleLabel, (t - 8.1) / .35);
+  reveal(playLabel, (t - 8.3) / .35);
+  play.forEach((img, i) => {
+    const progress = easeOutCubic((t - 8.2 - i * .09) / .5);
+    img.style.left = `${24 + i * 76}px`;
+    img.style.opacity = progress;
+    img.style.transform = `translateY(${-60 * (1 - progress)}px) scale(${mix(.85, 1, progress)})`;
+  });
+  reveal(feature, (t - 8.8) / .4);
+  // Center the occupied content below the heading as each check is revealed.
+  const checksBottom = 228
+    + 40 * smooth((t - 9.9) / .55)
+    + 45 * smooth((t - 10.5) / .3)
+    + 33 * smooth((t - 10.95) / .3)
+    + 33 * smooth((t - 11.4) / .3)
+    + 122 * smooth((t - 11.95) / .4);
+  checksContent.style.transform = `translateY(${293 - (92 + checksBottom) / 2}px)`;
+  reveal(preview, (t - 9.5) / .4);
+  reveal(magnifier, (t - 9.9) / .45);
+  reveal(searchLabel, (t - 10.1) / .35);
+  checks.forEach((item, i) => {
+    const progress = clamp((t - 10.5 - i * .45) / .3);
+    reveal(item, progress, 6);
+    item.querySelector('.tick').style.transform = `scale(${easeOutBack(progress)})`;
+  });
+  reveal(warning, (t - 11.95) / .4);
+  reveal(finish, (t - 12.65) / .45);
+};
+window.renderAt(0);
+</script>
+</body>
+</html>

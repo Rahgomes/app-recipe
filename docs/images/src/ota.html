@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Over the air or a new build? The guard decides.</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-weight:500;color:#eef1ff;background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.stage{position:absolute;inset:0}
+header{position:absolute;left:48px;top:40px}
+.eyebrow{font-size:16px;letter-spacing:2px;font-weight:800;color:#aab3d6;margin-bottom:12px}
+h1{font-size:45px;line-height:1.15;letter-spacing:-1.5px;font-weight:800}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.subtitle{font-size:22px;color:#aab3d6;margin-top:12px}
+.glass{border:1px solid #ffffff26;border-radius:24px;background:linear-gradient(145deg,#ffffff0c,#ffffff03);box-shadow:0 16px 32px #00000033}
+.commit{position:absolute;left:48px;top:224px;width:355px;height:352px;padding:23px;overflow:hidden}
+.card-head{display:flex;align-items:center;gap:12px}
+.number{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;border:1px solid #a993ff80;background:#a993ff19;color:#c5b2ff;font-size:15px;font-weight:800}
+h2{font-size:28px;letter-spacing:-.6px;font-weight:800}
+.commit-note{margin:10px 0 23px;font-size:16px;color:#aab3d6}
+.files{display:flex;flex-direction:column;gap:12px}
+.file{height:54px;border:1px solid #7aa8ff55;border-radius:14px;background:#121d35;display:flex;align-items:center;gap:11px;padding:0 13px;font-size:17px;font-weight:700;white-space:nowrap}
+.file-icon{position:relative;width:18px;height:23px;flex-shrink:0;border:1.5px solid currentColor;border-radius:3px}
+.file-icon::after{content:"";position:absolute;left:4px;right:4px;top:8px;height:6px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
+.file-flag{margin-left:auto;font-size:18px}
+.scan{position:absolute;left:12px;right:12px;top:0;height:3px;background:#a993ff;box-shadow:0 0 18px 4px #a993ff66;opacity:0}
+.scan::before{content:"";position:absolute;left:0;right:0;bottom:3px;height:37px;background:linear-gradient(0deg,#a993ff25,transparent)}
+.baseline{position:absolute;left:466px;top:174px;width:312px;text-align:center}
+.baseline-label{font-size:15px;color:#aab3d6;display:block;margin-bottom:10px}
+.tag{display:inline-block;padding:9px 17px;border:1px solid #a993ff70;border-radius:999px;background:#a993ff12;color:#c5b2ff;font-size:18px;font-weight:800}
+.diamond{position:absolute;left:512px;top:306px;width:220px;height:220px;transform:rotate(45deg);border:2px solid #a993ff80;border-radius:25px;background:linear-gradient(135deg,#242a4e,#141a30);box-shadow:0 0 35px #a993ff16;overflow:hidden}
+.gate-copy{position:absolute;left:510px;top:350px;width:224px;text-align:center;pointer-events:none}
+.gate-kicker{font-size:15px;font-weight:800;letter-spacing:2px;color:#c5b2ff;margin-bottom:11px}
+.gate-question{font-size:22px;font-weight:800;line-height:1.35}
+.decision{position:absolute;left:500px;top:561px;width:244px;text-align:center;font-size:18px;font-weight:800}
+.lane{position:absolute;left:812px;width:740px;padding:21px 23px;--c:#7cf0c4}
+.ota{top:208px;height:256px}
+.build{top:484px;height:287px;--c:#ffb36b}
+.lane-head{display:flex;align-items:center;gap:12px;color:var(--c)}
+.lane .number{color:var(--c);border-color:var(--c);background:#ffffff08}
+.lane-note{font-size:16px;color:#aab3d6;margin-left:auto}
+.steps{position:absolute;left:23px;top:74px;display:flex;gap:15px}
+.step{position:relative;width:170px;height:125px;padding:14px 12px;border:1px solid #ffffff1c;border-radius:17px;background:#0b102099;font-size:18px;font-weight:700;line-height:1.4}
+.step-label{position:relative;z-index:1}
+.step-index{font-size:15px;display:block;color:var(--c);margin-bottom:7px}
+.step-check{position:absolute;right:12px;top:12px;color:var(--c);font-size:19px}
+.ota .step:nth-child(2){width:194px}
+.build .steps{top:74px;gap:18px}
+.build .step{width:200px;height:125px}
+.build .step:last-child{width:250px}
+.progress{position:absolute;left:12px;right:12px;bottom:13px;height:6px;border-radius:9px;background:#ffb36b20;overflow:hidden}
+.progress-fill{height:100%;width:0;background:#ffb36b;border-radius:9px;box-shadow:0 0 12px #ffb36b}
+.duration{font-size:16px;color:#ffb36b;display:block;margin-top:5px}
+.cost{position:absolute;left:23px;bottom:23px;padding:9px 14px;border:1px solid #ffb36b55;border-radius:999px;color:#ffb36b;background:#ffb36b0c;font-size:16px;font-weight:700}
+.batch{position:absolute;right:23px;bottom:33px;font-size:17px;color:#aab3d6}
+.phone{position:absolute;right:24px;top:60px;width:103px;height:145px;border:3px solid #8792b7;border-radius:20px;background:#0b1020;padding:8px;box-shadow:0 10px 22px #00000055;overflow:hidden}
+.phone::before{content:"";position:absolute;top:6px;left:35px;width:28px;height:5px;border-radius:8px;background:#8792b7;z-index:2}
+.screen{position:absolute;inset:15px 6px 7px;border-radius:10px;overflow:hidden;background:#1d2940;text-align:center;padding-top:13px}
+.screen-title{font-size:15px;font-weight:800}
+.old-art,.new-art{position:absolute;left:12px;right:12px;top:43px;height:58px;border:1px dashed #6b7798;border-radius:12px;display:grid;place-items:center}
+.old-art::after{content:"";width:24px;height:3px;border-radius:4px;background:#6b7798}
+.new-art{border:0;background:#7cf0c41c}
+.new-art svg{width:51px;height:51px}
+.refresh{position:absolute;inset:0;background:#7cf0c4}
+.stopwatch{position:absolute;left:23px;bottom:8px;display:flex;align-items:center;gap:8px;padding:2px 10px;border:1px solid #7cf0c444;border-radius:999px;background:#102a28;font-size:16px;font-weight:800;color:#7cf0c4}
+.watch{width:18px;height:18px;border:2px solid currentColor;border-radius:50%;position:relative}
+.watch::before{content:"";position:absolute;top:-6px;left:4px;width:6px;border-top:2px solid currentColor}
+.watch::after{content:"";position:absolute;left:7px;top:3px;height:6px;border-left:2px solid currentColor;transform:rotate(-30deg);transform-origin:bottom}
+.wires{position:absolute;inset:0;width:1600px;height:900px;pointer-events:none}
+.wire{fill:none;stroke:#596584;stroke-width:2;stroke-dasharray:5 7}
+.switch{stroke-width:4;stroke-linecap:round;transform-origin:790px 416px}
+.comet{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 23px 5px var(--c);opacity:0;pointer-events:none}
+.comet-tail{width:9px;height:9px;margin:-4.5px;background:var(--c);box-shadow:0 0 10px var(--c)}
+.terminal{position:absolute;left:48px;top:608px;width:714px;height:163px;padding:16px 21px;background:#080e1de6;border:1px solid #ffffff26;border-radius:22px;box-shadow:0 16px 32px #00000033;font-family:ui-monospace,"DejaVu Sans Mono",monospace;font-size:15px;line-height:1.55}
+.terminal-head{font-family:Manrope,"DejaVu Sans",sans-serif;font-size:15px;color:#aab3d6;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.terminal-light{width:7px;height:7px;border-radius:50%;background:#a993ff}
+.prompt{color:#a993ff;margin-right:10px}
+.cursor{display:inline-block;width:8px;height:17px;vertical-align:middle;background:#a993ff;margin-left:2px}
+.output{white-space:pre-wrap;color:#7cf0c4;margin-top:7px;font:inherit}
+.caption{position:absolute;left:48px;right:48px;top:805px;height:62px;padding:0 23px;display:flex;align-items:center;border:1px solid #ffffff26;border-radius:22px;background:linear-gradient(100deg,#ffffff0b,#ffffff03);font-size:20px;letter-spacing:-.2px;color:#cbd2e9}
+.caption strong{color:#7cf0c4;margin-right:6px}
+</style>
+</head>
+<body>
+<main class="stage">
+ <header><p class="eyebrow">APP RECIPE / SHIP</p><h1>Over the air or a new build? <span>The guard decides.</span></h1><p class="subtitle">One commit. One check. The right path to the phone.</p></header>
+ <svg class="wires" viewBox="0 0 1600 900" aria-hidden="true">
+  <path class="wire" id="input-wire" d="M403 416H466"/>
+  <path class="wire" id="ota-wire" d="M778 416H790V420H1420"/>
+  <path class="wire" id="build-wire" d="M778 416H790V696H1490"/>
+  <circle cx="790" cy="416" r="6" fill="#a993ff"/>
+  <path class="switch" d="M790 416L813 416" stroke="#a993ff"/>
+ </svg>
+ <article class="commit glass"><div class="card-head"><span class="number">01</span><h2>commit</h2></div><p class="commit-note">Changed files in the app</p><div class="files">
+  <div class="file"><i class="file-icon" aria-hidden="true"></i><span class="file-name"></span><span class="file-flag"></span></div>
+  <div class="file"><i class="file-icon" aria-hidden="true"></i><span class="file-name"></span><span class="file-flag"></span></div>
+  <div class="file"><i class="file-icon" aria-hidden="true"></i><span class="file-name"></span><span class="file-flag"></span></div>
+ </div><div class="scan" aria-hidden="true"></div></article>
+ <div class="baseline"><span class="baseline-label">LAST BUILD TAG</span><span class="tag">preview-build-12</span></div>
+ <div class="diamond" aria-hidden="true"></div>
+ <div class="gate-copy"><div class="gate-kicker">02 / GUARD</div><p class="gate-question">Native change<br>since the last<br>build tag?</p></div>
+ <div class="decision"></div>
+ <section class="lane ota glass"><div class="lane-head"><span class="number">03</span><h2>OTA</h2><span class="lane-note">The default path</span></div><div class="steps">
+  <div class="step"><span class="step-index">01</span><span class="step-label">eas update</span><span class="step-check">✓</span></div>
+  <div class="step"><span class="step-index">02</span><span class="step-label">Phones download<br>on open</span><span class="step-check">✓</span></div>
+  <div class="step"><span class="step-index">03</span><span class="step-label">Applied on<br>next launch</span><span class="step-check">✓</span></div>
+ </div><div class="phone" aria-label="Phone refreshes its empty state after the next launch"><div class="screen"><span class="screen-title">Today</span><div class="old-art"></div><div class="new-art"><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M13 36L30 45L47 36V20L30 11L13 20Z" fill="#7cf0c433" stroke="#7cf0c4" stroke-width="2"/><path d="M13 20L30 29L47 20M30 29V45" fill="none" stroke="#7cf0c4" stroke-width="2"/><path d="M39 8V16M35 12H43" stroke="#ffd36b" stroke-width="2"/></svg></div><div class="refresh"></div></div></div><div class="stopwatch"><i class="watch" aria-hidden="true"></i>minutes, no reinstall</div></section>
+ <section class="lane build glass"><div class="lane-head"><span class="number">03</span><h2>New build</h2><span class="lane-note">Native changes only</span></div><div class="steps">
+  <div class="step"><span class="step-index">01</span><span class="step-label">eas build</span><span class="duration">15 to 30 min</span><span class="step-check">✓</span><div class="progress"><div class="progress-fill"></div></div></div>
+  <div class="step"><span class="step-index">02</span><span class="step-label">Testers reinstall</span><span class="step-check">✓</span></div>
+  <div class="step"><span class="step-index">03</span><span class="step-label">Tag<br>preview-build-13</span><span class="step-check">✓</span></div>
+ </div><div class="cost">uses EAS build credit</div><div class="batch">All 3 files ride this build.</div></section>
+ <i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet"></i>
+ <i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet"></i>
+ <i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet comet-tail"></i><i class="comet"></i>
+ <div class="terminal"><div class="terminal-head"><i class="terminal-light"></i>guard / terminal</div><div><span class="prompt">$</span><span class="command"></span><i class="cursor"></i></div><pre class="output"></pre></div>
+ <aside class="caption"><strong>Default is over the air.</strong> A build only when something native changed, and pending changes ride the same build.</aside>
+</main>
+<script>
+window.DURATION = 16;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const $ = selector => document.querySelector(selector);
+const stage = $('.stage');
+const fileCards = [...document.querySelectorAll('.file')];
+const lanes = [$('.ota'), $('.build')];
+const steps = lanes.map(lane => [...lane.querySelectorAll('.step')]);
+const comets = [...document.querySelectorAll('.comet')];
+const colors = ['#7cf0c4', '#ffb36b'];
+const fileNames = [
+  ['screens/Today.tsx', 'i18n/en.json', 'assets/empty-state.png'],
+  ['package.json', 'app.config.ts', 'screens/Scan.tsx'],
+];
+const command = 'tools/ota-or-build.sh --check';
+function tint(hex, alpha) {
+  const rgb = [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+  return `rgba(${rgb.join(',')},${clamp(alpha)})`;
+}
+// Piecewise travel pauses at the build step while its progress bar fills.
+function positionAt(age, native) {
+  const y = native ? 696 : 420;
+  const points = native
+    ? [[0,403,416],[.4,466,416],[.7,622,416],[1,790,416],[1.3,790,y],[1.6,933,y],[3.2,933,y],[3.8,1151,y],[4.5,1394,y]]
+    : [[0,403,416],[.4,466,416],[.7,622,416],[1,790,416],[1.3,790,y],[1.6,920,y],[2.4,1105,y],[3.2,1290,y],[3.6,1420,y]];
+  for (let index = 1; index < points.length; index++) {
+    const end = points[index];
+    const start = points[index - 1];
+    if (age <= end[0]) {
+      const progress = smooth((age - start[0]) / (end[0] - start[0]));
+      return [mix(start[1], end[1], progress), mix(start[2], end[2], progress)];
+    }
+  }
+  return points[points.length - 1].slice(1);
+}
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - 15.1) / .9);
+  const t = reset >= .5 ? 0 : Math.min(clock, 15.1);
+  const dip = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+  // Each state swap occurs at a fully invisible midpoint, including the second run.
+  const native = t >= 7.4;
+  const local = native ? t - 7.4 : t;
+  const runDip = t < 7.4 ? 1 - smooth((t - 7.1) / .3) : smooth((t - 7.4) / .3);
+  stage.style.opacity = dip * runDip;
+  const color = colors[native ? 1 : 0];
+  const verdict = smooth((local - 2.45) / .25);
+  const scan = clamp((local - 1.35) / 1.05);
+  const scanVisible = smooth((local - 1.3) / .1) * (1 - smooth((local - 2.4) / .15));
+  fileCards.forEach((file, index) => {
+    const entrance = easeOutCubic((local - .15 - index * .27) / .36);
+    const flagged = native && scan >= (index + .5) / 3 && index < 2;
+    const ink = flagged ? '#ffb36b' : '#b8cdf5';
+    file.querySelector('.file-name').textContent = fileNames[native ? 1 : 0][index];
+    file.querySelector('.file-flag').textContent = flagged ? '!' : '';
+    file.style.opacity = entrance;
+    file.style.transform = `translateY(${-28 * (1 - entrance)}px)`;
+    file.style.borderColor = tint(ink, flagged ? .9 : .28);
+    file.style.background = flagged ? '#38271f' : '#121d35';
+    file.style.color = ink;
+  });
+  $('.scan').style.opacity = scanVisible;
+  $('.scan').style.transform = `translateY(${mix(112, 310, scan)}px)`;
+  $('.diamond').style.borderColor = verdict > 0 ? tint(color, .5 + .5 * verdict) : '#a993ff80';
+  $('.decision').textContent = native ? 'YES / new build' : 'NO / over the air';
+  $('.decision').style.color = color;
+  $('.decision').style.opacity = verdict;
+  $('.decision').style.transform = `translateY(${8 * (1 - verdict)}px)`;
+  $('.switch').style.transform = `rotate(${(native ? 90 : -90) * smooth((local - 2.65) / .3)}deg)`;
+  $('.switch').style.stroke = verdict > 0 ? color : '#a993ff';
+  $('#input-wire').style.stroke = verdict > 0 ? color : '#596584';
+  lanes.forEach((lane, index) => {
+    const selected = index === (native ? 1 : 0);
+    const light = selected ? verdict : 0;
+    lane.style.opacity = selected ? 1 : .5;
+    lane.style.borderColor = tint(colors[index], .16 + .5 * light);
+    $(index === 0 ? '#ota-wire' : '#build-wire').style.stroke = light > 0 ? colors[index] : '#596584';
+    steps[index].forEach((step, stepIndex) => {
+      const times = index === 0 ? [3.5, 4.3, 5.1] : [3.5, 5.7, 6.4];
+      const active = selected ? easeOutCubic((local - times[stepIndex]) / .22) : 0;
+      const completeAt = index === 1 && stepIndex === 0 ? 5.3 : times[stepIndex] + .35;
+      const complete = selected ? easeOutBack((local - completeAt) / .25) : 0;
+      step.style.borderColor = tint(colors[index], .12 + .75 * active);
+      step.style.background = tint(colors[index], .025 + .09 * active);
+      step.style.color = active > 0 ? '#eef1ff' : '#aab3d6';
+      step.style.transform = `translateY(${-4 * active}px)`;
+      step.querySelector('.step-check').style.opacity = clamp(complete);
+      step.querySelector('.step-check').style.transform = `scale(${complete})`;
+    });
+  });
+  $('.command').textContent = command.slice(0, Math.floor(command.length * clamp((local - .3) / 1.05)));
+  $('.cursor').style.opacity = local < 1.5 ? 1 : 0;
+  $('.output').textContent = native
+    ? 'BUILD REQUIRED: native changes since preview-build-12:\n  package.json\n  app.config.ts'
+    : 'OTA OK: only JS changed since preview-build-12 (3 files in the app)';
+  $('.output').style.color = color;
+  $('.output').style.opacity = verdict;
+  $('.progress-fill').style.width = `${native ? 100 * smooth((local - 3.55) / 1.75) : 0}%`;
+  $('.cost').style.opacity = native ? verdict : .4;
+  $('.batch').style.opacity = native ? smooth((local - 5.3) / .3) : 0;
+  const refreshed = native ? 0 : smooth((local - 5.7) / .3);
+  $('.old-art').style.opacity = 1 - smooth((local - 5.4) / .2) * (native ? 0 : 1);
+  $('.new-art').style.opacity = refreshed;
+  $('.new-art').style.transform = `scale(${.8 + .2 * refreshed})`;
+  $('.refresh').style.opacity = native ? 0 : .65 * smooth((local - 5.4) / .2) * (1 - smooth((local - 5.6) / .3));
+  $('.phone').style.borderColor = refreshed > 0 ? '#7cf0c4' : '#8792b7';
+  $('.stopwatch').style.opacity = refreshed;
+  const tagSwap = native && local >= 6.8;
+  $('.tag').textContent = tagSwap ? 'preview-build-13' : 'preview-build-12';
+  $('.tag').style.opacity = native ? (tagSwap ? smooth((local - 6.8) / .25) : 1 - smooth((local - 6.55) / .25)) : 1;
+  $('.tag').style.color = tagSwap ? '#ffb36b' : '#c5b2ff';
+  $('.tag').style.borderColor = tagSwap ? '#ffb36b80' : '#a993ff70';
+  comets.forEach((dot, index) => {
+    const packet = Math.floor(index / 6);
+    const part = index % 6;
+    const age = local - 1.9 - packet * .17 - (5 - part) * .035;
+    const end = native ? 4.5 : 3.6;
+    const [x, y] = positionAt(age, native);
+    const visible = smooth(age / .15) * (1 - smooth((age - end) / .2));
+    dot.style.setProperty('--c', color);
+    dot.style.opacity = visible * (age > .4 && age < 1 ? 0 : 1) * (part === 5 ? 1 : .1 + part * .1);
+    dot.style.transform = `translate(${x}px,${y}px) scale(${part === 5 ? 1 : .4 + part * .1})`;
+  });
+};
+window.renderAt(0);
+</script>
+</body>
+</html>

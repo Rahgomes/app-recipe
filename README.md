@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/images/banner.png" alt="App recipe: from idea to store in seven phases, tested on React Native, Expo and Firebase, process fits any stack" width="100%">
+<img src="docs/images/banner.gif" alt="App recipe: from idea to store in seven phases, tested on React Native, Expo and Firebase, process fits any stack" width="100%">
 
 A skill, a set of subagents and small tools that guide a mobile app from a loose idea to a
 published, monetized app on Google Play and the App Store.
@@ -94,7 +94,7 @@ English only so it can be shared.
 Details and the briefing format that keeps a delegated agent from crawling your repo:
 [WORKING-MODES.md](WORKING-MODES.md).
 
-## Two tools worth a look
+## Three tools worth a look
 
 ### Store screenshots that convert, built from real screens
 
@@ -102,7 +102,7 @@ Real screenshots go in, a connected panorama comes out, cut to the exact sizes o
 the Play feature graphic, alt texts, a thumbnail preview (how search shows it) and warnings for what
 the stores reject. Text is code, so translating or A/B testing a variant is editing a JSON file.
 
-![Store listing panorama](docs/images/store-listing.gif)
+![Store listing: real screens, one JSON file, a connected panorama cut to each store, then checks](docs/images/store.gif)
 
 [recipe/store-listing.md](recipe/store-listing.md) explains what makes people tap install, how
 each store ranks apps (ASO) and what gets rejected. Tool:
@@ -114,10 +114,21 @@ each store ranks apps (ASO) and what gets rejected. Tool:
 senior with large fonts, someone in a hurry in dark mode, a user who loses the network mid-save, a
 phone in another language. No scripts to write; it reports findings with steps and screenshots.
 
-![Explorer tester session](docs/images/explorer.gif)
+![Explorer tester: a persona drives the sample app, logs each action and files findings with screenshots](docs/images/explorer.gif)
 
 In our own test against a sample app with six planted bugs, one persona run found five of them plus
 two we had not planted. Personas and engines: [tools/explorer/](tools/explorer/personas.md).
+
+### Over the air or a new build, decided by a script
+
+Most changes reach phones in minutes through EAS Update; a native change needs a new build, which
+costs build credit, takes 15 to 30 minutes and makes testers reinstall. `tools/ota-or-build.sh`
+compares what changed since the last build tag with the list of native paths and tells you which
+path to take, then publishes over the air when it is safe.
+
+![The guard: a JS-only commit goes over the air; a commit touching package.json and app.config.ts needs a new build](docs/images/ota.gif)
+
+Rules and the runtime version policy: [recipe/12-build-or-ota.md](recipe/12-build-or-ota.md).
 
 ## What is inside
 

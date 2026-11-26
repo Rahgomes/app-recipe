@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>An agent that uses your app like a real person</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-size:16px;font-weight:500;color:#eef1ff;background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.stage{position:absolute;inset:0}
+header{position:absolute;left:48px;top:38px}
+.eyebrow{font-size:15px;letter-spacing:2px;color:#7cf0c4;font-weight:800;margin-bottom:12px}
+h1{font-size:45px;line-height:1.15;letter-spacing:-1.6px;font-weight:800}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.subtitle{font-size:20px;color:#aab3d6;margin-top:12px}
+.section-title{position:absolute;display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800}
+.badge{display:grid;place-items:center;width:30px;height:30px;border:1px solid #7cf0c455;background:#7cf0c412;border-radius:50%;color:#7cf0c4;font-size:15px}
+.glass{border:1px solid #ffffff26;border-radius:24px;background:linear-gradient(140deg,#ffffff0d,#ffffff03);box-shadow:0 16px 32px #00000033}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #ffffff30;background:#ffffff09;border-radius:999px;padding:7px 11px;font-size:15px;font-weight:700}
+.deck{position:absolute;left:48px;top:236px;width:386px;height:230px;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+.persona-chip{height:39px;padding:9px 11px;border:1px solid #ffffff25;border-radius:12px;background:#182139;font-size:15px;color:#bcc7e5;transform-origin:center}
+.persona-chip.selected{color:#7cf0c4;border-color:#7cf0c455}
+.persona{position:absolute;left:48px;top:496px;width:386px;height:244px;padding:24px;border-color:#7cf0c477;background:linear-gradient(140deg,#163b3d,#131c32 80%);transform-origin:50% 0}
+.persona-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.avatar{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:#7cf0c4;color:#0b1020}
+.avatar svg{width:29px;height:29px}
+.persona h2{font-size:32px;letter-spacing:-1px;margin-bottom:12px}
+.persona p{font-size:19px;line-height:1.6;color:#d5e1ee}
+.persona .device{font-size:16px;color:#7cf0c4;margin-top:12px}
+.fictional{position:absolute;left:62px;top:763px;font-size:15px;color:#8f9bbd}
+.phone{position:absolute;left:506px;top:183px;width:310px;height:644px;padding:11px;border-radius:43px;border:1px solid #7aa8ff66;background:linear-gradient(140deg,#343e55,#0e1320 60%);box-shadow:0 25px 65px #0008,0 0 50px #7aa8ff12}
+.screen{position:relative;width:286px;height:620px;overflow:hidden;border-radius:33px;background:#151311;color:#eee}
+.status{position:absolute;left:20px;right:20px;top:14px;height:26px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:800;z-index:3}
+.island{position:absolute;left:103px;top:8px;width:80px;height:23px;border-radius:15px;background:#08090c}
+.status-icons{display:flex;align-items:center;gap:8px}
+.wifi{width:25px;height:25px;overflow:visible}.battery{width:22px;height:12px;border:1.5px solid #eee;border-radius:3px;position:relative}.battery:before{content:"";position:absolute;inset:2px;background:#eee;border-radius:1px}
+.app-screen{position:absolute;inset:58px 18px 24px;opacity:0}
+.app-screen h2{font-size:25px;line-height:1.25;letter-spacing:-.7px;max-width:245px}
+.app-screen p{font-size:17px;line-height:1.5;color:#b8aea6;margin-top:18px}
+.app-button{position:absolute;left:0;width:250px;height:47px;display:grid;place-items:center;background:#c2410c;border-radius:12px;color:#fff;font-size:17px;font-weight:700}
+.secondary{background:#77716d}
+.welcome .app-button{top:150px}.reminders .allow{top:150px}.reminders .skip{top:209px}
+.gear{position:absolute;right:0;top:0;width:28px;height:28px;border-radius:50%;background:#eee;color:#333;display:grid;place-items:center;font-size:21px;font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif}
+.habit{position:absolute;left:0;right:0;height:100px;border-radius:12px;background:#1f1c19;color:#2b2724;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:17px;overflow:hidden}
+.habit .name{max-width:185px;line-height:1.5}
+.row-one{top:135px}.row-two{top:250px}.today .app-button{top:57px}
+.new-habit label{position:absolute;top:64px;font-size:17px}
+.input{position:absolute;top:94px;left:0;width:250px;height:52px;border:1px solid #9d938a;background:#f9f5f0;border-radius:10px;padding:13px;color:#211d19;font-size:18px}
+.placeholder{color:#786f67;font-size:16px}.input span{position:absolute;left:12px;top:13px}
+.new-habit .save{top:168px}.new-habit .cancel{top:227px}
+.home-bar{position:absolute;bottom:8px;left:95px;width:96px;height:4px;border-radius:8px;background:#eee5}
+.ghost{position:absolute;left:18px;top:423px;width:250px;height:100px;display:flex;align-items:center;justify-content:space-between;border:1px dashed #ffb36b;border-radius:12px;padding:10px 12px;color:#ffb36b;font-size:17px;background:#ffb36b0b}
+.ghost small{float:right;font-size:15px;color:#c5a88f}
+.tap{position:absolute;width:34px;height:34px;margin:-17px;border-radius:50%;background:#6fd3ff55;border:2px solid #c4eeff;box-shadow:0 0 22px #6fd3ff66;z-index:8;pointer-events:none}
+.tap:after{content:"";position:absolute;inset:9px;background:#fff;border-radius:50%}
+.ripple{position:absolute;width:64px;height:64px;margin:-32px;border:2px solid #6fd3ff;border-radius:50%;z-index:7;pointer-events:none}
+.flash{position:absolute;inset:0;background:#fff;z-index:9;pointer-events:none}
+.lens{position:absolute;left:479px;top:385px;width:358px;height:149px;border:2px solid #ffd36b;border-radius:24px;padding:16px;background:#211e1b;box-shadow:0 0 0 7px #ffd36b12,0 12px 40px #0008;z-index:10;pointer-events:none}
+.lens:after{content:"";position:absolute;right:-27px;bottom:-20px;width:54px;height:9px;transform:rotate(42deg);background:#ffd36b;border-radius:8px}
+.lens-row{height:37px;background:#1f1c19;color:#2b2724;border-radius:9px;padding:7px 10px;margin-bottom:7px;font-size:19px}
+.lens-label{position:absolute;left:15px;top:calc(100% + 12px);color:#ffd36b;font-size:16px;font-weight:800}
+.log{position:absolute;left:875px;top:236px;width:258px;height:386px;padding:17px 12px}
+.action{position:relative;display:flex;align-items:center;height:38px;gap:10px;font-size:17px;color:#d9e5f8;white-space:nowrap}
+.action i{font-style:normal;font-size:15px;color:#6fd3ff;width:18px;text-align:center}
+.action-text{display:block;min-height:23px}
+.log-track{position:absolute;left:18px;right:18px;bottom:17px;height:3px;border-radius:3px;background:#ffffff15}
+.log-fill{height:100%;background:linear-gradient(90deg,#6fd3ff,#7cf0c4);transform-origin:left}
+.finding-slot{position:absolute;left:1157px;width:395px;height:185px;border:1px dashed #ffffff1e;border-radius:24px;background:#ffffff02}
+.finding{position:absolute;left:1157px;width:395px;height:185px;padding:20px;border-color:#ffd36b66;background:linear-gradient(135deg,#303043,#161c30);z-index:12;transform-origin:0 50%}
+.finding-top{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.finding-id{font-size:18px;font-weight:800;color:#ffd36b}
+.severity{font-size:15px;font-weight:800;padding:4px 10px;border-radius:999px;color:#ffd36b;background:#ffd36b18;border:1px solid #ffd36b44}
+.severity.high{color:#ffb36b;background:#ffb36b18;border-color:#ffb36b44}
+.finding-content{display:flex;gap:15px;align-items:center}
+.finding h3{font-size:21px;line-height:1.35;letter-spacing:-.4px;flex:1}
+.crop{width:108px;height:98px;flex-shrink:0;border:1px solid #ffffff2b;border-radius:12px;background:#151311;padding:9px 7px;overflow:hidden}
+.crop-title{font-size:15px;color:#eee;margin-bottom:5px}
+.crop-row{font-size:15px;height:23px;line-height:23px;white-space:nowrap;overflow:hidden;background:#1f1c19;color:#2b2724;border-radius:5px;margin-bottom:4px;padding-left:5px}
+.report{position:absolute;left:875px;top:650px;width:677px;height:94px;padding:21px 24px;display:flex;align-items:center;gap:18px;background:linear-gradient(115deg,#203c43,#1c2341);border-color:#7cf0c466}
+.report-icon{width:42px;height:48px;flex-shrink:0;color:#7cf0c4}
+.report h2{font-size:25px;letter-spacing:-.5px}.report p{font-size:17px;color:#c6d8e7;margin-top:5px}
+.report .pill{margin-left:auto;color:#7cf0c4;border-color:#7cf0c444}
+.stat{position:absolute;left:875px;top:765px;width:677px;height:98px;padding:17px 22px;border-color:#a993ff55;background:linear-gradient(110deg,#a993ff1d,#ffffff04);font-size:20px;line-height:1.55;color:#d6dcf1}
+.stat strong{color:#7cf0c4;font-weight:800}.stat b{color:#d4baff}
+.paths{position:absolute;inset:0;pointer-events:none}
+.comet{position:absolute;width:12px;height:12px;margin:-6px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 26px 7px var(--c);pointer-events:none;z-index:11}
+.comet-tail{background:var(--c);box-shadow:0 0 12px var(--c)}
+</style>
+</head>
+<body>
+<main class="stage">
+ <header><div class="eyebrow">EXPLORER TESTER</div><h1>An agent that uses your app <span>like a real person</span></h1><p class="subtitle">A persona. Real taps. Findings you can reproduce.</p></header>
+ <div class="section-title" style="left:48px;top:188px"><span class="badge">01</span>Pick a persona</div>
+ <div class="deck glass" aria-label="Eight fictional personas">
+  <div class="persona-chip">senior-reader</div><div class="persona-chip selected">in-a-hurry</div>
+  <div class="persona-chip">low-vision</div><div class="persona-chip">budget-phone</div>
+  <div class="persona-chip">tablet</div><div class="persona-chip">offline</div>
+  <div class="persona-chip">other-language</div><div class="persona-chip">skeptic</div>
+ </div>
+ <article class="persona glass">
+  <div class="persona-top"><div class="avatar"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m18 3-9 14h8l-3 12 11-16h-9z"/></svg></div><span class="pill">Selected persona</span></div>
+  <h2>in-a-hurry</h2><p>Age 24, skips text, taps quickly</p><p class="device">dark theme · 393x852</p>
+ </article>
+ <p class="fictional">Fictional persona · sample app</p>
+ <svg class="paths" viewBox="0 0 1600 900" fill="none" aria-hidden="true"><path d="M434 600C475 600 470 510 506 510" stroke="#7cf0c4" stroke-opacity=".4" stroke-width="2" stroke-dasharray="5 7"/></svg>
+ <section class="phone" aria-label="Routine app in dark mode">
+  <div class="screen">
+   <div class="island"></div><div class="status"><span>9:41</span><div class="status-icons"><svg class="wifi" viewBox="0 0 28 28" fill="none" stroke="#eee" stroke-width="2" stroke-linecap="round" aria-label="Network status"><g id="wifi-signal"><path d="M3 10a17 17 0 0 1 22 0M7 14a11 11 0 0 1 14 0M11 18a5 5 0 0 1 6 0"/><circle cx="14" cy="22" r="1" fill="#eee"/></g><path id="wifi-slash" d="M3 3 25 25" stroke="#ff8e91" stroke-width="3"/></svg><span class="battery"></span></div></div>
+   <div class="app-screen welcome"><h2>Welcome to Routine</h2><p>Small habits, every day.</p><div class="app-button">Continue</div></div>
+   <div class="app-screen reminders"><h2>Turn on reminders</h2><p>We nudge you at each habit's time.</p><div class="app-button allow">Allow</div><div class="app-button secondary skip">Not now</div></div>
+   <div class="app-screen today"><h2>Today</h2><span class="gear" aria-label="Settings">⚙</span><div class="habit row-one"><span class="name">Drink water</span><span>○</span></div><div class="habit row-two"><span class="name">Read 10 pages before bed</span><span>○</span></div><div class="app-button">New habit</div></div>
+   <div class="app-screen new-habit"><h2>New habit</h2><label>Name</label><div class="input"><span class="placeholder">e.g. Walk 20 minutes</span><span id="typed-name"></span></div><div class="app-button save">Save habit</div><div class="app-button secondary cancel">Cancel</div></div>
+   <div class="ghost">Walk <small>?</small></div><div class="home-bar"></div><div class="ripple"></div><div class="tap"></div><div class="flash"></div>
+  </div>
+ </section>
+ <div class="lens"><div class="lens-label">A1 · Low contrast</div><div class="lens-row">Drink water</div><div class="lens-row">Read 10 pages before bed</div></div>
+ <div class="section-title" style="left:875px;top:188px"><span class="badge" style="color:#6fd3ff;border-color:#6fd3ff55">02</span>Action log</div>
+ <section class="log glass" aria-label="Actions in this persona run">
+  <div class="action"><i>›</i><span class="action-text"></span></div><div class="action"><i>›</i><span class="action-text"></span></div><div class="action"><i>›</i><span class="action-text"></span></div>
+  <div class="action"><i>›</i><span class="action-text"></span></div><div class="action"><i>›</i><span class="action-text"></span></div><div class="action"><i>›</i><span class="action-text"></span></div>
+  <div class="action"><i>›</i><span class="action-text"></span></div><div class="action"><i>›</i><span class="action-text"></span></div>
+  <div class="log-track"><div class="log-fill"></div></div>
+ </section>
+ <div class="section-title" style="left:1157px;top:188px"><span class="badge" style="color:#ffd36b;border-color:#ffd36b55">03</span>Findings</div>
+ <div class="finding-slot" style="top:236px"></div><div class="finding-slot" style="top:442px"></div>
+ <article class="finding glass" id="finding-one" style="top:236px"><div class="finding-top"><span class="finding-id">A1</span><span class="severity">Medium</span></div><div class="finding-content"><div class="crop" aria-label="Cropped screenshot of low contrast habit rows"><div class="crop-title">Today</div><div class="crop-row">Drink water</div><div class="crop-row">Read 10 pages</div></div><h3>Habit names barely visible in dark mode</h3></div></article>
+ <article class="finding glass" id="finding-two" style="top:442px;border-color:#ffb36b66"><div class="finding-top"><span class="finding-id" style="color:#ffb36b">A2</span><span class="severity high">High</span></div><div class="finding-content"><div class="crop" aria-label="Cropped screenshot with no saved Walk habit"><div class="crop-title">Today</div><div class="crop-row">Drink water</div><div class="crop-row">Read 10 pages</div></div><h3>Habit saved offline is gone, no message</h3></div></article>
+ <div class="comet comet-tail"></div><div class="comet comet-tail"></div><div class="comet comet-tail"></div><div class="comet comet-tail"></div><div class="comet comet-tail"></div><div class="comet"></div>
+ <aside class="report glass"><svg class="report-icon" viewBox="0 0 42 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2h21l9 9v35H6zM27 2v10h9M13 22h16M13 29h16M13 36h10"/></svg><div><h2>report.md</h2><p>2 findings · steps · screenshots</p></div><span class="pill">✓ Captured</span></aside>
+ <aside class="stat glass">Sample app with <b>6 planted bugs</b>: one persona run<br>found <strong>5</strong>, plus <strong>2</strong> we had not planted.</aside>
+</main>
+<script>
+// A seekable, deterministic timeline. The DOM stays fixed at every frame.
+window.DURATION = 16;
+const RESET_AT = 15.2;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const $ = selector => document.querySelector(selector);
+const all = selector => [...document.querySelectorAll(selector)];
+const stage = $('.stage');
+const chips = all('.persona-chip');
+const persona = $('.persona');
+const screens = all('.app-screen');
+const actions = all('.action');
+const actionText = all('.action-text');
+const dots = all('.comet');
+const findings = [$('#finding-one'), $('#finding-two')];
+const tap = $('.tap');
+const ripple = $('.ripple');
+const lens = $('.lens');
+const ghost = $('.ghost');
+const report = $('.report');
+const stat = $('.stat');
+const beats = [
+  {at:1.9, text:'tap Continue', point:[143,232]},
+  {at:2.95, text:'tap Not now', point:[143,291]},
+  {at:5.7, text:'tap New habit', point:[143,138]},
+  {at:6.55, text:'type "Walk"', point:[110,178]},
+  {at:7.65, text:'network off', point:[227,27]},
+  {at:8.45, text:'tap Save habit', point:[143,249]},
+  {at:10.0, text:'network on', point:[227,27]},
+  {at:11.2, text:'screenshot', point:[143,400]},
+];
+// Full fade-out precedes every screen replacement, including Today returning.
+const screenWindows = [
+  [[0,2.18]], [[2.3,3.23]], [[3.35,5.98],[8.85,16]], [[6.1,8.73]],
+];
+const envelope = (t, start, end, fade = .16) =>
+  (start === 0 ? 1 : smooth((t - start) / fade)) * (1 - smooth((t - end + fade) / fade));
+
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - RESET_AT) / (window.DURATION - RESET_AT));
+  const t = reset >= .5 ? 0 : Math.min(clock, RESET_AT);
+  stage.style.opacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+
+  const shuffle = Math.sin(Math.PI * clamp(t / 1.1));
+  chips.forEach((chip, i) => {
+    const wave = Math.sin(t * 18 + i * 1.9) * shuffle;
+    chip.style.transform = `translate(${wave * 10}px,${wave * 7}px) rotate(${wave * 4}deg)`;
+    chip.style.opacity = i === 1 ? 1 : 1 - .5 * smooth((t - 1.1) / .4);
+    chip.style.borderColor = i === 1 ? `rgba(124,240,196,${.3 + .7 * smooth((t - .8) / .5)})` : '#ffffff25';
+  });
+  const deal = easeOutCubic((t - 1.0) / .55);
+  persona.style.opacity = smooth((t - 1) / .22);
+  persona.style.transform = `translateY(${(1 - deal) * 12}px)`;
+  screens.forEach((screen, i) => {
+    screen.style.opacity = Math.max(...screenWindows[i].map(([start,end]) => envelope(t,start,end)));
+  });
+
+  const letters = Math.floor(clamp((t - 6.7) / .48) * 4);
+  $('#typed-name').textContent = 'Walk'.slice(0,letters);
+  $('.placeholder').style.opacity = 1 - smooth((t - 6.55) / .12);
+  const offline = smooth((t - 7.72) / .15) * (1 - smooth((t - 10.07) / .18));
+  $('#wifi-slash').style.opacity = offline;
+  $('#wifi-signal').style.opacity = 1 - .65 * offline;
+
+  actions.forEach((action,i) => {
+    const beat = beats[i];
+    const age = t - beat.at;
+    const progress = clamp(age / .28);
+    actionText[i].textContent = beat.text.slice(0,Math.floor(progress * beat.text.length));
+    action.style.opacity = smooth(age / .12);
+    action.style.color = age < .85 ? '#7cf0c4' : '#bac6e0';
+    action.style.transform = `translateX(${(1 - easeOutCubic(age / .2)) * 6}px)`;
+  });
+  $('.log-fill').style.transform = `scaleX(${clamp((t - 1.9) / 9.58)})`;
+
+  let active = 0;
+  beats.forEach((beat,i) => { if (t >= beat.at) active = i; });
+  const beat = beats[active];
+  const age = t - beat.at;
+  const previous = beats[Math.max(0,active - 1)].point;
+  const move = smooth(age / .16);
+  const x = mix(previous[0],beat.point[0],move);
+  const y = mix(previous[1],beat.point[1],move);
+  const touching = active !== 4 && active !== 6 && active !== 7;
+  const tapOpacity = touching ? envelope(t,beat.at,beat.at + .55,.1) : 0;
+  tap.style.opacity = tapOpacity;
+  tap.style.transform = `translate(${x}px,${y}px) scale(${1 - .2 * Math.sin(Math.PI * clamp(age / .35))})`;
+  tap.style.left = '0px'; tap.style.top = '0px';
+  ripple.style.opacity = touching ? .8 * envelope(t,beat.at + .16,beat.at + .6,.12) : 0;
+  ripple.style.transform = `translate(${beat.point[0]}px,${beat.point[1]}px) scale(${mix(.4,1.5,clamp((age - .16) / .44))})`;
+  ripple.style.left = '0px'; ripple.style.top = '0px';
+
+  lens.style.opacity = envelope(t,3.95,5.35,.22);
+  lens.style.transform = `scale(${mix(.85,1,easeOutBack((t - 3.95) / .4))})`;
+  // The dashed row is an expectation overlay, never part of the saved Today list.
+  const vanish = smooth((t - 10.15) / .75);
+  ghost.style.opacity = .85 * smooth((t - 9.12) / .3) * (1 - vanish);
+  ghost.style.transform = `translateY(${-14 * vanish}px)`;
+  ghost.style.clipPath = `inset(0 ${vanish * 100}% 0 0)`;
+  $('.flash').style.opacity = .85 * envelope(t,11.3,11.65,.1);
+
+  findings.forEach((finding,i) => {
+    const start = i === 0 ? 5.1 : 11.7;
+    const flight = easeOutCubic((t - start) / .68);
+    finding.style.opacity = smooth((t - start) / .2);
+    finding.style.transform = `translateY(${(1 - flight) * 12}px)`;
+  });
+  // Local evidence trails stay in the gap beside the findings.
+  const flightStart = t < 8 ? 5.1 : 11.7;
+  const flightY = t < 8 ? 328 : 534;
+  dots.forEach((dot,i) => {
+    const travel = (t - flightStart) / .68 - (5 - i) * .055;
+    const p = easeOutCubic(travel);
+    dot.style.setProperty('--c', t < 8 ? '#ffd36b' : '#ffb36b');
+    dot.style.opacity = travel > 0 && travel < 1 ? (i === 5 ? 1 : .1 + i * .12) * envelope(travel,0,1,.14) : 0;
+    dot.style.transform = `translate(${1145}px,${mix(flightY - 20,flightY,p) - Math.sin(p * Math.PI) * 27}px) scale(${i === 5 ? 1 : .4 + i * .12})`;
+    dot.style.left = '0px'; dot.style.top = '0px';
+  });
+  const payoff = easeOutCubic((t - 12.65) / .5);
+  report.style.opacity = payoff;
+  report.style.transform = `translateY(${(1 - payoff) * 12}px)`;
+  const statistic = easeOutCubic((t - 13.05) / .45);
+  stat.style.opacity = statistic;
+  stat.style.transform = `translateY(${(1 - statistic) * 24}px)`;
+};
+window.renderAt(0);
+</script>
+</body>
+</html>
