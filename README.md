@@ -1,11 +1,14 @@
 <div align="center">
 
-# App recipe
-
-**From idea to store, stage by stage, with AI agents doing the heavy lifting.**
+<img src="docs/images/banner.png" alt="App recipe: from idea to store in seven phases, tested on React Native, Expo and Firebase, process fits any stack" width="100%">
 
 A skill, a set of subagents and small tools that guide a mobile app from a loose idea to a
-published, monetized app on Google Play and the App Store, using React Native + Expo + Firebase.
+published, monetized app on Google Play and the App Store.
+
+[![MIT license](https://img.shields.io/badge/license-MIT-7cf0c4?style=flat-square)](LICENSE)
+![16 stages](https://img.shields.io/badge/stages-16-7aa8ff?style=flat-square)
+![3 subagents](https://img.shields.io/badge/subagents-3-a993ff?style=flat-square)
+![Claude Code and Codex](https://img.shields.io/badge/works%20with-Claude%20Code%20%C2%B7%20Codex%20%C2%B7%20any%20agent-d38bff?style=flat-square)
 
 ![The recipe at a glance](docs/images/flow.png)
 
@@ -37,6 +40,15 @@ download.
 | 🛠️ **Build** | 9 to 10 | A vertical slice first, then batches; unit, component, rules and E2E tests; exploratory testing by personas | [09](recipe/09-building-in-batches.md) · [10](recipe/10-testing-and-quality.md) |
 | 🚚 **Ship** | 11 to 13 | Over the air vs native build decided by a script; subscriptions and ads that work in test | [12](recipe/12-build-or-ota.md) · [13](recipe/13-monetization.md) |
 | 🏪 **Store** | 14 to 15 | A store listing that gets found and converts, the closed test, review, staged rollout, then measurement and conversion work | [14](recipe/14-stores.md) · [listing](recipe/store-listing.md) · [15](recipe/15-after-launch.md) · [measure](recipe/analytics.md) |
+
+## Any stack, any agent
+
+The recipe was built and tested on React Native + Expo + Firebase, but most of it is process and
+store knowledge that does not care how the app is written. Using Flutter, Swift, Kotlin or another
+backend? Follow the same stages and swap the technical layer with
+[OTHER-STACKS.md](OTHER-STACKS.md).
+
+<p align="center"><img src="docs/images/stacks.png" alt="Three layers: process and stores apply to any stack; only the technical layer is swapped" width="90%"></p>
 
 Already have an app? Start at stage 0, an audit that decides whether to harden or rewrite
 ([00-map](recipe/00-map.md)). The map also shows which stages your app's profile turns on or off.

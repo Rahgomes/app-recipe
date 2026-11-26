@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<!-- Source of docs/images/banner.png and docs/images/stacks.png (render with render_header.py) -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Manrope,"DejaVu Sans",sans-serif;color:#EEF1FF;background:#0b1020;width:1600px}
+.card{position:relative;overflow:hidden;width:1600px;
+ background:radial-gradient(900px 520px at 8% 0%,#24306b 0%,transparent 60%),
+ radial-gradient(800px 520px at 100% 100%,#3a1f5c 0%,transparent 62%),#0b1020}
+/* banner */
+#banner{height:500px;padding:64px 80px}
+h1{font-size:92px;font-weight:800;letter-spacing:-2px;line-height:1}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);-webkit-background-clip:text;color:transparent}
+.tag{font-size:30px;color:#aab3d6;margin-top:16px;font-weight:500}
+.track{position:absolute;left:80px;right:80px;bottom:150px;display:flex;align-items:center}
+.node{display:flex;flex-direction:column;align-items:center;gap:10px;flex:0 0 auto}
+.dot{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;font-size:34px;
+ background:rgba(255,255,255,.07);border:2px solid var(--c);box-shadow:0 0 28px color-mix(in srgb,var(--c) 45%,transparent)}
+.node b{font-size:20px;color:var(--c);font-weight:800}
+.line{flex:1;height:3px;margin:0 6px 32px;background:linear-gradient(90deg,var(--a),var(--b));border-radius:3px;position:relative}
+.line::after{content:"";position:absolute;right:-2px;top:-5px;border:6.5px solid transparent;border-left:9px solid var(--b)}
+.stack{position:absolute;left:80px;bottom:44px;display:flex;gap:12px;align-items:center;font-size:19px;font-weight:700}
+.stack .lbl{color:#8d96bd;text-transform:uppercase;letter-spacing:2px;font-size:15px;margin-right:4px}
+.pill{padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15)}
+.pill.alt{border-style:dashed;color:#c9cfee}
+.sep{width:1px;height:28px;background:rgba(255,255,255,.2);margin:0 8px}
+/* stacks */
+#stacks{height:560px;padding:56px 80px}
+h2{font-size:44px;font-weight:800;letter-spacing:-1px}
+.sub{font-size:22px;color:#aab3d6;margin-top:8px;font-weight:500}
+.layers{margin-top:38px;display:flex;flex-direction:column;gap:16px}
+.layer{display:flex;align-items:center;gap:22px;border-radius:22px;padding:20px 26px;
+ background:linear-gradient(90deg,color-mix(in srgb,var(--c) 18%,transparent),rgba(255,255,255,.03));
+ border:1px solid color-mix(in srgb,var(--c) 55%,transparent)}
+.layer .i{font-size:38px;width:52px;text-align:center}
+.layer .t{flex:0 0 330px}
+.layer .t b{display:block;font-size:25px;color:var(--c)}
+.layer .t span{font-size:17px;color:#aab3d6;font-weight:500}
+.layer .d{flex:1;font-size:19px;font-weight:600;color:#dfe4ff;line-height:1.35}
+.badge{flex:0 0 auto;font-size:15px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:9px 16px;border-radius:999px;
+ color:#0b1020;background:var(--c)}
+.badge.soft{background:transparent;color:var(--c);border:2px dashed var(--c)}
+</style></head><body>
+
+<div class="card" id="banner">
+ <h1>App <span>recipe</span></h1>
+ <div class="tag">From idea to store, stage by stage, with AI agents doing the heavy lifting.</div>
+ <div class="track">
+  <div class="node" style="--c:#7cf0c4"><div class="dot">💡</div><b>Idea</b></div>
+  <div class="line" style="--a:#7cf0c4;--b:#6fd3ff"></div>
+  <div class="node" style="--c:#6fd3ff"><div class="dot">🗺️</div><b>Product</b></div>
+  <div class="line" style="--a:#6fd3ff;--b:#7aa8ff"></div>
+  <div class="node" style="--c:#7aa8ff"><div class="dot">🎨</div><b>Look</b></div>
+  <div class="line" style="--a:#7aa8ff;--b:#a993ff"></div>
+  <div class="node" style="--c:#a993ff"><div class="dot">🧱</div><b>Base</b></div>
+  <div class="line" style="--a:#a993ff;--b:#d38bff"></div>
+  <div class="node" style="--c:#d38bff"><div class="dot">🛠️</div><b>Build</b></div>
+  <div class="line" style="--a:#d38bff;--b:#ffb36b"></div>
+  <div class="node" style="--c:#ffb36b"><div class="dot">🚚</div><b>Ship</b></div>
+  <div class="line" style="--a:#ffb36b;--b:#ffd36b"></div>
+  <div class="node" style="--c:#ffd36b"><div class="dot">🏪</div><b>Store</b></div>
+ </div>
+ <div class="stack"><span class="lbl">Tested on</span><span class="pill">React Native</span><span class="pill">Expo</span><span class="pill">Firebase</span>
+  <span class="sep"></span><span class="lbl">Process fits</span><span class="pill alt">Flutter</span><span class="pill alt">Swift / Kotlin</span><span class="pill alt">Supabase</span><span class="pill alt">any backend</span></div>
+</div>
+
+<div class="card" id="stacks">
+ <h2>Not on React Native? Most of it still applies.</h2>
+ <div class="sub">The recipe has three layers. Only the bottom one depends on your stack.</div>
+ <div class="layers">
+  <div class="layer" style="--c:#7cf0c4"><div class="i">🧭</div><div class="t"><b>Process</b><span>stages 1 to 7, 9, 10</span></div>
+   <div class="d">Interview, PRDs with IDs, screens before code, vertical slice, batches with gates, tests by persona</div><div class="badge">any stack</div></div>
+  <div class="layer" style="--c:#7aa8ff"><div class="i">🏪</div><div class="t"><b>Stores and money</b><span>stages 13 to 15</span></div>
+   <div class="d">Store rules, subscriptions, paywall, pricing, churn, listing that converts, measurement</div><div class="badge">any stack</div></div>
+  <div class="layer" style="--c:#d38bff"><div class="i">⚙️</div><div class="t"><b>Technical</b><span>stages 8, 11, 12</span></div>
+   <div class="d">Expo Router, EAS Build and Update, React Native Firebase. Equivalents for Flutter and native in OTHER-STACKS.md</div><div class="badge soft">swap</div></div>
+ </div>
+</div>
+</body></html>
