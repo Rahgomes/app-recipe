@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>App recipe: The journey, one gate at a time</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Manrope,"DejaVu Sans",sans-serif;font-weight:500;color:#eef1ff;
+ background:radial-gradient(1000px 650px at 8% 0%,#24306b 0%,transparent 65%),radial-gradient(900px 580px at 100% 100%,#3a1f5c 0%,transparent 65%),#0b1020}
+.masthead{position:absolute;left:48px;top:42px}
+h1{font-size:48px;font-weight:800;line-height:1.1;letter-spacing:-1.5px}
+h1 span{background:linear-gradient(90deg,#7cf0c4,#7aa8ff,#d38bff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.subtitle{margin-top:14px;font-size:22px;color:#aab3d6}
+.starts{position:absolute;right:48px;top:55px;display:flex;align-items:center;gap:9px;font-size:16px}
+.starts .label{color:#aab3d6;margin-right:7px}
+.chip{border:1px solid #ffffff26;background:#ffffff0c;border-radius:999px;padding:10px 14px;font-weight:700}
+.heading{position:absolute;left:48px;right:48px;top:186px;display:flex;align-items:center;justify-content:space-between}
+h2{font-size:30px;letter-spacing:-.7px;font-weight:800}
+.legend{font-size:15px;color:#aab3d6;display:flex;gap:10px;align-items:center}
+.legend i{width:7px;height:7px;border-radius:50%;background:#7cf0c4;box-shadow:0 0 14px #7cf0c466}
+.stage{position:absolute;inset:0}
+.flow{position:absolute;left:48px;top:270px;display:flex;gap:22px}
+.phase{position:relative;width:196px;height:365px;padding:18px 15px;border:1.5px solid var(--edge);border-radius:24px;
+ background:linear-gradient(150deg,var(--wash),#ffffff04 75%);box-shadow:0 16px 32px #00000033,0 0 30px var(--halo);color:var(--ink)}
+.phase::before{content:"";position:absolute;left:24px;right:24px;top:0;height:3px;border-radius:0 0 8px 8px;background:var(--edge)}
+.phase-head{display:flex;align-items:center;justify-content:space-between;height:44px}
+.number{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:800;border:1px solid var(--edge);background:var(--wash)}
+.emoji{font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif;font-size:34px;line-height:1}
+h3{font-size:25px;font-weight:800;letter-spacing:-.6px;margin:11px 0 18px}
+.outputs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.outputs li{position:relative;min-height:41px;padding-left:23px;font-size:16px;line-height:1.3;color:#cbd2e9;display:flex;align-items:center}
+.check-slot{position:absolute;left:0;top:50%;margin-top:-8px;width:16px;height:16px;border:1px solid #ffffff26;border-radius:5px}
+.check{position:absolute;left:-1px;top:-4px;color:var(--c);font-size:19px;font-weight:800;opacity:0}
+.gate{position:absolute;left:12px;right:12px;bottom:16px;height:59px;border:1px solid #ffffff1c;border-radius:17px;background:#ffffff06;text-align:center;font-size:15px;font-weight:700;line-height:1.25;overflow:hidden}
+.gate-wait,.gate-done{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:6px 7px}
+.gate-wait{color:#9ba5c6;letter-spacing:1.5px}
+.gate-done{color:#a5f8d8;background:#7cf0c417;opacity:0}
+.connectors{position:absolute;inset:0;pointer-events:none}
+.connector{position:absolute;top:419px;width:22px;border-top:2px dashed #596584;opacity:.45}
+.progress-rail{position:absolute;left:146px;top:690px;width:1308px;height:3px;pointer-events:none}
+.progress-label{position:absolute;left:0;top:-37px;font-size:16px;font-weight:700;color:#cbd2e9}
+.rail-track,.rail-fill{position:absolute;inset:0;border-radius:999px}
+.rail-track{background:#59658466}
+.rail-fill{background:linear-gradient(90deg,#7cf0c4 0%,#6fd3ff 16.667%,#7aa8ff 33.333%,#a993ff 50%,#d38bff 66.667%,#ffb36b 83.333%,#ffd36b 100%)}
+.rail-node{position:absolute;left:calc(var(--i) * 100% / 6);top:1.5px;width:11px;height:11px;transform:translate(-50%,-50%);border-radius:50%;background:#596584}
+.comet{position:absolute;left:0;top:1.5px;width:16px;height:16px;margin:-8px;border-radius:50%;background:#eef1ff;box-shadow:0 0 10px var(--c),0 0 26px 7px var(--c);opacity:0}
+.comet-tail{width:12px;height:12px;margin:-6px;background:var(--c);box-shadow:0 0 12px var(--c)}
+.finish{position:absolute;left:48px;top:712px;height:50px;width:835px;padding:0 23px;display:flex;align-items:center;gap:16px;border:1px solid #7cf0c44d;border-radius:22px;background:linear-gradient(90deg,#7cf0c41c,#7cf0c405);opacity:0}
+.finish .seal{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#7cf0c4;color:#0b1020;font-size:21px;font-weight:800}
+.finish strong{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.return-loop{position:absolute;left:0;top:0;width:1600px;height:775px;opacity:0;pointer-events:none}
+.return-loop text{font-family:Manrope,"DejaVu Sans",sans-serif;font-size:15px;fill:#c5b2e0}
+.context{position:absolute;left:48px;right:48px;top:781px;height:84px;border:1px solid #ffffff24;border-radius:24px;background:linear-gradient(100deg,#ffffff0b,#ffffff03);box-shadow:0 12px 32px #00000022;display:flex;align-items:center;padding:0 22px;gap:17px}
+.context-label{font-size:16px;font-weight:800;white-space:nowrap;color:#aab3d6}
+.skill{font-size:15px;font-weight:800;border:1px solid #ffffff30;border-radius:11px;padding:10px 12px;background:#ffffff09}
+.file-window{position:relative;flex:1;height:50px;overflow:hidden}
+.file{position:absolute;left:0;top:4px;max-width:100%;height:42px;display:flex;align-items:center;padding:0 14px;border:1px solid var(--c);border-radius:12px;background:#101728;color:var(--c);font-size:15px;font-weight:700;white-space:nowrap;opacity:0}
+.context-caption{width:355px;padding-left:20px;border-left:1px solid #ffffff24;color:#aab3d6;font-size:16px;line-height:1.5}
+</style>
+</head>
+<body>
+<header class="masthead"><h1>App <span>recipe</span></h1><p class="subtitle">One stage at a time. A gate before the next.</p></header>
+<div class="starts"><span class="label">Start from:</span><span class="chip">No idea</span><span class="chip">An idea</span><span class="chip">A superprompt</span><span class="chip">An existing app</span></div>
+<div class="heading"><h2>The journey, one gate at a time</h2><span class="legend"><i></i>Every handoff earns its green light</span></div>
+<div class="stage">
+<main class="flow" aria-label="Seven stages from idea to store">
+ <article class="phase" style="--c:#7cf0c4">
+  <div class="phase-head"><span class="number">01</span><span class="emoji">💡</span></div><h3>Idea</h3>
+  <ul class="outputs">
+   <li><span class="check-slot"><span class="check">✓</span></span>Interview</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Superprompt</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>App profile</li>
+  </ul><div class="gate"><span class="gate-wait">gate</span><span class="gate-done">✓ superprompt approved</span></div>
+ </article>
+ <article class="phase" style="--c:#6fd3ff">
+  <div class="phase-head"><span class="number">02</span><span class="emoji">🗺️</span></div><h3>Product</h3>
+  <ul class="outputs">
+   <li><span class="check-slot"><span class="check">✓</span></span>PRDs</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Journeys J##<br>Screens S##</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Decisions D##</li>
+  </ul><div class="gate"><span class="gate-wait">gate</span><span class="gate-done">✓ no open conflict</span></div>
+ </article>
+ <article class="phase" style="--c:#7aa8ff">
+  <div class="phase-head"><span class="number">03</span><span class="emoji">🎨</span></div><h3>Look</h3>
+  <ul class="outputs">
+   <li><span class="check-slot"><span class="check">✓</span></span>Brand kit</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Design tokens</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Screens as images</li>
+  </ul><div class="gate"><span class="gate-wait">gate</span><span class="gate-done">✓ contrast 7:1 checked</span></div>
+ </article>
+ <article class="phase" style="--c:#a993ff">
+  <div class="phase-head"><span class="number">04</span><span class="emoji">🧱</span></div><h3>Base</h3>
+  <ul class="outputs">
+   <li><span class="check-slot"><span class="check">✓</span></span>Accounts by you</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>CI · Deny-all rules</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Dev build</li>
+  </ul><div class="gate"><span class="gate-wait">gate</span><span class="gate-done">✓ CI green</span></div>
+ </article>
+ <article class="phase" style="--c:#d38bff">
+  <div class="phase-head"><span class="number">05</span><span class="emoji">🛠️</span></div><h3>Build</h3>
+  <ul class="outputs">
+   <li><span class="check-slot"><span class="check">✓</span></span>Vertical slice</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Batches</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Tests · Personas</li>
+  </ul><div class="gate"><span class="gate-wait">gate</span><span class="gate-done">✓ E2E green</span></div>
+ </article>
+ <article class="phase" style="--c:#ffb36b">
+  <div class="phase-head"><span class="number">06</span><span class="emoji">🚚</span></div><h3>Ship</h3>
+  <ul class="outputs">
+   <li><span class="check-slot"><span class="check">✓</span></span>OTA or build</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Subscriptions</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Ads</li>
+  </ul><div class="gate"><span class="gate-wait">gate</span><span class="gate-done">✓ purchase works in test</span></div>
+ </article>
+ <article class="phase" style="--c:#ffd36b">
+  <div class="phase-head"><span class="number">07</span><span class="emoji">🏪</span></div><h3>Store</h3>
+  <ul class="outputs">
+   <li><span class="check-slot"><span class="check">✓</span></span>Listing</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Closed test</li>
+   <li><span class="check-slot"><span class="check">✓</span></span>Staged rollout<br>Metrics</li>
+  </ul><div class="gate"><span class="gate-wait">gate</span><span class="gate-done">✓ rollout at 100%</span></div>
+ </article>
+</main>
+<div class="connectors" aria-hidden="true">
+ <div class="connector" style="left:244px"></div><div class="connector" style="left:462px"></div>
+ <div class="connector" style="left:680px"></div><div class="connector" style="left:898px"></div>
+ <div class="connector" style="left:1116px"></div><div class="connector" style="left:1334px"></div>
+</div>
+<div class="progress-rail">
+ <span class="progress-label">Stage 1 of 7 · Idea</span>
+ <div class="rail-track" aria-hidden="true"></div><div class="rail-fill" aria-hidden="true"></div>
+ <i class="rail-node" style="--i:0" aria-hidden="true"></i><i class="rail-node" style="--i:1" aria-hidden="true"></i>
+ <i class="rail-node" style="--i:2" aria-hidden="true"></i><i class="rail-node" style="--i:3" aria-hidden="true"></i>
+ <i class="rail-node" style="--i:4" aria-hidden="true"></i><i class="rail-node" style="--i:5" aria-hidden="true"></i>
+ <i class="rail-node" style="--i:6" aria-hidden="true"></i>
+ <i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i>
+ <i class="comet comet-tail" aria-hidden="true"></i><i class="comet comet-tail" aria-hidden="true"></i>
+ <i class="comet comet-tail" aria-hidden="true"></i><i class="comet" aria-hidden="true"></i>
+</div>
+<div class="finish"><span class="seal">✓</span><strong>Published. Measured. Next batch.</strong></div>
+<svg class="return-loop" viewBox="0 0 1600 775" aria-hidden="true">
+ <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#d38bff" stroke-width="1.5"/></marker></defs>
+ <path d="M1454 646V714Q1454 736 1432 736H1040Q1018 736 1018 714V646" stroke="#d38bff" stroke-opacity=".55" stroke-width="2" stroke-dasharray="5 6" fill="none" marker-end="url(#arrow)"/>
+ <text x="1236" y="764" text-anchor="middle">Learn from metrics. Return to Build.</text>
+</svg>
+</div>
+<aside class="context" aria-label="Agent context">
+ <span class="context-label">Agent context</span><span class="skill">SKILL.md</span>
+ <div class="file-window">
+  <span class="file" style="--c:#7cf0c4">recipe/01-idea-and-superprompt.md</span>
+  <span class="file" style="--c:#6fd3ff">recipe/02-prds-journeys-screens.md</span>
+  <span class="file" style="--c:#7aa8ff">recipe/06-screens.md</span>
+  <span class="file" style="--c:#a993ff">recipe/08-technical-foundation.md</span>
+  <span class="file" style="--c:#d38bff">recipe/09-building-in-batches.md</span>
+  <span class="file" style="--c:#ffb36b">recipe/13-monetization.md</span>
+  <span class="file" style="--c:#ffd36b">recipe/14-stores.md</span>
+ </div>
+ <p class="context-caption">The agent reads one stage file, never the whole recipe.</p>
+</aside>
+<script>
+// All motion is a pure function of seconds, including the soft return to frame zero.
+const STAGE_SECONDS = 1.65;
+const FINISH_AT = 7 * STAGE_SECONDS;
+const RESET_AT = 13.2;
+window.DURATION = 14;
+const clamp = value => Math.max(0, Math.min(1, value));
+const easeOutCubic = value => 1 - (1 - clamp(value)) ** 3;
+const easeOutBack = value => {
+  const x = clamp(value) - 1;
+  return 1 + 2.70158 * x ** 3 + 1.70158 * x ** 2;
+};
+const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
+const mix = (from, to, amount) => from + (to - from) * amount;
+const phases = [...document.querySelectorAll('.phase')].map(card => ({
+  card,
+  name: card.querySelector('h3').textContent,
+  color: card.style.getPropertyValue('--c'),
+  checks: [...card.querySelectorAll('.check')],
+  outputs: [...card.querySelectorAll('.outputs li')],
+  emoji: card.querySelector('.emoji'),
+  gate: card.querySelector('.gate'),
+  waiting: card.querySelector('.gate-wait'),
+  done: card.querySelector('.gate-done'),
+}));
+const files = [...document.querySelectorAll('.file')];
+const connectors = [...document.querySelectorAll('.connector')];
+const stage = document.querySelector('.stage');
+const fileWindow = document.querySelector('.file-window');
+const rail = document.querySelector('.progress-rail');
+const railLabel = document.querySelector('.progress-label');
+const railFill = document.querySelector('.rail-fill');
+const railNodes = [...document.querySelectorAll('.rail-node')];
+const comet = [...document.querySelectorAll('.comet')];
+const finish = document.querySelector('.finish');
+const returnLoop = document.querySelector('.return-loop');
+
+function tint(hex, alpha) {
+  const rgb = [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+  return `rgba(${rgb.join(',')},${clamp(alpha)})`;
+}
+
+window.renderAt = function renderAt(tSeconds) {
+  if (!Number.isFinite(tSeconds)) throw new TypeError('Time must be finite');
+  const clock = ((tSeconds % window.DURATION) + window.DURATION) % window.DURATION;
+  const reset = clamp((clock - RESET_AT) / (window.DURATION - RESET_AT));
+  // Swap the entire state only at the invisible midpoint of the reset dip.
+  const t = reset >= .5 ? 0 : Math.min(clock, RESET_AT);
+  const stageOpacity = reset < .5 ? 1 - smooth(reset * 2) : smooth((reset - .5) * 2);
+  stage.style.opacity = stageOpacity;
+  fileWindow.style.opacity = stageOpacity;
+  const active = Math.min(6, Math.floor(t / STAGE_SECONDS));
+  const local = t - active * STAGE_SECONDS;
+
+  phases.forEach((phase, index) => {
+    const age = t - index * STAGE_SECONDS;
+    const isActive = index === active && t < FINISH_AT;
+    const past = index < active || t >= FINISH_AT;
+    const entrance = index === 0 ? 1 : easeOutCubic(age / .18);
+    const light = isActive ? entrance : 0;
+    const completed = past ? 1 : 0;
+    const visibility = index <= active ? 1 : .46;
+    phase.card.style.setProperty('--ink', tint(phase.color, .4 + .6 * Math.max(light, completed * .65)));
+    phase.card.style.setProperty('--edge', tint(phase.color, .13 + .87 * light + .25 * completed));
+    phase.card.style.setProperty('--wash', tint(phase.color, .025 + .13 * light + .035 * completed));
+    phase.card.style.setProperty('--halo', tint(phase.color, .19 * light));
+    phase.card.style.transform = `translateY(${-8 * light}px)`;
+    phase.emoji.style.opacity = visibility;
+    phase.checks.forEach((check, output) => {
+      const progress = clamp((age - .28 - output * .27) / .2);
+      check.style.opacity = progress;
+      check.style.transform = `scale(${easeOutBack(progress)})`;
+      phase.outputs[output].style.opacity = visibility;
+    });
+    const gate = easeOutCubic((age - 1.2) / .1);
+    phase.waiting.style.opacity = 1 - easeOutCubic((age - 1.1) / .1);
+    phase.done.style.opacity = gate;
+    phase.done.style.transform = `translateY(${(1 - gate) * 6}px)`;
+    phase.gate.style.borderColor = tint('#7cf0c4', .08 + .45 * gate);
+  });
+
+  connectors.forEach((connector, index) => {
+    const passed = easeOutCubic((t - index * STAGE_SECONDS - 1.38) / .27);
+    connector.style.borderColor = passed > 0 ? phases[index].color : '#596584';
+    connector.style.opacity = .3 + .4 * passed;
+  });
+  const travel = active < 6 ? clamp((local - 1.3) / (STAGE_SECONDS - 1.3)) : 0;
+  const position = active + smooth(travel);
+  railFill.style.clipPath = `inset(0 ${100 * (1 - position / 6)}% 0 0)`;
+  railNodes.forEach((node, index) => {
+    node.style.background = index <= active ? phases[index].color : '#596584';
+    node.style.boxShadow = index === active ? `0 0 14px ${tint(phases[index].color, .5)}` : 'none';
+  });
+  railLabel.textContent = `Stage ${active + 1} of 7 · ${phases[active].name}`;
+  railLabel.style.opacity = (active === 0 ? 1 : easeOutCubic(local / .18)) *
+    (active < 6 ? 1 - smooth((local - 1.47) / .18) : 1);
+  comet.forEach((dot, index) => {
+    const lag = index < 5 ? (5 - index) * .055 : 0;
+    const tailPosition = smooth(travel) - lag;
+    const visible = active < 6 && travel > 0 && travel < 1 && tailPosition >= 0;
+    const fade = smooth(travel / .12) * (1 - smooth((travel - .82) / .18));
+    dot.style.setProperty('--c', phases[active].color);
+    dot.style.opacity = visible ? fade * (index === 5 ? 1 : .12 + index * .12) : 0;
+    dot.style.transform = `translateX(${218 * (active + Math.max(0, tailPosition))}px) scale(${index === 5 ? 1 : .4 + index * .12})`;
+  });
+
+  // Fade the old file before the boundary; slide the next one in after it.
+  files.forEach((file, index) => {
+    const age = t - index * STAGE_SECONDS;
+    let opacity = 0;
+    let slide = 14;
+    if (index === active) {
+      const enter = index === 0 ? 1 : easeOutCubic(age / .18);
+      const leave = index < 6 ? 1 - smooth((age - 1.47) / .18) : 1;
+      opacity = enter * leave;
+      slide = 14 * (1 - enter) - 8 * (1 - leave);
+    }
+    file.style.opacity = opacity;
+    file.style.transform = `translateX(${slide}px)`;
+  });
+  const finalBeat = easeOutCubic((t - FINISH_AT) / .22);
+  rail.style.opacity = mix(1, .25, finalBeat);
+  finish.style.opacity = finalBeat;
+  finish.style.transform = `translateY(${10 * (1 - finalBeat)}px)`;
+  returnLoop.style.opacity = finalBeat;
+};
+window.renderAt(0);
+</script>
+</body>
+</html>

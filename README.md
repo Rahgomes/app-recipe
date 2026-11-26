@@ -31,6 +31,8 @@ download.
 
 ## The journey
 
+<p align="center"><img src="docs/images/journey.gif" alt="Animated journey: seven stages light up one at a time, each closing its gate before the next, while the agent context holds only the current stage file" width="100%"></p>
+
 | Phase | Stages | You get | Read |
 | --- | --- | --- | --- |
 | 💡 **Idea** | 1 | An interview, one question at a time, ending in a superprompt and an app profile | [01](recipe/01-idea-and-superprompt.md) |
