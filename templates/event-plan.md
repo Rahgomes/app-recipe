@@ -27,7 +27,8 @@ adds a journey. Rules and limits: `recipe/analytics.md`. The `track()` module mi
 
 | Property | Values | Why |
 | --- | --- | --- |
-| `plan` | free, trial, paid | Split every report by plan |
+| `plan` | free, trial, paid, grace, hold | Split every report by plan and billing state |
+| `heard_from` | search, friend, creator, ad, other | Free attribution ("How did you hear about us?") |
 
 ## Funnels to watch
 

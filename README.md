@@ -110,7 +110,7 @@ two we had not planted. Personas and engines: [tools/explorer/](tools/explorer/p
 | Path | What it has |
 | --- | --- |
 | [SKILL.md](SKILL.md) | The orchestrator the agent follows (stages, gates, golden rules) |
-| [recipe/](recipe/00-map.md) | The stages, 00 to 15, plus store listing, measurement (crashes, analytics, attribution), services catalog, libraries and automation by API |
+| [recipe/](recipe/00-map.md) | The stages, 00 to 15, plus subscriptions (paywall, price, offers, churn), store listing, measurement (crashes, analytics, attribution), services catalog, libraries and automation by API |
 | [templates/](templates/) | Superprompt, interview, app profile, PRD, decisions and backlog, screen spec, event plan, accounts, briefing, journal |
 | [agents/](agents/) | Subagents: `screen-checker`, `store-reviewer`, `explorer-tester` |
 | [tools/](tools/) | `new-app-docs.sh`, `contrast.py`, `ota-or-build.sh`, `check-secrets.sh`, `store-listing/`, `explorer/` |

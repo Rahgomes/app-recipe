@@ -74,7 +74,18 @@ It caught a keyword repeating the name (wasted bytes).
 - Google login also requires **Sign in with Apple** (guideline 4.8).
 - **Account deletion inside the app** (5.1.1(v)), not just a web link.
 - Privacy manifest and "App Privacy" with the same inventory as Data Safety.
-- Paid apps agreement active before any purchase (stage 13).
+- Paid apps agreement active before any purchase (stage 13). New in-app products go **attached to
+  the first submission** that uses them, and the production server accepts sandbox purchases
+  (reviewers buy in sandbox).
+- **Reviewer package**: demo account with realistic data, notes explaining non-obvious features,
+  purchases and any running A/B test, a short video when a flow depends on hardware or an external
+  service; backend up during review.
+- Do not pull a submission for a small improvement: pulling restarts review, and on Play changes
+  sent during review can send the app to the back of the queue. Leave about 3 weeks between the first
+  submission and an announced launch date.
+- **Trademarks**: check third-party marks in name, subtitle, description, fonts and images (a famous
+  word in the description has triggered legal notices), and register your own name and icon in the
+  countries where you sell.
 - iOS screens exist from stage 6 if you generated both platforms; the code is the same.
 
 ## Minimum site (almost required)

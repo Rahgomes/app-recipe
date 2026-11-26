@@ -35,6 +35,9 @@ Feature PRD template in `templates/prd.md`.
 
 - **Each field's rule**: required or optional, range, prefilled or example, input mask. Write it
   **before** generating the screen; otherwise the screen invents it and the code copies the screen.
+- **Monetization decisions** (if the app charges): model, trial length and plans as a D##; the
+  free-tier charter (what is never paid); where the paywall appears; what "value before the
+  paywall" means for this app. Guide: `recipe/subscriptions.md`.
 - **Each journey's success event and drop-off point**: what proves it worked (`activation`,
   `purchase`) and where people may give up. They seed the event plan
   (`templates/event-plan.md`, rules in `recipe/analytics.md`).

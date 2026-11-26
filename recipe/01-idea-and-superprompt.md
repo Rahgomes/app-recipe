@@ -64,6 +64,13 @@ Before stage 2, spend an hour on this:
 3. **Back-of-the-envelope calculation**: cost per user (server, store, RevenueCat), revenue per
    paying user, paying users needed to cover costs. Details in `13-monetization.md`.
 4. **Name**: shortlist, domain checked (stage 4) before getting attached.
+5. **Evidence of payment, not compliments**: ask what people use and pay today for this problem,
+   never "would you use it?". When there is an audience, a "painted door" (a buy button that leads
+   to a waitlist) or a pre-sale on the website measures intent before building.
+6. **The blank-box test** (AI-era apps): type the user's problem into a general AI chat and list what
+   the app does that the answer does not (structure, memory, habit, accuracy, community, device).
+   If the list is empty, the idea is a prompt, not an app.
+7. **Per-call costs** (AI, vision, maps, SMS): cost per active user in the "it went viral" scenario.
 
 ## Outputs
 

@@ -121,8 +121,11 @@ Always read the **thumbnail** (1/4 size): if the title is unreadable there, it i
 ## 7. What the code needs (plan in stage 9)
 
 - **Review request** (`expo-store-review`) right after a task succeeds
-  (saved, finished, received the result), never after an error, failed purchase or on first use. The
-  system limits display (iOS: 3 times per year); record when you asked and do not ask again too soon.
+  (saved, finished, received the result). It can be in the first session, after the first valuable
+  action. Not at launch or inside onboarding (Apple's guidance; developers report rejections), never
+  after an error or failed purchase, and only through the system prompt: Apple disallows custom
+  review prompts (5.6.1) and Google's in-app review guidelines forbid asking questions before it. The system limits display (iOS: 3 times per year); record when you
+  asked and do not ask again too soon.
 - **Reply to reviews** in both stores, negative ones first; the reason becomes a B## in the backlog.
 - **Funnel events** in analytics: first open, first valuable action (activation), paywall
   viewed, purchase started and completed. Without these, you cannot tell whether the problem is the listing or the app.

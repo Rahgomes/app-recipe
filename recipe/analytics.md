@@ -46,6 +46,8 @@ Most non-game apps need **12 to 20 events**; measuring what matters is not measu
 | `paywall_view` | Paywall shown | `trigger`, `variant` |
 | `trial_start`, `purchase` | Confirmed by the store or RevenueCat, not on button tap | `plan`, `period` |
 | `share` / `invite` | Sharing or referral | `channel` |
+| `purchase_failed` | Store purchase started but not completed (user cancel is not a failure) | `code`, `plan` |
+| `locked_feature_tap` | Free user touched a paid feature | `feature` |
 | `error_shown` | A message the user saw | `code`, `screen` |
 | `limit_reached` | Free plan limit hit | `limit` |
 
@@ -66,14 +68,17 @@ fails typecheck, and adding PostHog or Amplitude later is one file.
 ## Definitions to write down (per app, in the plan)
 
 - **Active user**: what counts (opened the app, or did the core action).
-- **Activation**: the first valuable action, and the time window (same day, first 3 days).
+- **Activation**: two milestones, each with a time window: time to first value (first session) and
+  time to core value (the core action repeated on different days). Validate the choice: people who
+  did it must retain clearly better than people who did not; finishing onboarding is not activation.
 - **Retention Dn**: share of a day-0 install cohort that opens the app on day N. Read D1, D7, D30
   by cohort and by source, never as one blended number.
 - **Stickiness**: DAU / MAU (2,000 / 8,000 = 25%).
 - **Churn**: for subscriptions, cancellations; for free use, no core action for X days.
-- **LTV**: roughly ARPU × gross margin / monthly churn. Directional until there are many months of
-  data; before that, compare D7 and D30 cohorts. With paid traffic, LTV : CAC of about 3:1 is the
-  usual comfort zone; below 2:1 the spend rarely pays back.
+- **Revenue per cohort, not one LTV number**: what each paying user actually paid by D7, D30, D90,
+  D365, and the payback time with paid traffic. The classic ARPU × margin / churn assumes constant
+  churn, but the curve flattens after year one; and LTV : CAC hides when the money comes back.
+  Details for subscriptions: `recipe/subscriptions.md`.
 
 Compare the app with itself (before and after a batch, cohort against cohort). Vendor
 "benchmarks" rarely show their method.
@@ -137,7 +142,13 @@ Fan out from the same `track()`; do not instrument screens twice.
 ## Experiments
 
 - **In the app**: Firebase A/B Testing on Remote Config parameters (paywall copy, onboarding
-  length, trial length), with retention, revenue or a planned event as the goal metric.
+  length, trial length), with retention or a planned event as the goal metric. For price and trial
+  tests, judge by cohort revenue from the subscription service or your server, net of refunds:
+  analytics revenue counts devices and misses renewals with the app closed.
+- Before testing, compute the minimum detectable effect with your real traffic (95% confidence, 80%
+  power, 2 to 4 weeks). If it is above 10 to 15%, test bigger changes, test higher in the funnel
+  (ads, store experiments) or do research instead.
+- Every test has guardrails: refunds, first renewal, cancellations in the first hours.
 - **On the listing**: Product Page Optimization and store listing experiments
   (`recipe/15-after-launch.md`).
 - One hypothesis, a control, a decision written before starting, and enough users: with little
@@ -152,6 +163,11 @@ Fan out from the same `track()`; do not instrument screens twice.
 - **App Store**: campaign links with a provider token (`pt`) and campaign token (`ct`), created in
   App Store Connect; results in App Analytics.
 - One link per channel (site, social bio, newsletter, QR code on a flyer).
+- An optional "How did you hear about us?" in onboarding, saved as a user property: cheap
+  attribution for word of mouth, creators and search. Reliable with one or two paid networks,
+  misleading when spend is spread across many.
+- Before paying for ads, check the listing's conversion against the category benchmark both
+  consoles show; below the median, fix the listing first.
 
 **Only with paid traffic on more than one network:**
 - A mobile measurement partner (AppsFlyer, Adjust, Branch) deduplicates installs between networks.

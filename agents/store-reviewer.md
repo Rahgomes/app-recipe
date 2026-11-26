@@ -37,7 +37,11 @@ Checklist (mark ✅, ❌ or ⚠️ with evidence: file:line or command output):
 14. Crashlytics (or Sentry) enabled in production, without personal data.
 15. Remote Config with minimum version and kill switches; template published in the production project.
 16. App Check enabled on the server.
-17. Analytics: events match `docs/analytics/event-plan.md` (grep `track(` calls), no personal data in
+17. Paywall (if the app sells subscriptions): name, period, price per period charged, renewal and
+    how to cancel, Restore purchases, Terms and Privacy links; no free-trial toggle on iOS; trial copy
+    depends on eligibility; Terms link at the end of the App Store description. Production server
+    accepts sandbox purchases; Apple Billing Grace Period on; product IDs prefixed with the app.
+18. Analytics: events match `docs/analytics/event-plan.md` (grep `track(` calls), no personal data in
     parameters or user properties, collection off in dev, consent defaults set where required.
 
 Response format:

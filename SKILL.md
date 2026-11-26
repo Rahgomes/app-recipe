@@ -45,7 +45,7 @@ on and off (tracks in `recipe/00-map.md`).
 | 10 | Tests | `recipe/10-testing-and-quality.md` (+ exploratory, by persona) | Layers green on what the batch touched |
 | 11 | Seeing the app (support) | `recipe/11-seeing-the-app.md` | |
 | 12 | Build or OTA (support) | `recipe/12-build-or-ota.md` | |
-| 13 | Monetization | `recipe/13-monetization.md` | Test purchase and test ad working |
+| 13 | Monetization | `recipe/13-monetization.md`; model and churn: `recipe/subscriptions.md` | Test purchase and test ad working |
 | 14 | Stores | `recipe/14-stores.md`; listing and ASO in `recipe/store-listing.md` | Closed test done; review approved |
 | 15 | After launch | `recipe/15-after-launch.md`; measuring: `recipe/analytics.md` | Crashes, flags, minimum version, staged rollout; conversion measured |
 
